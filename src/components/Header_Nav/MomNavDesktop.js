@@ -13,7 +13,7 @@ const DivContainer = styled.div`
   width:fit-content;
   white-space: nowrap;
 
-  grid-area: momNavdesktop;
+  grid-area: momNav;
   justify-self: end;
 `;
 

@@ -2,12 +2,13 @@ import React from 'react';
 import styled from "styled-components";
 
 import MomNavDesktop from './MomNavDesktop.js';
+import MomNavMobile from './MomNavMobile.js';
 
 const StylHeader = styled.header`
   display:grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: auto;
   grid-template-rows: [first] 100% [end];
-  grid-template-areas: "stylH1 momNavdesktop";
+  grid-template-areas: "stylH1 momNav";
   align-items: center;
 
   background:black;
@@ -22,18 +23,14 @@ const StylH1 = styled.h1`
   font-size: 4rem;
 `;
 
-// const StylMomNavDesktop = styled(MomNavDesktop)`
-//   grid-area: momNavdesktop;
-//   // justify-self: end;
-
-  
-// `;
-
 export default function HeaderNav() {
   return (
+    <>
     <StylHeader>
       <StylH1>Ride for Life</StylH1>
-      <MomNavDesktop/>
+      {/* <MomNavDesktop/> */}
+      <MomNavMobile/>
     </StylHeader>
+    </>
   )
 }
