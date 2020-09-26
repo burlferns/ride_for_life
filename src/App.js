@@ -1,24 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Switch } from "react-router-dom";
+
+import HeaderNav from './components/Header_Nav/HeaderNav.js';
+import SignIn from './components/GeneralPages/SignIn.js';
+import MomProfile from './components/MomPages/MomProfile.js';
+import MomDriversList from './components/MomPages/MomDriversList.js';
+import MomReviewsList from './components/MomPages/MomReviewsList.js';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <HeaderNav/>
+
+      <Switch>
+        <Route exact path='/' component={SignIn}/>
+        <Route exact path='/mom/profile' component={MomProfile}/>
+        <Route exact path='/mom/driversList' component={MomDriversList}/>
+        <Route exact path='/mom/reviewsList' component={MomReviewsList}/>
+
+
+      </Switch>      
     </div>
   );
 }
