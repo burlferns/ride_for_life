@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import { useLocation, useHistory} from "react-router-dom";
 
 import NavLinkComp from './NavLinkComp.js';
 import NavLogOutBtn from './NavLogOutBtn.js';

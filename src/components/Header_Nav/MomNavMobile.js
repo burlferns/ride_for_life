@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
+import { useLocation, useHistory} from "react-router-dom";
 
 import HamMenu from './HamMenu.js';
 import NavLinkComp from './NavLinkComp.js';

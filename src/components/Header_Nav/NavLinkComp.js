@@ -23,7 +23,6 @@ export default function NavLinkComp(props) {
   const path = props.path;
   const className = props.className;
   const topPad = props.topPad;
-  const location = useLocation();
   
   return (
     <StylLink 
