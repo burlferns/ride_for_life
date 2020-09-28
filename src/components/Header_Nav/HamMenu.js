@@ -5,10 +5,6 @@ const MenuDiv = styled.div`
   height: 4.4rem;
   width: 4.4rem;
   cursor: pointer;
-
-  :hover {
-    background:grey;
-  }
 `;
 
 const MarginDiv = styled.div`

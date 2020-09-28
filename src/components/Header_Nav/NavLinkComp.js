@@ -8,8 +8,9 @@ const StylLink = styled(Link)`
   text-decoration-line:none;
   margin: 0 1rem;
   width:fit-content;
-  padding: 1.4rem 0;
+  padding: ${props=>props.topPad || 0} 0;
   cursor: pointer;
+  display:block;
   
   :hover {
     background:grey;
@@ -20,9 +21,17 @@ const StylLink = styled(Link)`
 export default function NavLinkComp(props) {
   const linkText = props.linkText;
   const path = props.path;
+  const className = props.className;
+  const topPad = props.topPad;
   const location = useLocation();
   
   return (
-    <StylLink to={path}>{linkText}</StylLink>
+    <StylLink 
+     to={path} 
+     className={className} 
+     topPad={topPad}
+    >
+      {linkText}
+    </StylLink>
   )
 }

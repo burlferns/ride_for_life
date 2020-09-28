@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 const StylButton = styled.button`
   font-size:1.6rem;
@@ -13,11 +14,20 @@ const StylButton = styled.button`
   :hover {
     background:grey;
   }
+
+  :focus {
+    outline:0;
+  }
 `;
 
 export default function NavLogOutBtn() {
+  const history = useHistory();
+
+  function clickHdlr() {
+    history.push('/');
+  }
 
   return (
-    <StylButton>Log Out</StylButton>
+    <StylButton onClick={clickHdlr}>Log Out</StylButton>
   )
 }

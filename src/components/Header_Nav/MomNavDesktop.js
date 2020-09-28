@@ -49,9 +49,9 @@ export default function MomNavDesktop() {
   return (
     <DivContainer>
        <StylNav>
-        <Profile path='/mom/profile' linkText='My Profile'/>
-        <Drivers path='/mom/driversList' linkText='Drivers'/>
-        <MyReview path='/mom/reviewsList' linkText='My Reviews'/>
+        <Profile path='/mom/profile' linkText='My Profile' topPad='1.4rem'/>
+        <Drivers path='/mom/driversList' linkText='Drivers' topPad='1.4rem'/>
+        <MyReview path='/mom/reviewsList' linkText='My Reviews' topPad='1.4rem'/>
       </StylNav>
       <StylNavLogOutBtn/>
     </DivContainer>

@@ -23,13 +23,18 @@ const StylH1 = styled.h1`
   font-size: 4rem;
 `;
 
+const StylMomNavMobile = styled(MomNavMobile)`
+  grid-area: momNav;
+  justify-self: end;
+`;
+
 export default function HeaderNav() {
   return (
     <>
     <StylHeader>
       <StylH1>Ride for Life</StylH1>
       {/* <MomNavDesktop/> */}
-      <MomNavMobile/>
+      <StylMomNavMobile/>
     </StylHeader>
     </>
   )
