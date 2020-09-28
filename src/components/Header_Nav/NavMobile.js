@@ -16,6 +16,7 @@ const ToggledContainer = styled.div`
   position: absolute;
   top:4.4rem;
   right:0;
+  z-index:1;
   display:flex;
   flex-direction: column;
 
