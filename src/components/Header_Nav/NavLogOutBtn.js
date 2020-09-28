@@ -8,6 +8,7 @@ const StylButton = styled.button`
   color:white;
   text-decoration-line:none;
   margin: 0 1rem;
+  cursor: pointer;
   
   :hover {
     background:grey;

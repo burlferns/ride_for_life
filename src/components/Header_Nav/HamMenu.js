@@ -4,10 +4,15 @@ import styled from "styled-components";
 const MenuDiv = styled.div`
   height: 4.4rem;
   width: 4.4rem;
+  cursor: pointer;
   // border:1px solid grey;
 
   grid-area: momNav;
   justify-self: end;
+
+  :hover {
+    background:grey;
+  }
 `;
 
 const LineDivTop = styled.div`
@@ -32,10 +37,11 @@ const LineDiv = styled.div`
   border-radius:0.4rem;
 `;
 
-export default function MomNavMobile() {
+export default function MomNavMobile(props) {
+  const onClickHdlr = props.onClickHdlr;
 
   return (
-    <MenuDiv>
+    <MenuDiv onClick={onClickHdlr}>
       <LineDivTop/>
       <LineDiv/>
       <LineDiv/>

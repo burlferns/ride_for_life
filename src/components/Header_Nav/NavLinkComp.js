@@ -9,6 +9,7 @@ const StylLink = styled(Link)`
   margin: 0 1rem;
   width:fit-content;
   padding: 1.4rem 0;
+  cursor: pointer;
   
   :hover {
     background:grey;
