@@ -12,7 +12,6 @@ const StylNavBtn = styled(NavBtn)`
   margin: 0 1rem;
 `;
 
-
 export default function(props) {
   const className = props.className;
   const navArray = props.navArray;

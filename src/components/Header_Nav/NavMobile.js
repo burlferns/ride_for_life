@@ -9,6 +9,8 @@ const DivContainer = styled.div`
   width: 4.4rem;
 `;
 
+//This contains the menu list that appers when
+//the hamburger menu is touched
 const ToggledContainer = styled.div`
   width: fit-content;
   padding:0 1rem;
@@ -19,7 +21,6 @@ const ToggledContainer = styled.div`
   z-index:1;
   display:flex;
   flex-direction: column;
-
   background:black;
 `;
 
@@ -31,6 +32,7 @@ export default function(props) {
   const className = props.className;
   const navArray = props.navArray;
 
+  //menuOn = true means that the menu shows
   const [menuOn, setMenuOn] = useState(false);
 
   function toggleMenu() {

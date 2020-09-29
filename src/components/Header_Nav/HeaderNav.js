@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from "styled-components";
 
 import MomNav from './MomNav.js';
@@ -28,13 +28,24 @@ const StylMomNav = styled(MomNav)`
 `;
 
 export default function() {
+  const [width, setWidth] = React.useState(window.innerWidth);
   
+  //This width and higher shows the desktop version of the menu
+  const transitionPt = 600;
+
+  useEffect(() => {
+    const handleWindowResize = () => setWidth(window.innerWidth)
+    window.addEventListener("resize", handleWindowResize);
+
+    // Return a function from the effect that removes the event listener
+    return () => window.removeEventListener("resize", handleWindowResize);
+  }, []);
 
   return (
     <>
     <StylHeader>
       <StylH1>Ride for Life</StylH1>
-      <StylMomNav/>
+      <StylMomNav viewportWidth={width} transitionPt={transitionPt}/>
     </StylHeader>
     </>
   )
