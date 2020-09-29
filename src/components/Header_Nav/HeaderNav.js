@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styled from "styled-components";
 import {useSelector} from 'react-redux';
 
@@ -37,26 +37,14 @@ const StylDriverNav = styled(DriverNav)`
 const selectorFunc = state=>state.userType;
 
 export default function() {
-  const [width, setWidth] = React.useState(window.innerWidth);
   const userType = useSelector(selectorFunc);
-  
-  //This width and higher shows the desktop version of the menu
-  const transitionPt = 600;
-
-  useEffect(() => {
-    const handleWindowResize = () => setWidth(window.innerWidth)
-    window.addEventListener("resize", handleWindowResize);
-
-    // Return a function from the effect that removes the event listener
-    return () => window.removeEventListener("resize", handleWindowResize);
-  }, []);
-
+ 
   let navToUse = null;
   if(userType==='mom') {
-    navToUse = <StylMomNav viewportWidth={width} transitionPt={transitionPt}/>
+    navToUse = <StylMomNav/>
   }
   if(userType==='driver') {
-    navToUse = <StylDriverNav viewportWidth={width} transitionPt={transitionPt}/>
+    navToUse = <StylDriverNav/>
   }
 
   return (
