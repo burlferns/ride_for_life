@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
 
-
 const DivContainer = styled.div`
   width:fit-content;
   display: grid;
@@ -32,6 +31,9 @@ const DivInput = styled.div`
   width: 22rem;
   height: 4rem;
   border:0.1rem solid #A6ACAF;
+  position:relative;
+  top:0;
+  left:0;
   
   :focus-within {
     outline 2px solid #5DADE2;
@@ -48,6 +50,19 @@ const StylInput = styled.input`
   color: #5F6A6A;
   border:none;
   outline:none;
+  background:transparent;
+`;
+
+const DescriptionP = styled.p`
+  width:20rem;
+  margin-top:1.1rem;
+  margin-left:1rem;
+  font-size:1.6rem;
+  color: #5F6A6A;
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:-1;
 `;
 
 const DivError = styled.div`
@@ -64,13 +79,16 @@ const StylP = styled.p`
 `;
 
 
+
 export default function(props) {
   const className = props.className;
-  const description = props.description;
-  const type = props.type;
-  const icon = props.icon;
+  const name = props.name; //This matches the property name in the formik state object
+  const description = props.description; //This descibes what needs to be input
+  const type = props.type; 
+  const icon = props.icon;  
   const error = props.error;
-  const errDivHeight = props.errDivHeight;
+  const errDivHeight = props.errDivHeight; //This is the number of lines of error text. If not 
+                                           //specified, then default is 2
   const onChange = props.onChange;
   const onBlur = props.onBlur;
   const value = props.value;
@@ -78,25 +96,34 @@ export default function(props) {
   return (
     <DivContainer className={className} >
 
+      {/* The icon */}
       <DivImg>
         <StylImage src={icon} />
       </DivImg>
       
+
+      {/* The actual input */}
       <DivInput>
-      <StylInput
-        name={description}
-        type={type}
-        
-
-
-      />
+        <StylInput
+          name={name}
+          type={type}
+          onChange={onChange}
+          onBlur={onBlur}
+          value={value}
+        />  
+        {value==='' && <DescriptionP>{description}</DescriptionP>} 
       </DivInput>
 
-      <DivError>
-        <StylP>Please input a valid email address. The quick brown fox jumps over the lazy dog</StylP>
-      </DivError>
 
-      
+      {/* The error message */}
+      <DivError 
+        height={ errDivHeight===undefined ?
+          '2.9rem' :
+          (Number(errDivHeight)*1.2+0.5)+'rem'
+        }
+      >
+        {error && <StylP>{error}</StylP> }
+      </DivError>     
 
     </DivContainer>
   )
