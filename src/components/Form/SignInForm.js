@@ -5,16 +5,21 @@ import * as Yup from 'yup';
 
 import InputComp from '../Form/InputComp.js';
 import iconEnvelope from '../../icons/fontawesome/envelope.svg';
-
+import iconLock from '../../icons/fontawesome/lock.svg';
 
 const StylForm = styled.form`
-  
+  display:grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto;
+  grid-template-areas: "email" "pass";
 `;
 
+const EmailInput = styled(InputComp)`
+  grid-area: email;
+`;
 
-const StylInputComp = styled(InputComp)`
-  
-
+const PassInput = styled(InputComp)`
+  grid-area: pass;
 `;
 
 
@@ -23,14 +28,17 @@ export default function(props) {
 
   const formik = useFormik({
     initialValues: {
-      email: ''
+      email: '',
+      passwd: ''
     },
     validationSchema: Yup.object({
       email: Yup.string()
         .email('Please input a valid email address')
-        .required('Email address is required')
+        .required('Email address is required'),
+      passwd: Yup.string()
+        .required("Please input a password")
     }),
-    obSubmit: function(values) {
+    onSubmit: function(values) {
       console.log('onSubmit func, arguments=',arguments);
       console.log('onSubmit func, values=',values);
     }
@@ -39,7 +47,8 @@ export default function(props) {
 
   return (
     <StylForm onSubmit={formik.handleSubmit} className={className}>
-      <StylInputComp
+
+      <EmailInput
         name='email'
         description='Email Address'
         type='text'
@@ -48,10 +57,20 @@ export default function(props) {
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         value={formik.values.email}
-        
-
       />
 
+      <PassInput
+        name='passwd'
+        description='Password'
+        type='password'
+        icon={iconLock}
+        error={formik.touched.passwd && formik.errors.passwd}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        value={formik.values.passwd}
+      />
+
+      <button type="submit">Submit</button>
 
     </StylForm>    
   )

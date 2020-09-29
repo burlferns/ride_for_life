@@ -79,7 +79,6 @@ const StylP = styled.p`
 `;
 
 
-
 export default function(props) {
   const className = props.className;
   const name = props.name; //This matches the property name in the formik state object
