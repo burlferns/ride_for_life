@@ -3,10 +3,20 @@ import styled from "styled-components";
 import {useDispatch} from 'react-redux';
 import { useHistory} from "react-router-dom";
 
+import InputForm from '../Form/InputForm.js';
+import iconEnvelope from '../../icons/fontawesome/envelope.svg';
+
 const StylH1 = styled.h1`
-  margin:5rem 5rem;
+  margin:2rem 2rem;
   font-size: 5rem;
 `;
+
+const StylInputForm = styled(InputForm)`
+  margin-left: 5px;
+  margin: 0 auto;
+
+`;
+
 
 export default function SignIn() {
   const dispatch = useDispatch();
@@ -30,11 +40,19 @@ export default function SignIn() {
           dispatch({type:'setUserTypeDriver'});
           history.push('/driver/profile');
         }}
-        style={{marginLeft:'40px'}}
+        style={{marginLeft:'40px', marginBottom:'50px'}}
       >
         Driver Profile
       </button>
       
+      <StylInputForm
+        icon={iconEnvelope}
+        value=''
+        description='Email Address'
+      />
+
+
+
     </>
     );
 }
