@@ -24,15 +24,15 @@ export default function(props) {
   const className = props.className;
   const btnTxt = props.btnTxt;
   const path = props.path;
-  const toggleMenu = props.toggleMenu;
+  const runFunc = props.runFunc;
 
   const history = useHistory();
   const location = useLocation();
 
   function clickHdlr() {
     history.push(path);
-    if(toggleMenu) {
-      toggleMenu();
+    if(runFunc) {
+      runFunc();
     }
   }
 

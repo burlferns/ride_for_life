@@ -2,7 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 
 const StylH1 = styled.h1`
-  margin:20rem 5rem;
+  margin:5rem 5rem;
   font-size: 5rem;
 
   color:green;

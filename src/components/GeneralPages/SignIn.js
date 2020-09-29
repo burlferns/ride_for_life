@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
+import {useDispatch} from 'react-redux';
+import { useHistory} from "react-router-dom";
 
 const StylH1 = styled.h1`
   margin:5rem 5rem;
@@ -7,11 +9,32 @@ const StylH1 = styled.h1`
 `;
 
 export default function SignIn() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   return (
     <>
       <StylH1>This is the Sign-In page</StylH1>
-      <a href='/mom/profile'>Mom Profile</a>
-      <a href='/driver/profile' style={{marginLeft:'20px'}}>Driver Profile</a>
+
+      <button 
+        onClick={()=>{
+          dispatch({type:'setUserTypeMom'});
+          history.push('/mom/profile');
+        }}
+      >
+        Mom Profile
+      </button>
+
+      <button 
+        onClick={()=>{
+          dispatch({type:'setUserTypeDriver'});
+          history.push('/driver/profile');
+        }}
+        style={{marginLeft:'40px'}}
+      >
+        Driver Profile
+      </button>
+      
     </>
     );
 }

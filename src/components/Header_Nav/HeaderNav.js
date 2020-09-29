@@ -1,7 +1,9 @@
 import React, {useEffect} from 'react';
 import styled from "styled-components";
+import {useSelector} from 'react-redux';
 
 import MomNav from './MomNav.js';
+import DriverNav from './DriverNav.js';
 
 const StylHeader = styled.header`
   display:grid;
@@ -27,8 +29,16 @@ const StylMomNav = styled(MomNav)`
   justify-self: end;
 `;
 
+const StylDriverNav = styled(DriverNav)`
+  grid-area: nav;
+  justify-self: end;
+`;
+
+const selectorFunc = state=>state.userType;
+
 export default function() {
   const [width, setWidth] = React.useState(window.innerWidth);
+  const userType = useSelector(selectorFunc);
   
   //This width and higher shows the desktop version of the menu
   const transitionPt = 600;
@@ -41,11 +51,19 @@ export default function() {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
 
+  let navToUse = null;
+  if(userType==='mom') {
+    navToUse = <StylMomNav viewportWidth={width} transitionPt={transitionPt}/>
+  }
+  if(userType==='driver') {
+    navToUse = <StylDriverNav viewportWidth={width} transitionPt={transitionPt}/>
+  }
+
   return (
     <>
     <StylHeader>
       <StylH1>Ride for Life</StylH1>
-      <StylMomNav viewportWidth={width} transitionPt={transitionPt}/>
+      {navToUse}
     </StylHeader>
     </>
   )

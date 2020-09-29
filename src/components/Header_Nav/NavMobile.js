@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
+import {useDispatch} from 'react-redux';
 
 import NavBtn from './NavBtn.js';
 import HamMenu from './HamMenu.js';
@@ -35,8 +36,16 @@ export default function(props) {
   //menuOn = true means that the menu shows
   const [menuOn, setMenuOn] = useState(false);
 
+  const dispatch = useDispatch();
+
   function toggleMenu() {
     setMenuOn(!menuOn);
+  }
+
+  function logOut() {
+    dispatch({
+      type:'setUserTypeNone'
+    });
   }
 
   return (
@@ -49,7 +58,13 @@ export default function(props) {
               key={index}
               btnTxt={elem.text}
               path={elem.path}
-              toggleMenu={toggleMenu}
+              runFunc={ elem.text !== 'Log Out' ?
+                toggleMenu :
+                function() {
+                  toggleMenu();
+                  logOut();
+                }
+              }
             />
           )}
         </ToggledContainer>
