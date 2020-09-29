@@ -7,9 +7,6 @@ const StylButton = styled.button`
   background:black;
   border:none;
   color:white;
-
-  //The text is underlined when we are at the location that the
-  //button takes us to, otherwise there is no underline
   text-decoration-line:${props=>props.uLine};
   cursor: pointer;
   width:fit-content;
@@ -43,6 +40,9 @@ export default function(props) {
     <StylButton 
       className={className}
       onClick={clickHdlr} 
+
+      // The text is underlined when we are at the location that the
+      // button takes us to, otherwise there is no underline
       uLine={path===location.pathname ? 'underline' : 'none'}
     >
       {btnTxt}
