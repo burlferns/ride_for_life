@@ -39,6 +39,7 @@ export default function(props) {
   return (
     <StylButton 
       className={className}
+      type='button'
       onClick={clickHdlr} 
 
       // The text is underlined when we are at the location that the

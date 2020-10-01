@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-import InputComp from '../Form/InputComp.js';
+import InputComp from './InputComp.js';
+import DropDownSelectComp from './DropDownSelectComp.js';
+
 import iconEnvelope from '../../icons/fontawesome/envelope.svg';
 import iconLock from '../../icons/fontawesome/lock.svg';
 
@@ -22,6 +24,13 @@ const PassInput = styled(InputComp)`
   grid-area: pass;
 `;
 
+const StylSelect = styled.select`
+  margin: 20px;
+  width: 100px;
+  -webkit-appearance: none;
+  appearance: none;
+
+`;
 
 export default function(props) {
   const className = props.className;
@@ -29,14 +38,18 @@ export default function(props) {
   const formik = useFormik({
     initialValues: {
       email: '',
-      passwd: ''
+      passwd: '',
+      userType: ''
     },
     validationSchema: Yup.object({
       email: Yup.string()
         .email('Please input a valid email address')
         .required('Email address is required'),
       passwd: Yup.string()
-        .required("Please input a password")
+        .required("Please input a password"),
+      userType: Yup.string()
+        .oneOf(["mom", "driver"],"Please choose user type")
+        .required("Please choose user type")
     }),
     onSubmit: function(values) {
       console.log('onSubmit func, arguments=',arguments);
@@ -70,7 +83,19 @@ export default function(props) {
         value={formik.values.passwd}
       />
 
-      <button type="submit">Submit</button>
+      <DropDownSelectComp 
+        onChange={formik.handleChange} 
+        onBlur={formik.handleBlur}
+        error={formik.touched.userType && formik.errors.userType}
+        name='userType'
+      />
+
+
+      <button type="submit" >Submit</button>
+
+      
+
+
 
     </StylForm>    
   )
