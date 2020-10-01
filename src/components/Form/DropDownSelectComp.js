@@ -106,16 +106,34 @@ export default function(props) {
   const [menuOn, setMenuOn] = useState(false);
   const [textDisplay, setTextDisplay] = useState(description); 
 
+  const [onBlurCnt, setonBlurCnt] = useState(0);
+  const [onClickCnt, setonClickCnt] = useState(0);
+  const [onBlurEvent, setonBlurEvent] = useState({});
+  const [onClickEvent, setonClickEvent] = useState({});
+
+
   function containerClick() {
     setMenuOn(!menuOn);
   }
 
   function containerBlur(event) {
+    console.log('In containerBlur handler, syntheticEvent=', event);
+    console.log('In containerBlur handler, syntheticEvent.nativeEvent=', event.nativeEvent);
+    console.log('In containerBlur handler, syntheticEvent.relatedTarget=', event.relatedTarget);
+
+    setonBlurCnt(onBlurCnt+1);
+    setonBlurEvent(event);
+
     setMenuOn(false);
     onBlur(event);
   }
 
   function btnClick(event) {
+    console.log('In btnClick handler');
+
+    setonClickCnt(onClickCnt+1);
+    setonClickEvent(event);
+
     setMenuOn(false);
     setTextDisplay(event.target.value);
     onChange(event);
@@ -125,7 +143,7 @@ export default function(props) {
     <div className={className}>
 
       <DivSelect 
-        onBlur={containerBlur} onClick={containerClick} id={name} name={name}
+        onBlur={containerBlur} onClick={containerClick} id={name} 
         tabIndex='-1' //Setting a tabIndex value makes the div focusable
       >
         <DisplayP>{textDisplay}</DisplayP>
@@ -136,7 +154,7 @@ export default function(props) {
           <MenuDiv>
             { options.map((elem,index) => (
                 <StylBtn
-                  type='button' name={name} id={name} value={elem} 
+                  type='button' name={name} value={elem} 
                   onClick={btnClick} key={index}
                 >
                   {elem}
@@ -156,6 +174,15 @@ export default function(props) {
       >
         {error && <StylP>{error}</StylP> }
       </DivError> 
+
+      <p style={{fontSize:'10px'}}>This is onBlurCnt={onBlurCnt}</p>
+      <p style={{fontSize:'10px'}}>This is onClickCnt={onClickCnt}</p>
+      <p style={{fontSize:'10px'}}>onBlurEvent info:  
+        onBlurEvent.target.nodeName={onBlurEvent.target && onBlurEvent.target.nodeName} ||
+        onBlurEvent.relatedTarget.nodeName={onBlurEvent.relatedTarget && onBlurEvent.relatedTarget.nodeName} ||
+        onClickEvent.target.nodeName={onClickEvent.target && onClickEvent.target.nodeName} ||
+        onClickEvent.relatedTarget.nodeName={onClickEvent.relatedTarget && onClickEvent.relatedTarget.nodeName} ||
+      </p>
 
     </div>
   )
