@@ -130,6 +130,25 @@ export default function(props) {
     setMenuOn(false);
     onBlur(event);
 
+    /* The reason the if statement is needed below is because of chrome. If you comment out 
+    everything in this function and in the btnClick functions and you add console.logs to them to
+    know when they are run, and you open the drop-down menu and click on the mom/driver button
+    you will see different behavior for chrome VS safari/firefox. Chrome will see a blur event 
+    followed by a click event, but safari/firefox will only see a click event. If in the
+    blur handler function you run a setState command of useState (like there is setMenuOn in this
+    containerBlur function), then chrome only sees a blur event, while safari/firefox still see the
+    click event.
+
+    So we need to perform the functionality of the btnClick handler function here for the case when
+    the blur event occurs in chrome, but the click event does not, when the mom/driver button
+    is clicked in chrome. Safari & firefox don't run the if statement contents when the mom/driver 
+    button is clicked because the blur event does not happen.
+    
+    When the blur event happens because the mom/driver button is clicked, the relatedTarget property
+    points to the mom/driver button. So that is how we know the difference between a blur event that
+    happend because mom/driver button was clicked, or something else was clicked that caused the 
+    drop-down-menu to loose focus.
+    */
     if( event.relatedTarget &&
       event.relatedTarget.type==='button' &&
       event.relatedTarget.name===name 
