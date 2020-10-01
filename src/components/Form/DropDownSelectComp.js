@@ -106,32 +106,27 @@ export default function(props) {
   const [menuOn, setMenuOn] = useState(false);
   const [textDisplay, setTextDisplay] = useState(description); 
 
-  // const [onBlurCnt, setonBlurCnt] = useState(0);
-  // const [onClickCnt, setonClickCnt] = useState(0);
-  // const [onBlurEvent, setonBlurEvent] = useState({});
-  // const [onClickEvent, setonClickEvent] = useState({});
-
-
   function containerClick(event) {
     event.preventDefault();
+ 
     if(menuOn) {
       setMenuOn(false);
     }
     else {
       setMenuOn(true);
       setTextDisplay(description);
+      onChange({
+        target: {
+          name: name,
+          value: ''
+        }
+      });
     }
   }
 
   function containerBlur(event) {
     event.preventDefault();
-    // console.log('In containerBlur handler, syntheticEvent=', event);
-    // console.log('In containerBlur handler, syntheticEvent.nativeEvent=', event.nativeEvent);
-    // console.log('In containerBlur handler, syntheticEvent.relatedTarget=', event.relatedTarget);
-
-    // setonBlurCnt(onBlurCnt+1);
-    // setonBlurEvent(event);
-
+ 
     setMenuOn(false);
     onBlur(event);
 
@@ -151,10 +146,6 @@ export default function(props) {
 
   function btnClick(event) {
     event.preventDefault();
-    // console.log('In btnClick handler');
-
-    // setonClickCnt(onClickCnt+1);
-    // setonClickEvent(event);
 
     setMenuOn(false);
     setTextDisplay(event.target.value);
@@ -195,16 +186,7 @@ export default function(props) {
         }
       >
         {error && <StylP>{error}</StylP> }
-      </DivError> 
-
-      {/* <p style={{fontSize:'10px'}}>This is onBlurCnt={onBlurCnt}</p>
-      <p style={{fontSize:'10px'}}>This is onClickCnt={onClickCnt}</p>
-      <p style={{fontSize:'10px'}}>onBlurEvent info:  
-        onBlurEvent.target.nodeName={onBlurEvent.target && onBlurEvent.target.nodeName} ||
-        onBlurEvent.relatedTarget.nodeName={onBlurEvent.relatedTarget && onBlurEvent.relatedTarget.nodeName} ||
-        onClickEvent.target.nodeName={onClickEvent.target && onClickEvent.target.nodeName} ||
-        onClickEvent.relatedTarget.nodeName={onClickEvent.relatedTarget && onClickEvent.relatedTarget.nodeName} ||
-      </p> */}
+      </DivError>      
 
     </div>
   )

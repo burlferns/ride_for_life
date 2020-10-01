@@ -95,7 +95,7 @@ export default function(props) {
 
       <button type="submit" style={{width:'100px', margin:'30px'}}>Submit</button>
 
-      <p>This is User-Type: {formik.values.userType}</p>
+
       
 
 
