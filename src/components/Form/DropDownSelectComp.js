@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import iconDropDown from '../../icons/fontawesome/drop-down.svg';
 
-const DivContainer = styled.div`
+const DivSelect = styled.div`
   width:26rem;
   height:4rem;
   border-radius: 0.5rem;
@@ -35,7 +35,7 @@ const StylImage = styled.img`
 
 const MenuDiv = styled.div`
   width:26rem;
-  height:10rem;
+  height:fit-content;
   border-radius: 0.5rem;
   background: #E5E7E9;
   border:0.1rem solid #A6ACAF;
@@ -48,11 +48,32 @@ const MenuDiv = styled.div`
 
 
 const StylBtn = styled.button`
+  width:26rem;
+  font-size: 1.6rem;
+  padding: 0.5rem 0;
+  color:black;
+  background:transparent;
+  border:none;
 
+  :hover {
+    background: #3C97D7;
+  }
 
+  :focus {
+    outline:0;
+  }
 `;
 
+const DivError = styled.div`
+  width:26rem;
+  margin-top 0.5rem;
+  height: ${props=>props.height};
+`;
 
+const StylP = styled.p`
+  color:red;
+  font-size: 1.2rem;
+`;
 
 
 
@@ -74,42 +95,47 @@ export default function(props) {
     setMenuOn(!menuOn);
   }
 
+  function btnClick() {
+
+  }
 
   return (
-    <DivContainer 
-      className={className} 
-      onBlur={onBlur} 
-      onClick={containerClick} 
-      tabIndex='0' 
-      id={name}
-    >
-      <DisplayP>{textDisplay}</DisplayP>
-      <StylImage src={iconDropDown} />
+    <div className={className}>
 
-      { menuOn &&
-        <MenuDiv>
+      <DivSelect 
+        onBlur={onBlur} onClick={containerClick} 
+        tabIndex='0' id={name}
+      >
+        <DisplayP>{textDisplay}</DisplayP>
+        <StylImage src={iconDropDown} />
 
+        {/* The menu of options */}
+        { menuOn && false &&
+          <MenuDiv>
+            { options.map((elem,index) => (
+                <StylBtn
+                  type='button' name={name} value={elem} onClick={btnClick}
+                  key={index}
+                >
+                  {elem}
+                </StylBtn>
+              ))
+            }
+          </MenuDiv>
+        }      
+      </DivSelect>
 
-        </MenuDiv>
-      }
+      {/* The error message */}
+      <DivError 
+        height={ errDivHeight===undefined ?
+          '2.9rem' :
+          (Number(errDivHeight)*1.2)+'rem'
+        }
+      >
+        {error && <StylP>{error}</StylP> }
+      </DivError> 
 
-      
-
-      {/* { options.map((elem,index) => {
-
-
-        })
-
-      } */}
-
-
-      {/* <button type='button' name='userType' value='mom' onClick={btnHdlr} style={{margin:'10px', height:'25px'}}>mom</button>
-
-      <button type='button' name='userType' value='driver' onClick={btnHdlr} style={{margin:'10px', height:'25px'}}>driver</button>
-
-      {error && <p style={{fontSize:'16px'}}>{error}</p> } */}
-
-    </DivContainer>
+    </div>
   )
 }
 

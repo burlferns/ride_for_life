@@ -46,8 +46,8 @@ export default function(props) {
       passwd: Yup.string()
         .required("Please input a password"),
       userType: Yup.string()
-        .oneOf(["mom", "driver"],"Please choose user type")
-        .required("Please choose user type")
+        .oneOf(["mom", "driver"],"Please choose account type")
+        .required("Please choose account type")
     }),
     onSubmit: function(values) {
       console.log('onSubmit func, arguments=',arguments);
@@ -87,6 +87,7 @@ export default function(props) {
         error={formik.touched.userType && formik.errors.userType}
         onChange={formik.handleChange} 
         onBlur={formik.handleBlur}
+        options={['Mom', 'Driver']}
         
         
       />

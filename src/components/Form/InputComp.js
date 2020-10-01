@@ -69,15 +69,14 @@ const DescriptionP = styled.p`
 
 const DivError = styled.div`
   width:26rem;
-  height:2.9rem;
+  height: ${props=>props.height};
+  margin-top 0.5rem;
   grid-area: divError;
 `;
 
 const StylP = styled.p`
   color:red;
-  margin-top 0.5rem;
   font-size: 1.2rem;
-
 `;
 
 
@@ -120,7 +119,7 @@ export default function(props) {
       <DivError 
         height={ errDivHeight===undefined ?
           '2.9rem' :
-          (Number(errDivHeight)*1.2+0.5)+'rem'
+          (Number(errDivHeight)*1.2)+'rem'
         }
       >
         {error && <StylP>{error}</StylP> }
