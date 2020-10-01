@@ -13,7 +13,7 @@ const DivImg = styled.div`
   width: 4rem;
   height: 4rem;
   border-top-left-radius:0.5rem;
-  border-bottom-left-radius:0.3rem;
+  border-bottom-left-radius:0.5rem;
   background: #E5E7E9;
   border:0.1rem solid #A6ACAF;
 
@@ -30,6 +30,8 @@ const StylImage = styled.img`
 const DivInput = styled.div`
   width: 22rem;
   height: 4rem;
+  border-top-right-radius:0.5rem;
+  border-bottom-right-radius:0.5rem;
   border:0.1rem solid #A6ACAF;
   position:relative;
   top:0;

@@ -13,7 +13,7 @@ const StylForm = styled.form`
   display:grid;
   grid-template-columns: 100%;
   grid-template-rows: auto;
-  grid-template-areas: "email" "pass";
+  grid-template-areas: "email" "pass" "select";
 `;
 
 const EmailInput = styled(InputComp)`
@@ -24,12 +24,10 @@ const PassInput = styled(InputComp)`
   grid-area: pass;
 `;
 
-const StylSelect = styled.select`
-  margin: 20px;
-  width: 100px;
-  -webkit-appearance: none;
-  appearance: none;
+const StylSelect = styled(DropDownSelectComp)`
+  grid-area: select;
 
+  margin-bottom:30px;
 `;
 
 export default function(props) {
@@ -83,15 +81,18 @@ export default function(props) {
         value={formik.values.passwd}
       />
 
-      <DropDownSelectComp 
+      <StylSelect 
+        name='userType'
+        description='Account Type'
+        error={formik.touched.userType && formik.errors.userType}
         onChange={formik.handleChange} 
         onBlur={formik.handleBlur}
-        error={formik.touched.userType && formik.errors.userType}
-        name='userType'
+        
+        
       />
 
 
-      <button type="submit" >Submit</button>
+      <button type="submit" style={{width:'100px', margin:'30px'}}>Submit</button>
 
       
 

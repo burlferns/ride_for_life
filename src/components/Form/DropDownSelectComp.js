@@ -1,24 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
 
+import iconDropDown from '../../icons/fontawesome/drop-down.svg';
+
 const DivContainer = styled.div`
-  width:200px;
+  width:26rem;
+  height:4rem;
+  border-radius: 0.5rem;
+  border:0.1rem solid #A6ACAF;
+
+  position: relative;
+  top:0;
+  left:0;
+
   display:flex;
   flex-direction: column;
-
-  height: 100px;
-  margin-bottom:30px;
-  background: cyan;
-
 `;
 
-const DescriptionP = styled.p`
+const DisplayP = styled.p`
+  color: #5F6A6A;
+  font-size:1.6rem;
+  margin-top:1.1rem;
+  margin-left:1.5rem;
+`;
+
+const StylImage = styled.img`
+  width: 1rem;
+  height: 1rem;
   
+  position: absolute;
+  top: 1.4rem;
+  right: 0.2rem;
+`;
 
+const MenuDiv = styled.div`
+  width:26rem;
+  height:10rem;
+  border-radius: 0.5rem;
+  background: #E5E7E9;
+  border:0.1rem solid #A6ACAF;
+
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1;
 `;
 
 
-const OptionsP = styled.p`
+const StylBtn = styled.button`
 
 
 `;
@@ -38,24 +67,51 @@ export default function(props) {
   const onChange = props.onChange;
   const onBlur = props.onBlur;
 
-  // const [value, setValue] 
+  const [menuOn, setMenuOn] = useState(false);
+  const [textDisplay, setTextDisplay] = useState(description); 
 
-  function btnHdlr(event) {
-    console.log('in btnHdlr function');
-    onChange(event);
-
+  function containerClick() {
+    setMenuOn(!menuOn);
   }
 
 
   return (
-    <DivContainer className={className} onBlur={onBlur} tabIndex='0' id={name} >
+    <DivContainer 
+      className={className} 
+      onBlur={onBlur} 
+      onClick={containerClick} 
+      tabIndex='0' 
+      id={name}
+    >
+      <DisplayP>{textDisplay}</DisplayP>
+      <StylImage src={iconDropDown} />
 
-      <button type='button' name='userType' value='mom' onClick={btnHdlr} style={{margin:'10px', height:'25px'}}>mom</button>
+      { menuOn &&
+        <MenuDiv>
+
+
+        </MenuDiv>
+      }
+
+      
+
+      {/* { options.map((elem,index) => {
+
+
+        })
+
+      } */}
+
+
+      {/* <button type='button' name='userType' value='mom' onClick={btnHdlr} style={{margin:'10px', height:'25px'}}>mom</button>
 
       <button type='button' name='userType' value='driver' onClick={btnHdlr} style={{margin:'10px', height:'25px'}}>driver</button>
 
-      {error && <p style={{fontSize:'16px'}}>{error}</p> }
+      {error && <p style={{fontSize:'16px'}}>{error}</p> } */}
 
     </DivContainer>
   )
 }
+
+
+
