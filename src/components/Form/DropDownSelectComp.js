@@ -110,16 +110,23 @@ export default function(props) {
     setMenuOn(!menuOn);
   }
 
-  function btnClick() {
+  function containerBlur(event) {
+    setMenuOn(false);
+    onBlur(event);
+  }
 
+  function btnClick(event) {
+    setMenuOn(false);
+    setTextDisplay(event.target.value);
+    onChange(event);
   }
 
   return (
     <div className={className}>
 
       <DivSelect 
-        onBlur={onBlur} onClick={containerClick} 
-        tabIndex='0' id={name}
+        onBlur={containerBlur} onClick={containerClick} id={name} name={name}
+        tabIndex='-1' //Setting a tabIndex value makes the div focusable
       >
         <DisplayP>{textDisplay}</DisplayP>
         <StylImage src={iconDropDown} />
@@ -129,8 +136,8 @@ export default function(props) {
           <MenuDiv>
             { options.map((elem,index) => (
                 <StylBtn
-                  type='button' name={name} value={elem} onClick={btnClick}
-                  key={index}
+                  type='button' name={name} id={name} value={elem} 
+                  onClick={btnClick} key={index}
                 >
                   {elem}
                 </StylBtn>

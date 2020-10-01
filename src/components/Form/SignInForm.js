@@ -46,7 +46,7 @@ export default function(props) {
       passwd: Yup.string()
         .required("Please input a password"),
       userType: Yup.string()
-        .oneOf(["mom", "driver"],"Please choose account type")
+        .oneOf(["Mom", "Driver"],"Please choose account type")
         .required("Please choose account type")
     }),
     onSubmit: function(values) {
@@ -95,6 +95,7 @@ export default function(props) {
 
       <button type="submit" style={{width:'100px', margin:'30px'}}>Submit</button>
 
+      <p>This is User-Type: {formik.values.userType}</p>
       
 
 
