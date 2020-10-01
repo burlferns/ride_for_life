@@ -15,7 +15,22 @@ const DivSelect = styled.div`
 
   display:flex;
   flex-direction: column;
+
+  outline:none;
+
+  :focus::after {
+    content: '';
+    position:absolute;
+    box-sizing: border-box;
+    top: -0.2rem;
+    left: -0.2rem;
+    bottom: -0.2rem;
+    right: -0.2rem;
+    border-radius: 0.5rem;
+    border: 0.2rem solid #5DADE2;
+  }
 `;
+
 
 const DisplayP = styled.p`
   color: #5F6A6A;
@@ -110,7 +125,7 @@ export default function(props) {
         <StylImage src={iconDropDown} />
 
         {/* The menu of options */}
-        { menuOn && false &&
+        { menuOn && 
           <MenuDiv>
             { options.map((elem,index) => (
                 <StylBtn

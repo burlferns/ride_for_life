@@ -37,8 +37,17 @@ const DivInput = styled.div`
   top:0;
   left:0;
   
-  :focus-within {
-    outline 2px solid #5DADE2;
+  :focus-within::after {
+    content: '';
+    position:absolute;
+    box-sizing: border-box;
+    top: -0.2rem;
+    left: -0.2rem;
+    bottom: -0.2rem;
+    right: -0.2rem;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius:0.5rem;
+    border: 0.2rem solid #5DADE2;
   }
 
   grid-area: divInput;
