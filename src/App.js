@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 
 import HeaderNav from './components/Header_Nav/HeaderNav.js';
 import SignIn from './components/GeneralPages/SignIn.js';
+import Footer from './components/GeneralComponents/Footer.js';
 import MomProfile from './components/MomPages/MomProfile.js';
 import MomDriversList from './components/MomPages/MomDriversList.js';
 import MomReviewsList from './components/MomPages/MomReviewsList.js';
@@ -25,6 +26,8 @@ function App() {
 
 
       </Switch>      
+
+      <Footer/>
     </div>
   );
 }

@@ -5,13 +5,21 @@ import { useHistory} from "react-router-dom";
 
 import SignInForm from '../Form/SignInForm';
 
-const StylH1 = styled.h1`
+const ContentsDiv = styled.div`
+  width:fit-content;
   margin:2rem 2rem;
-  font-size: 5rem;
+  box-sizing: content-box;
+  border:1px solid black;
+`;
+
+
+const StylH1 = styled.h1`
+  font-size: 4rem;
+  margin-bottom: 2rem;
 `;
 
 const StylSignInForm = styled(SignInForm)`
-  margin-left: 30px;
+  
 
 `;
 
@@ -22,28 +30,13 @@ export default function SignIn() {
 
   return (
     <>
-      <StylH1>This is the Sign-In page</StylH1>
+      <ContentsDiv>
+        <StylH1>Sign-In</StylH1>   
+        <StylSignInForm/>
+      </ContentsDiv>
 
-      <button 
-        onClick={()=>{
-          dispatch({type:'setUserTypeMom'});
-          history.push('/mom/profile');
-        }}
-      >
-        Mom Profile
-      </button>
 
-      <button 
-        onClick={()=>{
-          dispatch({type:'setUserTypeDriver'});
-          history.push('/driver/profile');
-        }}
-        style={{marginLeft:'40px', marginBottom:'20px'}}
-      >
-        Driver Profile
-      </button>
       
-      <StylSignInForm/>
 
 
 
