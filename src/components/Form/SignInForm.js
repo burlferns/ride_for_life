@@ -1,37 +1,49 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import {Link} from "react-router-dom";
 
 import InputComp from './InputComp.js';
 import DropDownSelectComp from './DropDownSelectComp.js';
+import SubmitButtonWithWait from './SubmitButtonWithWait.js';
 
 import iconEnvelope from '../../icons/fontawesome/envelope.svg';
 import iconLock from '../../icons/fontawesome/lock.svg';
 
 const StylForm = styled.form`
-  display:grid;
-  grid-template-columns: 100%;
-  grid-template-rows: auto;
-  grid-template-areas: "email" "pass" "select";
+  display: flex;
+  flex-direction: column;
 `;
 
-const EmailInput = styled(InputComp)`
-  grid-area: email;
+const ErrorMsgDiv = styled.div`
+  margin-top 0.5rem;
+  width:fit-content;
 `;
 
-const PassInput = styled(InputComp)`
-  grid-area: pass;
+const ErrorP = styled.div`
+  color:red;
+  font-size: 1.2rem;
 `;
 
-const StylSelect = styled(DropDownSelectComp)`
-  grid-area: select;
+const RegisterDiv = styled.div`
+  width:26rem;
 
-  margin-bottom:30px;
 `;
+
+const StylLink = styled(Link)`
+
+`;
+
 
 export default function(props) {
   const className = props.className;
+
+  //This is for the please wait message that appears after the login button is pressed
+  const[waitMsgOn,setWaitMsgOn] = useState(false); 
+
+  //This is for the error message that appears if login credentials are bad
+  const[errorMsgOn,setErrorMsgOn] = useState(true); 
 
   const formik = useFormik({
     initialValues: {
@@ -50,16 +62,16 @@ export default function(props) {
         .required("Please choose account type")
     }),
     onSubmit: function(values) {
-      console.log('onSubmit func, arguments=',arguments);
+      setWaitMsgOn(true);
+      setErrorMsgOn(false);
       console.log('onSubmit func, values=',values);
     }
   })
 
-
   return (
     <StylForm onSubmit={formik.handleSubmit} className={className}>
 
-      <EmailInput
+      <InputComp
         name='email'
         description='Email Address'
         type='text'
@@ -70,7 +82,7 @@ export default function(props) {
         value={formik.values.email}
       />
 
-      <PassInput
+      <InputComp
         name='passwd'
         description='Password'
         type='password'
@@ -81,24 +93,27 @@ export default function(props) {
         value={formik.values.passwd}
       />
 
-      <StylSelect 
+      <DropDownSelectComp 
         name='userType'
         description='Account Type'
         error={formik.touched.userType && formik.errors.userType}
         onChange={formik.handleChange} 
         onBlur={formik.handleBlur}
         options={['Mom', 'Driver']}
-        
-        
       />
 
+      <SubmitButtonWithWait
+        text='Login'
+        msgOn={waitMsgOn}
+      />
 
-      <button type="submit" style={{width:'100px', margin:'30px'}}>Submit</button>
-
-
+      <ErrorMsgDiv>
+        { errorMsgOn &&
+          <ErrorP>Incorrect login credentials used, please try again</ErrorP>
+        }        
+      </ErrorMsgDiv>
+ 
       
-
-
 
     </StylForm>    
   )
