@@ -147,8 +147,7 @@ export default function(props) {
     When the blur event happens because the mom/driver button is clicked, the relatedTarget property
     points to the mom/driver button. So that is how we know the difference between a blur event that
     happend because mom/driver button was clicked, or something else was clicked that caused the 
-    drop-down-menu to loose focus.
-    */
+    drop-down-menu to loose focus. */
     if( event.relatedTarget &&
       event.relatedTarget.type==='button' &&
       event.relatedTarget.name===name 

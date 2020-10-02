@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import {useDispatch} from 'react-redux';
+import {useHistory} from "react-router-dom";
 
 import NavBtn from './NavBtn.js';
 
@@ -17,6 +18,7 @@ export default function(props) {
   const className = props.className;
   const navArray = props.navArray;
 
+  const history = useHistory();
   const dispatch = useDispatch();
 
   function logOut() {
@@ -32,7 +34,18 @@ export default function(props) {
           key={index}
           btnTxt={elem.text}
           path={elem.path}
-          runFunc={ elem.text === 'Log Out' && logOut}
+          clickHdlr={ 
+            elem.path !== '/' 
+          ?
+            function() {
+              history.push(elem.path);
+            }
+          :
+            function() {
+              history.push(elem.path);
+              logOut();
+            }
+          }
         />
       )}
     </DivContainer>
