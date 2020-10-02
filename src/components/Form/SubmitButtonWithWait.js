@@ -74,7 +74,7 @@ export default function(props) {
   const msgOn = props.msgOn;
 
   return (
-    <DivContainer>
+    <DivContainer className={className}>
       <StlyBtn type='submit'>
         {text}
       </StlyBtn>
