@@ -14,6 +14,9 @@ import iconLock from '../../icons/fontawesome/lock.svg';
 const StylForm = styled.form`
   display: flex;
   flex-direction: column;
+
+  width:fit-content;
+  // border:1px solid black;
 `;
 
 const ErrorMsgDiv = styled.div`
@@ -28,11 +31,17 @@ const ErrorP = styled.div`
 
 const RegisterDiv = styled.div`
   width:26rem;
+  margin-top:3rem;
+`;
 
+const MarginDiv = styled.div`
+  width:25rem;
+  height:2rem;
+  background:transparent;
 `;
 
 const StylLink = styled(Link)`
-
+  font-size: 1.2rem;
 `;
 
 
@@ -113,6 +122,16 @@ export default function(props) {
         }        
       </ErrorMsgDiv>
  
+      <RegisterDiv>
+        <StylLink to='/mom/register'>
+          Are you an expecting mother? Register here.
+        </StylLink>
+        <MarginDiv/>
+        <StylLink to='/driver/register'>
+          Want to be a driver? Register here.
+        </StylLink>
+      </RegisterDiv>
+
       
 
     </StylForm>    
