@@ -1,5 +1,5 @@
 const reducerInitialState = {
-  userType : null
+  userType : 'mom'
 }
 
 export default function(state=reducerInitialState, action) {
