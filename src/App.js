@@ -12,16 +12,20 @@ import DriverReviewsList from './components/DriverPages/DriverReviewsList.js';
 
 export const ViewportContext = React.createContext([]);
 
+const hfs = 10; //This is the font-size set on the html element in px
+
 function App() {
   const [vpSize,setVpSize] = useState([
     document.documentElement.clientWidth,
-    document.documentElement.clientHeight
+    document.documentElement.clientHeight,
+    hfs
   ]);
   
   useEffect(() => {
     const handleWindowResize = () => setVpSize([
       document.documentElement.clientWidth,
-      document.documentElement.clientHeight
+      document.documentElement.clientHeight,
+      hfs
     ]);
     window.addEventListener("resize", handleWindowResize);
 

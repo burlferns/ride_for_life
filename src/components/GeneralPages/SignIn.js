@@ -12,19 +12,28 @@ const ComponentContainer = styled.div`
 `;
 
 const MarginDivTop = styled.div`
-  width:10px;
-  // border:1px solid black;
+  width:1rem;
   min-height: 2rem;
   height: ${props=>props.marginTop};
 `;
 
 const MarginDivBottom = styled.div`
-  width:10px;
-  // border:1px solid black;
+  width:1rem;
   min-height: 2rem;
   height: ${props=>props.marginBottom};
 `;
 
+const MarginDivLeft = styled.div`
+  height:1rem;
+  min-width: 2rem;
+  width: 
+`;
+
+const MarginDivRight = styled.div`
+  height:1rem;
+  min-width: 2rem;
+  width: 
+`;
 
 const DivContainer = styled.div`
   width:95rem;
@@ -38,13 +47,6 @@ const DivContainer = styled.div`
   grid-template-columns: auto 34rem;
   grid-template-rows: [first] 100% [end];
   grid-template-areas: "picture content";
-  
-  margin:0 auto;
-  // margin: calc((100vh - 44px - 40px - 411px) / 2) auto;
-  // margin-top: ${props=>props.marginTop};
-  // margin-bottom: ${props=>props.marginBottom};
-  // margin-top: 242px;
-  // margin-bottom: 241px;
 `; 
 
 const PictureDiv = styled.div`
@@ -78,35 +80,30 @@ const StylSignInForm = styled(SignInForm)`
 
 `;
 
-const hfs = 10; //This is the font-size set on the html element in px
-
 export default function SignIn() {
   const vpSize = useContext(ViewportContext);
+  const hfs = vpSize[2];
+  const vpHigh = vpSize[1]
 
   console.log('sigin.js,vpSize=',vpSize);
 
-  const verticalSpaceAvailable = (vpSize[1] - 4.4*hfs - 60.2*hfs - 4*hfs);
-  const divCntrMarginTop = Math.round(verticalSpaceAvailable / 2);
-  const divCntrMarginBottom = verticalSpaceAvailable - divCntrMarginTop;
+  const verticalSpaceAvailable = (vpHigh - 4.4*hfs - 60.2*hfs - 4*hfs);
+  const marginTop = Math.round(verticalSpaceAvailable / 2);
+  const marginBottom = verticalSpaceAvailable - marginTop;
 
   return (
     <ComponentContainer>
-      <MarginDivTop marginTop={divCntrMarginTop+'px'} />
+      <MarginDivTop marginTop={marginTop+'px'} />
 
       <DivContainer>
         <PictureDiv></PictureDiv>
         <ContentsDiv>
           <StylH1>Login to Ride for Life</StylH1>   
-          {/* <StylH1>Login {window.innerHeight}</StylH1>   */}
-          {/* <StylH1>Login {window.innerWidth} ,, {document.documentElement.clientWidth} </StylH1>   */}
-          {/* <StylH1>Login {verticalSpaceAvailable}</StylH1>   */}
-          {/* <StylH1>Login {divCntrMarginTop}</StylH1>   */}
-          {/* <StylH1>Login {divCntrMarginBottom}</StylH1>   */}
           <StylSignInForm/>
         </ContentsDiv>
       </DivContainer>
 
-      <MarginDivBottom marginBottom={divCntrMarginBottom+'px'} />
+      <MarginDivBottom marginBottom={marginBottom+'px'} />
     </ComponentContainer>
     );
 }
