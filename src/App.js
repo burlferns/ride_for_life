@@ -10,6 +10,8 @@ import MomReviewsList from './components/MomPages/MomReviewsList.js';
 import DriverProfile from './components/DriverPages/DriverProfile.js';
 import DriverReviewsList from './components/DriverPages/DriverReviewsList.js';
 
+import Temp from './components/GeneralPages/Temp.js';
+
 export const ViewportContext = React.createContext([]);
 
 const hfs = 10; //This is the font-size set on the html element in px
@@ -47,6 +49,9 @@ function App() {
 
           <Route exact path='/driver/profile' component={DriverProfile}/>
           <Route exact path='/driver/reviewsList' component={DriverReviewsList}/>
+
+          {/* <Route exact path='/temp' component={Temp}/> */}
+
         </Switch>      
 
         <Footer/>
