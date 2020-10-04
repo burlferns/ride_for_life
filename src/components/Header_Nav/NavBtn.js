@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import { useLocation, useHistory} from "react-router-dom";
+import { useLocation} from "react-router-dom";
 
 const StylButton = styled.button`
   font-size:1.6rem;
@@ -24,22 +24,17 @@ export default function(props) {
   const className = props.className;
   const btnTxt = props.btnTxt;
   const path = props.path;
-  const runFunc = props.runFunc;
+  const clickHdlr = props.clickHdlr;
 
-  const history = useHistory();
   const location = useLocation();
-
-  function clickHdlr() {
-    history.push(path);
-    if(runFunc) {
-      runFunc();
-    }
-  }
 
   return (
     <StylButton 
       className={className}
+      type='button'
+      name='navBtn'
       onClick={clickHdlr} 
+      value={path}
 
       // The text is underlined when we are at the location that the
       // button takes us to, otherwise there is no underline
