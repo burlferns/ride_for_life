@@ -6,7 +6,8 @@ import img1 from '../../images/random-institute-JP9BQVlcED8-unsplash.jpg';
 
 const ComponentContainer = styled.div`
   width: 100vw;
-  height: calc(100vh - 4.4rem - 4rem);
+  height: calc(100vh - 8.4rem);
+  min-height: 69.4rem;
   display:grid;
   grid-template-columns: minmax(4rem, 1fr) minmax(30rem, 95.2rem) minmax(4rem, 1fr);
   grid-template-rows: minmax(4rem, 1fr) 60.2rem minmax(4rem, 1fr);
