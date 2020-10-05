@@ -10,6 +10,9 @@ import MomReviewsList from './components/MomPages/MomReviewsList.js';
 import DriverProfile from './components/DriverPages/DriverProfile.js';
 import DriverReviewsList from './components/DriverPages/DriverReviewsList.js';
 
+import DriverRegisterProfile from './components/DriverPages/DriverRegisterProfile.js';
+
+
 import Temp from './components/GeneralPages/Temp.js';
 
 export const ViewportContext = React.createContext([]);
@@ -42,7 +45,7 @@ function App() {
         <HeaderNav/>
 
         <Switch>
-          <Route exact path='/' component={SignIn}/>
+          {/* <Route exact path='/' component={SignIn}/> */}
           <Route exact path='/mom/profile' component={MomProfile}/>
           <Route exact path='/mom/driversList' component={MomDriversList}/>
           <Route exact path='/mom/reviewsList' component={MomReviewsList}/>
@@ -50,7 +53,7 @@ function App() {
           <Route exact path='/driver/profile' component={DriverProfile}/>
           <Route exact path='/driver/reviewsList' component={DriverReviewsList}/>
 
-          {/* <Route exact path='/temp' component={Temp}/> */}
+          <Route exact path='/' component={DriverRegisterProfile}/>
 
         </Switch>      
 

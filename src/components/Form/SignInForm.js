@@ -14,9 +14,7 @@ import iconLock from '../../icons/fontawesome/lock.svg';
 const StylForm = styled.form`
   display: flex;
   flex-direction: column;
-
   width:fit-content;
-  // border:1px solid black;
 `;
 
 const ErrorMsgDiv = styled.div`
@@ -130,9 +128,7 @@ export default function(props) {
         <StylLink to='/driver/register'>
           Want to be a driver? Register here.
         </StylLink>
-      </RegisterDiv>
-
-      
+      </RegisterDiv>     
 
     </StylForm>    
   )
