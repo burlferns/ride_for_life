@@ -7,10 +7,9 @@ import {Link} from "react-router-dom";
 import InputComp from './InputComp.js';
 import DisplayProfileValueComp from './DisplayProfileValueComp.js';
 import SubmitButtonWithWait from './SubmitButtonWithWait.js';
+import ActionButton from './ActionButton.js';
 
 import iconUser from '../../icons/fontawesome/user-alt.svg';
-import iconLock from '../../icons/fontawesome/lock.svg';
-import iconUnLock from '../../icons/fontawesome/unlock.svg';
 import iconMobile from '../../icons/fontawesome/mobile.svg';
 import iconMap from '../../icons/fontawesome/map-marked-alt.svg';
 
@@ -40,6 +39,11 @@ const StylLink = styled(Link)`
   font-size: 1.2rem;
 `;
 
+const StylActionButton = styled(ActionButton)`
+  margin-top:3.4rem;
+`;
+
+
 export default function(props) {
   const className = props.className;
   const email = 'abc@def.com';
@@ -53,19 +57,11 @@ export default function(props) {
   const formik = useFormik({
     initialValues: {
       name: '',
-      passwd: '',
-      rptPasswd: '',
       phone:'',
       plot:''
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Please input a name"),
-      passwd: Yup.string()
-        .required("Please input a password")
-        .min(3,"Min of 3 chars for the password"),
-      rptPasswd: Yup.string()
-        .required("Please input a password confirmation")
-        .oneOf([Yup.ref('passwd')], 'Passwords must match'),
       phone: Yup.string().required("Please input a phone number"),
       plot: Yup.number()
         .required("Please input a plot location")
@@ -82,6 +78,8 @@ export default function(props) {
   return (
     <StylForm onSubmit={formik.handleSubmit} className={className}>
 
+      <DisplayProfileValueComp keyText='Email:' valueText={email}/>
+
       <InputComp
         name='name'
         description='Name'
@@ -91,39 +89,6 @@ export default function(props) {
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         value={formik.values.name}
-      />
-      <DisplayProfileValueComp keyText='Email:' valueText={email}/>
-      {/* <InputComp
-        name='email'
-        description='Email'
-        type='text'
-        icon={iconEnvelope}
-        error={formik.touched.email && formik.errors.email}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.email}
-      /> */}
-
-      <InputComp
-        name='passwd'
-        description='Password'
-        type='password'
-        icon={iconLock}
-        error={formik.touched.passwd && formik.errors.passwd}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.passwd}
-      />
-
-      <InputComp
-        name='rptPasswd'
-        description='Confirm Password'
-        type='password'
-        icon={iconUnLock}
-        error={formik.touched.rptPasswd && formik.errors.rptPasswd}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.rptPasswd}
       />
 
       <InputComp
@@ -149,22 +114,13 @@ export default function(props) {
       />
 
       <SubmitButtonWithWait
-        text='Register'
-        msgOn={waitMsgOn}
+        text='Update Profile'
       />
 
-      <ErrorMsgDiv>
-        { errorMsgOn &&
-          <ErrorP>Email already being used. Try another email or 
-            login using the link below.</ErrorP>
-        }        
-      </ErrorMsgDiv>
+      <StylActionButton
+        text='Delete Profile'
+      />
 
-      <RegisterDiv>
-        <StylLink to='/'>
-          Already have a mom's account? Login here.
-        </StylLink>
-      </RegisterDiv> 
 
     </StylForm>      
   )

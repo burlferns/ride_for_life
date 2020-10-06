@@ -22,10 +22,22 @@ const ComponentContainer = styled.div`
 
   @media (max-width: 599px) {
     grid-template-columns: minmax(2rem, 1fr) minmax(28rem, 80.1rem) minmax(2rem, 1fr);
-    grid-template-rows: minmax(2rem, 1fr) 87.2rem minmax(2rem, 1fr);
-    min-height: 91.2rem; //87.2rem {Height of DivContainer} + 2rem*2 {min margin}
-  }
+    grid-template-rows: 
+      minmax(2rem, 1fr) 
+      ${props => {
+        if(props.useForm==='register') {return '87.2rem'}
+        if(props.useForm==='update') {return '70.6rem'}
+      }}
+      minmax(2rem, 1fr);
+    min-height: 
+      ${props => {
+        //87.2rem {Height of DivContainer} + 2rem*2 {min margin}
+        if(props.useForm==='register') {return '91.2rem'}
 
+        //70.6rem {Height of DivContainer} + 2rem*2 {min margin}
+        if(props.useForm==='update') {return '74.6rem'}
+      }}
+  }
 `;
 
 const DivContainer = styled.div`
@@ -114,6 +126,12 @@ const StylH1 = styled.h1`
   }
 `;
 
+const StylH1_b = styled.h1`
+  font-size: 2.5rem;
+  margin-bottom: 2.5rem;
+  line-height:normal;
+`;
+
 export default function(props) {
   const useForm = props.useForm;
   const [vpWidth] = useContext(ViewportContext);
@@ -126,7 +144,7 @@ export default function(props) {
   }
 
   return (
-    <ComponentContainer>
+    <ComponentContainer useForm={useForm}>
 
       <DivContainer>    
         <PictureDiv>
@@ -141,7 +159,7 @@ export default function(props) {
           } 
           { useForm==='update' && 
             <>
-              <StylH1>Update your profile ABC DEF</StylH1>
+              <StylH1_b>Update your profile</StylH1_b>
               <MomUpdateProfileForm/>
             </>
           } 
