@@ -5,10 +5,10 @@ import * as Yup from 'yup';
 import {Link} from "react-router-dom";
 
 import InputComp from './InputComp.js';
+import DisplayProfileValueComp from './DisplayProfileValueComp.js';
 import SubmitButtonWithWait from './SubmitButtonWithWait.js';
 
 import iconUser from '../../icons/fontawesome/user-alt.svg';
-import iconEnvelope from '../../icons/fontawesome/envelope.svg';
 import iconLock from '../../icons/fontawesome/lock.svg';
 import iconUnLock from '../../icons/fontawesome/unlock.svg';
 import iconMobile from '../../icons/fontawesome/mobile.svg';
@@ -42,6 +42,7 @@ const StylLink = styled(Link)`
 
 export default function(props) {
   const className = props.className;
+  const email = 'abc@def.com';
 
   //This is for the please wait message that appears after the login button is pressed
   const[waitMsgOn,setWaitMsgOn] = useState(false); 
@@ -52,7 +53,6 @@ export default function(props) {
   const formik = useFormik({
     initialValues: {
       name: '',
-      email: '',
       passwd: '',
       rptPasswd: '',
       phone:'',
@@ -60,9 +60,6 @@ export default function(props) {
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Please input a name"),
-      email: Yup.string()
-        .email('Please input a valid email address')
-        .required('Email address is required'),
       passwd: Yup.string()
         .required("Please input a password")
         .min(3,"Min of 3 chars for the password"),
@@ -95,8 +92,8 @@ export default function(props) {
         onBlur={formik.handleBlur}
         value={formik.values.name}
       />
-
-      <InputComp
+      <DisplayProfileValueComp keyText='Email:' valueText={email}/>
+      {/* <InputComp
         name='email'
         description='Email'
         type='text'
@@ -105,7 +102,7 @@ export default function(props) {
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         value={formik.values.email}
-      />
+      /> */}
 
       <InputComp
         name='passwd'

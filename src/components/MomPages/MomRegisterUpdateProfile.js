@@ -125,8 +125,6 @@ export default function(props) {
     useImg=mom3;
   }
 
-  console.log('mom page,useForm=',useForm);
-
   return (
     <ComponentContainer>
 
