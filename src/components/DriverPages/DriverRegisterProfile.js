@@ -5,7 +5,7 @@ import styled from "styled-components";
 import DriverRegisterForm from '../Form/DriverRegisterForm';
 import bike1 from '../../images/bike1.jpg';
 import bike2 from '../../images/bike2.jpg';
-// import bike3 from '../../images/bike3.jpg';
+import bike3 from '../../images/bike3.jpg';
 
 import {ViewportContext} from '../../App.js';
 
@@ -13,16 +13,16 @@ import {ViewportContext} from '../../App.js';
 const ComponentContainer = styled.div`
   width: 100vw;
   height: calc(100vh - 8.4rem);
-  min-height: 68.2rem; //60.2rem {Height of DivContainer} + 4rem*2 {min margin}
+  min-height: 77.3rem; //69.3rem {Height of DivContainer} + 4rem*2 {min margin}
   display:grid;
-  grid-template-columns: minmax(4rem, 1fr) minmax(28rem, 95.2rem) minmax(4rem, 1fr);
-  grid-template-rows: minmax(4rem, 1fr) 60.2rem minmax(4rem, 1fr);
+  grid-template-columns: minmax(4rem, 1fr) minmax(28rem, 80.1rem) minmax(4rem, 1fr);
+  grid-template-rows: minmax(4rem, 1fr) 69.3rem minmax(4rem, 1fr);
   grid-template-areas: ". . ." ". container ." ". . .";
 
   @media (max-width: 599px) {
-    grid-template-columns: minmax(2rem, 1fr) minmax(28rem, 95.2rem) minmax(2rem, 1fr);
-    grid-template-rows: minmax(2rem, 1fr) 65.1rem minmax(2rem, 1fr);
-    min-height: 69.1rem; //65.1rem {Height of DivContainer} + 2rem*2 {min margin}
+    grid-template-columns: minmax(2rem, 1fr) minmax(28rem, 80.1rem) minmax(2rem, 1fr);
+    grid-template-rows: minmax(2rem, 1fr) 91.1rem minmax(2rem, 1fr);
+    min-height: 95.1rem; //91.1rem {Height of DivContainer} + 2rem*2 {min margin}
   }
 
 `;
@@ -55,42 +55,26 @@ const DivContainer = styled.div`
 `; 
 
 const PictureDiv = styled.div`
-  height: 69.1rem;
-  background-image: url(${bike1});
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-
-  grid-area: picture;
-
-  @media (max-width: 739px) {
-    background-image: url(${bike2});
-  }
-
-  @media (max-width: 639px) {
-    background-size: 100%;
-  }
-
-
-
+  grid-area: picture;  
+  height: 69.1rem;  
 
   @media (max-width: 599px) {
-    height:20rem;
     min-width:26rem;
-  }
+    height:20rem;
+  } 
+
 `;
 
-// const PictureDiv = styled.img`
-//   width: 17.9rem;
-//   height: 69.1rem;
+const StyleImg = styled.img`
+  height:100%;
+  width:100%;
+  object-fit: cover;
 
-//   grid-area: picture;
+  @media (max-width: 639px) {
+    object-fit: fill;
+  }
 
-//   @media (max-width: 599px) {
-//     height:20rem;
-//     min-width:26rem;
-//   }
-// `;
+`;
 
 const ContentsDiv = styled.div`
   padding: 0 4rem;
@@ -117,18 +101,25 @@ const StylH1 = styled.h1`
 `;
 
 export default function SignIn() {
-  const vpSize = useContext(ViewportContext);
+  const [vpWidth] = useContext(ViewportContext);
+  let useImg = bike1;
+  if(600<=vpWidth && vpWidth < 740) {
+    useImg=bike2;
+  }
+  if(vpWidth<600) {
+    useImg=bike3;
+  }
 
 
   return (
     <ComponentContainer>
 
-      <DivContainer>
-        {/* <PictureDiv src={img1} ></PictureDiv> */}
-        <PictureDiv></PictureDiv>
+      <DivContainer>    
+        <PictureDiv>
+          <StyleImg src={useImg}/>
+        </PictureDiv>
         <ContentsDiv>
-          {/* <StylH1>Drive with Ride for Life</StylH1>    */}
-  <StylH1>w={vpSize[0]},h={vpSize[1]}</StylH1>
+          <StylH1>Drive with Ride for Life</StylH1>   
           <DriverRegisterForm/>
         </ContentsDiv>
       </DivContainer>
