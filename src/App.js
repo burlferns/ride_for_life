@@ -11,6 +11,7 @@ import DriverProfile from './components/DriverPages/DriverProfile.js';
 import DriverReviewsList from './components/DriverPages/DriverReviewsList.js';
 
 import DriverRegisterProfile from './components/DriverPages/DriverRegisterProfile.js';
+import MomRegisterProfile from './components/MomPages/MomRegisterProfile.js';
 
 
 import Temp from './components/GeneralPages/Temp.js';
@@ -45,7 +46,7 @@ function App() {
         <HeaderNav/>
 
         <Switch>
-          {/* <Route exact path='/' component={SignIn}/> */}
+          <Route exact path='/1' component={SignIn}/>
           <Route exact path='/mom/profile' component={MomProfile}/>
           <Route exact path='/mom/driversList' component={MomDriversList}/>
           <Route exact path='/mom/reviewsList' component={MomReviewsList}/>
@@ -53,7 +54,8 @@ function App() {
           <Route exact path='/driver/profile' component={DriverProfile}/>
           <Route exact path='/driver/reviewsList' component={DriverReviewsList}/>
 
-          <Route exact path='/' component={DriverRegisterProfile}/>
+          <Route exact path='/2' component={DriverRegisterProfile}/>
+          <Route exact path='/' component={MomRegisterProfile}/>
 
         </Switch>      
 
