@@ -11,7 +11,7 @@ import DriverProfile from './components/DriverPages/DriverProfile.js';
 import DriverReviewsList from './components/DriverPages/DriverReviewsList.js';
 
 import DriverRegisterProfile from './components/DriverPages/DriverRegisterProfile.js';
-import MomRegisterProfile from './components/MomPages/MomRegisterProfile.js';
+import MomRegisterUpdateProfile from './components/MomPages/MomRegisterUpdateProfile.js';
 
 
 import Temp from './components/GeneralPages/Temp.js';
@@ -55,7 +55,14 @@ function App() {
           <Route exact path='/driver/reviewsList' component={DriverReviewsList}/>
 
           <Route exact path='/2' component={DriverRegisterProfile}/>
-          <Route exact path='/' component={MomRegisterProfile}/>
+
+          <Route exact path='/mr'>
+            <MomRegisterUpdateProfile useForm='register'/>
+          </Route>
+
+          <Route exact path='/mu'>
+            <MomRegisterUpdateProfile useForm='update'/>
+          </Route>
 
         </Switch>      
 

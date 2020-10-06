@@ -2,7 +2,8 @@ import React, {useContext} from 'react';
 import styled from "styled-components";
 
 
-import MomRegisterForm from '../Form/MomRegisterForm';
+import MomRegisterForm from '../Form/MomRegisterForm.js';
+import MomUpdateProfileForm from '../Form/MomUpdateProfileForm.js';
 import mom1 from '../../images/mom1.jpg';
 import mom2 from '../../images/mom2.jpg';
 import mom3 from '../../images/mom3.jpg';
@@ -113,7 +114,8 @@ const StylH1 = styled.h1`
   }
 `;
 
-export default function SignIn() {
+export default function(props) {
+  const useForm = props.useForm;
   const [vpWidth] = useContext(ViewportContext);
   let useImg = mom1;
   if(600<=vpWidth && vpWidth < 640) {
@@ -123,6 +125,7 @@ export default function SignIn() {
     useImg=mom3;
   }
 
+  console.log('mom page,useForm=',useForm);
 
   return (
     <ComponentContainer>
@@ -132,8 +135,18 @@ export default function SignIn() {
           <StyleImg src={useImg}/>
         </PictureDiv>
         <ContentsDiv>
-          <StylH1>Register with Ride for Life</StylH1>   
-          <MomRegisterForm/>
+          { useForm==='register' && 
+            <>
+              <StylH1>Register with Ride for Life</StylH1>
+              <MomRegisterForm/>
+            </>
+          } 
+          { useForm==='update' && 
+            <>
+              <StylH1>Update your profile ABC DEF</StylH1>
+              <MomUpdateProfileForm/>
+            </>
+          } 
         </ContentsDiv>
       </DivContainer>
 
