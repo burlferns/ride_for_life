@@ -22,6 +22,10 @@ const StlyBtn = styled.button`
   background: #3C97D7;
   outline: none;
   border: none;
+
+  :active {
+    border:3px solid white;
+  }
 `;
 
 const DivWait = styled.div`

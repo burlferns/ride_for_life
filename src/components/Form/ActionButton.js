@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 const DivContainer = styled.div`
   width:26rem;
@@ -17,6 +17,10 @@ const StlyBtn = styled.button`
   background: #3C97D7;
   outline: none;
   border: none;
+
+  :active {
+    border:3px solid white;
+  }
 `;
 
 

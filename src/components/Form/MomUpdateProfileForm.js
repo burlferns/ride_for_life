@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import styled from "styled-components";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import {Link} from "react-router-dom";
 
 import InputComp from './InputComp.js';
 import DisplayProfileValueComp from './DisplayProfileValueComp.js';
@@ -19,40 +18,58 @@ const StylForm = styled.form`
   width:fit-content;
 `;
 
-const ErrorMsgDiv = styled.div`
-  margin-top 0.5rem;
-  width:26rem;
-  height:2.4rem;
-`;
-
-const ErrorP = styled.div`
-  color:red;
-  font-size: 1.2rem;
-`;
-
-const RegisterDiv = styled.div`
-  width:26rem;
-  margin-top:1.8rem;
-`;
-
-const StylLink = styled(Link)`
-  font-size: 1.2rem;
-`;
-
-const StylActionButton = styled(ActionButton)`
+const DeleteButton = styled(ActionButton)`
   margin-top:3.4rem;
 `;
 
+const ScreenDiv = styled.div`
+  width:100vw;
+  height:100vh;
+  position:fixed;
+  top:0;
+  left:0;
+  z-index: 2;
+  background: rgba(192,192,192, 0.9);
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+  
+`;
+
+const WarnDiv = styled.div`
+  width:fit-content;
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  background: white;
+`;
+
+
+const WarnText = styled.p`
+  font-size: 2.5rem;
+  margin-bottom:2.5rem;
+  margin-top:2.5rem;
+  text-align: center;
+  width: 32rem;
+  font-weight: 900;
+`;
+
+const WarnButtons = styled(ActionButton)`
+  margin-bottom:2.5rem;
+`;
 
 export default function(props) {
   const className = props.className;
   const email = 'abc@def.com';
 
   //This is for the please wait message that appears after the login button is pressed
-  const[waitMsgOn,setWaitMsgOn] = useState(false); 
+  const [waitMsgOn,setWaitMsgOn] = useState(false); 
 
-  //This is for the error message that appears if email is already being used
-  const[errorMsgOn,setErrorMsgOn] = useState(true); 
+  //This is for the delete profile warning
+  const [warningOn, setWarningOn] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -70,10 +87,17 @@ export default function(props) {
     }),
     onSubmit: function(values) {
       setWaitMsgOn(true);
-      setErrorMsgOn(false);
       console.log('onSubmit func, values=',values);
     }
   })
+
+  function deleteHdnl() {
+    setWarningOn(true);
+  }
+
+  function noHdnl() {
+    setWarningOn(false);
+  }
 
   return (
     <StylForm onSubmit={formik.handleSubmit} className={className}>
@@ -115,11 +139,30 @@ export default function(props) {
 
       <SubmitButtonWithWait
         text='Update Profile'
+        msgOn={waitMsgOn}
       />
 
-      <StylActionButton
+      <DeleteButton
         text='Delete Profile'
+        onClick={deleteHdnl}
       />
+
+      { warningOn &&
+        <ScreenDiv>
+          <WarnDiv>
+            <WarnText>Are you sure you want to delete your profile?</WarnText>
+            <WarnButtons
+              text='Yes - delete profile'
+            />
+            <WarnButtons
+              text='No - keep profile'
+              onClick={noHdnl}
+            />
+          </WarnDiv>
+        </ScreenDiv>
+      }
+
+      
 
 
     </StylForm>      

@@ -126,7 +126,7 @@ const StylH1 = styled.h1`
   }
 `;
 
-const StylH1_b = styled.h1`
+const StylH1B = styled.h1`
   font-size: 2.5rem;
   margin-bottom: 2.5rem;
   line-height:normal;
@@ -159,7 +159,7 @@ export default function(props) {
           } 
           { useForm==='update' && 
             <>
-              <StylH1_b>Update your profile</StylH1_b>
+              <StylH1B>Update your profile</StylH1B>
               <MomUpdateProfileForm/>
             </>
           } 
