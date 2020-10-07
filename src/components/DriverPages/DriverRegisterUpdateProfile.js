@@ -2,7 +2,8 @@ import React, {useContext} from 'react';
 import styled from "styled-components";
 
 
-import DriverRegisterForm from '../Form/DriverRegisterForm';
+import DriverRegisterForm from '../Form/DriverRegisterForm.js';
+import DriverUpdateProfileForm from '../Form/DriverUpdateProfileForm.js';
 import bike1 from '../../images/bike1.jpg';
 import bike2 from '../../images/bike2.jpg';
 import bike3 from '../../images/bike3.jpg';
@@ -21,8 +22,21 @@ const ComponentContainer = styled.div`
 
   @media (max-width: 599px) {
     grid-template-columns: minmax(2rem, 1fr) minmax(28rem, 80.1rem) minmax(2rem, 1fr);
-    grid-template-rows: minmax(2rem, 1fr) 91.1rem minmax(2rem, 1fr);
-    min-height: 95.1rem; //91.1rem {Height of DivContainer} + 2rem*2 {min margin}
+    grid-template-rows: 
+      minmax(2rem, 1fr) 
+      ${props => {
+        if(props.useForm==='register') {return '91.1rem'}
+        if(props.useForm==='update') {return '77.6rem'}
+      }}
+      minmax(2rem, 1fr);
+    min-height: 
+      ${props => {
+        //91.1rem {Height of DivContainer} + 2rem*2 {min margin}
+        if(props.useForm==='register') {return '95.1rem'}
+
+        //81.6rem {Height of DivContainer} + 2rem*2 {min margin}
+        if(props.useForm==='update') {return '81.6rem'}
+      }};
   }
 
 `;
@@ -98,9 +112,11 @@ const ContentsDiv = styled.div`
 const StylH1 = styled.h1`
   font-size: 2.5rem;
   margin-bottom: 2.5rem;
+  text-align: center;
 `;
 
-export default function SignIn() {
+export default function(props) {
+  const useForm = props.useForm;
   const [vpWidth] = useContext(ViewportContext);
   let useImg = bike1;
   if(600<=vpWidth && vpWidth < 740) {
@@ -112,15 +128,25 @@ export default function SignIn() {
 
 
   return (
-    <ComponentContainer>
+    <ComponentContainer useForm={useForm}>
 
       <DivContainer>    
         <PictureDiv>
           <StyleImg src={useImg}/>
         </PictureDiv>
         <ContentsDiv>
-          <StylH1>Drive with Ride for Life</StylH1>   
-          <DriverRegisterForm/>
+          { useForm==='register' && 
+            <>
+              <StylH1>Drive with Ride for Life</StylH1>
+              <DriverRegisterForm/>
+            </>
+          } 
+          { useForm==='update' && 
+            <>
+              <StylH1>Update your profile</StylH1>
+              <DriverUpdateProfileForm/>
+            </>
+          } 
         </ContentsDiv>
       </DivContainer>
 

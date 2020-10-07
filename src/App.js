@@ -10,7 +10,7 @@ import MomReviewsList from './components/MomPages/MomReviewsList.js';
 import DriverProfile from './components/DriverPages/DriverProfile.js';
 import DriverReviewsList from './components/DriverPages/DriverReviewsList.js';
 
-import DriverRegisterProfile from './components/DriverPages/DriverRegisterProfile.js';
+import DriverRegisterUpdateProfile from './components/DriverPages/DriverRegisterUpdateProfile.js';
 import MomRegisterUpdateProfile from './components/MomPages/MomRegisterUpdateProfile.js';
 
 
@@ -54,7 +54,7 @@ function App() {
           <Route exact path='/driver/profile' component={DriverProfile}/>
           <Route exact path='/driver/reviewsList' component={DriverReviewsList}/>
 
-          <Route exact path='/2' component={DriverRegisterProfile}/>
+          
 
           <Route exact path='/mr'>
             <MomRegisterUpdateProfile useForm='register'/>
@@ -63,6 +63,17 @@ function App() {
           <Route exact path='/mu'>
             <MomRegisterUpdateProfile useForm='update'/>
           </Route>
+
+          <Route exact path='/dr'>
+            <DriverRegisterUpdateProfile useForm='register'/>
+          </Route>
+
+          <Route exact path='/du'>
+            <DriverRegisterUpdateProfile useForm='update'/>
+          </Route>
+
+
+
 
         </Switch>      
 

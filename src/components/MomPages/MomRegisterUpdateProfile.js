@@ -119,6 +119,7 @@ const StylH1 = styled.h1`
   font-size: 2.5rem;
   margin-bottom: 2.5rem;
   line-height:normal;
+  text-align: center;
 
   @media (max-width: 599px) {
     width:18rem;
@@ -130,6 +131,7 @@ const StylH1B = styled.h1`
   font-size: 2.5rem;
   margin-bottom: 2.5rem;
   line-height:normal;
+  text-align: center;
 `;
 
 export default function(props) {
