@@ -43,9 +43,7 @@ const DivContainer = styled.div`
     grid-template-rows: auto;
     grid-template-areas: "picture" "content";
 
-    // justify-items: center;
   }
-
 `; 
 
 const PictureDiv = styled.div`

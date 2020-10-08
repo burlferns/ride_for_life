@@ -18,16 +18,18 @@ The userData reducer state slice looks like this:
     If a driver is logged in:
     {
       userType: 'driver',
-      users_name: ,
-      users_plot: ,
-      users_phone_number: , 
-      users_email: ,
+      drivers_name: ,
+      drivers_plot: ,
+      drivers_phone_number: , 
+      drivers_email: ,
       drivers_price: 
     }
 
 */
 
-const reducerInitialState = { };
+const reducerInitialState = { 
+  userType: null
+};
 
 export default function(state=reducerInitialState, action) {
   switch(action.type) {

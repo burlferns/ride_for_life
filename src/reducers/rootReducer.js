@@ -19,7 +19,18 @@ localstorage:
   -- userId
 
 */
+import { combineReducers} from 'redux';
+import userDataReducer from './userDataReducer.js';
+import momDataReducer from './momDataReducer.js';
+import driverDataReducer from './driverDataReducer.js';
 
 
+export const rootReducer = combineReducers(
+  {
+    userData: userDataReducer, 
+    momData: momDataReducer,
+    driverData: driverDataReducer
+  }
+)
 
 

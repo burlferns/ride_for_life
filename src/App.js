@@ -1,5 +1,5 @@
 import React, {useEffect,useState} from 'react';
-import { Route, Switch } from "react-router-dom";
+import {Route, Switch } from "react-router-dom";
 
 import HeaderNav from './components/Header_Nav/HeaderNav.js';
 import SignIn from './components/GeneralPages/SignIn.js';
@@ -9,12 +9,12 @@ import MomDriversList from './components/MomPages/MomDriversList.js';
 import MomReviewsList from './components/MomPages/MomReviewsList.js';
 import DriverProfile from './components/DriverPages/DriverProfile.js';
 import DriverReviewsList from './components/DriverPages/DriverReviewsList.js';
-
 import DriverRegisterUpdateProfile from './components/DriverPages/DriverRegisterUpdateProfile.js';
 import MomRegisterUpdateProfile from './components/MomPages/MomRegisterUpdateProfile.js';
 
+import PublicRoute from './utils/PublicRoute.js';
 
-import Temp from './components/GeneralPages/Temp.js';
+//import Temp from './components/GeneralPages/Temp.js';
 
 export const ViewportContext = React.createContext([]);
 
@@ -43,39 +43,34 @@ function App() {
     <ViewportContext.Provider value={vpSize}>
       <div className="App">
         <HeaderNav/>
-
         <Switch>
-          <Route exact path='/1' component={SignIn}/>
+          <PublicRoute 
+            routeAttributes={ {exact:true, path:'/'} }
+            element={<SignIn/>}
+          />
+            
+      
+
           <Route exact path='/mom/profile' component={MomProfile}/>
           <Route exact path='/mom/driversList' component={MomDriversList}/>
           <Route exact path='/mom/reviewsList' component={MomReviewsList}/>
-
-          <Route exact path='/driver/profile' component={DriverProfile}/>
-          <Route exact path='/driver/reviewsList' component={DriverReviewsList}/>
-
-          
-
-          <Route exact path='/mr'>
+          <Route exact path='/mom/register'>
             <MomRegisterUpdateProfile useForm='register'/>
           </Route>
-
-          <Route exact path='/mu'>
+          <Route exact path='/mom/updateprofile'>
             <MomRegisterUpdateProfile useForm='update'/>
           </Route>
 
-          <Route exact path='/dr'>
+          <Route exact path='/driver/profile' component={DriverProfile}/>
+          <Route exact path='/driver/reviewsList' component={DriverReviewsList}/>
+          <Route exact path='/driver/register'>
             <DriverRegisterUpdateProfile useForm='register'/>
           </Route>
-
-          <Route exact path='/du'>
+          <Route exact path='/driver/updateprofile'>
             <DriverRegisterUpdateProfile useForm='update'/>
           </Route>
 
-
-
-
         </Switch>      
-
         <Footer/>
       </div>
     </ViewportContext.Provider>
