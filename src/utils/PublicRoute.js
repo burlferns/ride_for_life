@@ -6,6 +6,7 @@ const selectorFunc = state=>state.userData.userType;
 
 export default function(props) {
   const routeAttributes = props.routeAttributes;
+  const element = props.element;
   const userType = useSelector(selectorFunc);
 
   return (
@@ -14,7 +15,7 @@ export default function(props) {
       render = { 
         function() {
           if(userType===null) {
-            return props.element;
+            return element;
           }
           if(userType==='mom') {
             return <Redirect to="/mom/profile" />
@@ -25,8 +26,5 @@ export default function(props) {
         }
       }
     />
-
-    // null
-
   );
 }

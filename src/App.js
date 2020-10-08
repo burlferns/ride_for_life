@@ -13,6 +13,7 @@ import DriverRegisterUpdateProfile from './components/DriverPages/DriverRegister
 import MomRegisterUpdateProfile from './components/MomPages/MomRegisterUpdateProfile.js';
 
 import PublicRoute from './utils/PublicRoute.js';
+import MomPrivateRoute from './utils/MomPrivateRoute.js';
 
 //import Temp from './components/GeneralPages/Temp.js';
 
@@ -48,10 +49,13 @@ function App() {
             routeAttributes={ {exact:true, path:'/'} }
             element={<SignIn/>}
           />
-            
+          <MomPrivateRoute 
+            routeAttributes={ {exact:true, path:'/mom/profile'} }
+            element={<MomProfile/>}
+          />  
       
 
-          <Route exact path='/mom/profile' component={MomProfile}/>
+          
           <Route exact path='/mom/driversList' component={MomDriversList}/>
           <Route exact path='/mom/reviewsList' component={MomReviewsList}/>
           <Route exact path='/mom/register'>
