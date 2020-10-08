@@ -39,7 +39,6 @@ function App() {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
   
-
   return (
     <ViewportContext.Provider value={vpSize}>
       <div className="App">

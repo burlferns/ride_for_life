@@ -1,34 +1,25 @@
-const reducerInitialState = {
-  userType : 'mom'
+/*
+The root reducer state slice looks like this:
+{
+  userData: { ... },
+  momData: { ... },
+  driverData: { ... }
 }
 
-export default function(state=reducerInitialState, action) {
-  switch(action.type) {
-    case 'setUserTypeMom' : {
-      const newState = {
-        ...state,
-        userType : 'mom'
-      }
-      return newState;
-    }
+Where:
+  -- userData is info about the user, whether it is a mom or driver.
+  -- momData is info for a mom user.
+  -- driverData is info for a driver.
+See the respective slice reducers for the shape of the data
 
-    case 'setUserTypeDriver' : {
-      const newState = {
-        ...state,
-        userType : 'driver'
-      }
-      return newState;
-    }
 
-    case 'setUserTypeNone' : {
-      const newState = {
-        ...state,
-        userType : null
-      }
-      return newState;
-    }
+In addtion when a user is logged in the following will be stored in
+localstorage: 
+  -- authToken 
+  -- userId
 
-    default:
-      return state;
-  }
-}
+*/
+
+
+
+
