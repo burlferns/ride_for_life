@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import InputComp from './InputComp.js';
 import DropDownSelectComp from './DropDownSelectComp.js';
 import SubmitButtonWithWait from './SubmitButtonWithWait.js';
+import {axiosNoAuth} from '../../utils/axiosConfig.js';
 
 import iconEnvelope from '../../icons/fontawesome/envelope.svg';
 import iconLock from '../../icons/fontawesome/lock.svg';
@@ -20,9 +21,10 @@ const StylForm = styled.form`
 const ErrorMsgDiv = styled.div`
   margin-top 0.5rem;
   width:fit-content;
+  height: 1.2rem;
 `;
 
-const ErrorP = styled.div`
+const ErrorP = styled.p`
   color:red;
   font-size: 1.2rem;
 `;
@@ -50,7 +52,7 @@ export default function(props) {
   const[waitMsgOn,setWaitMsgOn] = useState(false); 
 
   //This is for the error message that appears if login credentials are bad
-  const[errorMsgOn,setErrorMsgOn] = useState(true); 
+  const[errorMsgOn,setErrorMsgOn] = useState(false); 
 
   const formik = useFormik({
     initialValues: {
@@ -68,10 +70,37 @@ export default function(props) {
         .oneOf(["Mom", "Driver"],"Please choose account type")
         .required("Please choose account type")
     }),
-    onSubmit: function(values) {
+    onSubmit: async function(values) {
       setWaitMsgOn(true);
       setErrorMsgOn(false);
-      console.log('onSubmit func, values=',values);
+
+      let response;
+      
+      try {
+        if(values.userType==='Mom') {
+          const dataToServer = {
+            users_email: values.email,
+            password: values.passwd
+          }
+          response = await axiosNoAuth().post('/api/auth/user_login',dataToServer);
+          // console.log('login,response=',response);
+        }
+
+      
+
+
+      } catch(error) {
+        // console.log('login,error.response=',error.response);
+        if(error.response && error.response.data.message==='Invalid credentials') {
+          setErrorMsgOn(true);
+          setWaitMsgOn(false);
+        }
+        
+      }
+
+
+      
+
     }
   })
 
@@ -81,7 +110,7 @@ export default function(props) {
       <InputComp
         name='email'
         description='Email Address'
-        type='text'
+        type='email'   
         icon={iconEnvelope}
         error={formik.touched.email && formik.errors.email}
         onChange={formik.handleChange}
