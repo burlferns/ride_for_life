@@ -46,9 +46,9 @@ export default function(props) {
   }
 
   function logOut() {
-    dispatch({
-      type:'setUserTypeNone'
-    });
+    // dispatch({
+    //   type:'setUserTypeNone'
+    // });
   }
 
   function blurHndl(event) {
