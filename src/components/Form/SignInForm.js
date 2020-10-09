@@ -78,7 +78,6 @@ export default function(props) {
     onSubmit: async function(values) {
       setWaitMsgOn(true);
       setErrorMsgOn(false);
-
       let response;
       
       try {
@@ -88,13 +87,10 @@ export default function(props) {
             password: values.passwd
           }
           response = await axiosNoAuth().post('/api/auth/user_login',dataToServer);
-          console.log('login,response1=',response);
           localStorage.setItem('authToken',response.data.token);
           localStorage.setItem('userId',response.data.id);
-          console.log('token=',localStorage.getItem('authToken'));
 
           response = await axiosWithAuth().get(`/api/users/${response.data.id}`);
-          console.log('login,response2=',response);
           
           const dataForReducer = {
             userType: 'mom',
@@ -115,13 +111,10 @@ export default function(props) {
             password: values.passwd
           }
           response = await axiosNoAuth().post('/api/auth/driver_login',dataToServer);
-          console.log('login,response1=',response);
           localStorage.setItem('authToken',response.data.token);
           localStorage.setItem('userId',response.data.id);
-          console.log('token=',localStorage.getItem('authToken'));
 
           response = await axiosWithAuth().get(`/api/drivers/${response.data.id}`);
-          console.log('login,response2=',response);
           
           const dataForReducer = {
             userType: 'driver',
@@ -138,17 +131,11 @@ export default function(props) {
           //command above because of how PublicRoute.js is written
         }
       } catch(error) {
-        console.log('login,error.response=',error.response);
         if(error.response && error.response.data.message==='Invalid credentials') {
           setErrorMsgOn(true);
           setWaitMsgOn(false);
         }
-        
       }
-
-
-      
-
     }
   })
 
