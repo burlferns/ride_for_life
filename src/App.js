@@ -1,5 +1,5 @@
 import React, {useEffect,useState} from 'react';
-import {Route, Switch } from "react-router-dom";
+import {Route} from "react-router-dom";
 
 import HeaderNav from './components/Header_Nav/HeaderNav.js';
 import SignIn from './components/GeneralPages/SignIn.js';
@@ -44,37 +44,36 @@ function App() {
     <ViewportContext.Provider value={vpSize}>
       <div className="App">
         <HeaderNav/>
-        <Switch>
-          <PublicRoute 
-            routeAttributes={ {exact:true, path:'/'} }
-            element={<SignIn/>}
-          />
-          <MomPrivateRoute 
-            routeAttributes={ {exact:true, path:'/mom/profile'} }
-            element={<MomProfile/>}
-          />  
-      
 
-          
-          <Route exact path='/mom/driversList' component={MomDriversList}/>
-          <Route exact path='/mom/reviewsList' component={MomReviewsList}/>
-          <Route exact path='/mom/register'>
-            <MomRegisterUpdateProfile useForm='register'/>
-          </Route>
-          <Route exact path='/mom/updateprofile'>
-            <MomRegisterUpdateProfile useForm='update'/>
-          </Route>
+        <PublicRoute 
+          routeAttributes={ {exact:true, path:'/'} }
+          element={<SignIn/>}
+        />
+        <MomPrivateRoute 
+          routeAttributes={ {exact:true, path:'/mom/profile'} }
+          element={<MomProfile/>}
+        />  
+    
+        
+        
+        <Route exact path='/mom/driversList' component={MomDriversList}/>
+        <Route exact path='/mom/reviewsList' component={MomReviewsList}/>
+        <Route exact path='/mom/register'>
+          <MomRegisterUpdateProfile useForm='register'/>
+        </Route>
+        <Route exact path='/mom/updateprofile'>
+          <MomRegisterUpdateProfile useForm='update'/>
+        </Route>
 
-          <Route exact path='/driver/profile' component={DriverProfile}/>
-          <Route exact path='/driver/reviewsList' component={DriverReviewsList}/>
-          <Route exact path='/driver/register'>
-            <DriverRegisterUpdateProfile useForm='register'/>
-          </Route>
-          <Route exact path='/driver/updateprofile'>
-            <DriverRegisterUpdateProfile useForm='update'/>
-          </Route>
+        <Route exact path='/driver/profile' component={DriverProfile}/>
+        <Route exact path='/driver/reviewsList' component={DriverReviewsList}/>
+        <Route exact path='/driver/register'>
+          <DriverRegisterUpdateProfile useForm='register'/>
+        </Route>
+        <Route exact path='/driver/updateprofile'>
+          <DriverRegisterUpdateProfile useForm='update'/>
+        </Route>
 
-        </Switch>      
         <Footer/>
       </div>
     </ViewportContext.Provider>

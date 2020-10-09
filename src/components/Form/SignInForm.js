@@ -3,14 +3,17 @@ import styled from "styled-components";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {Link} from "react-router-dom";
+import {useDispatch} from 'react-redux';
 
 import InputComp from './InputComp.js';
 import DropDownSelectComp from './DropDownSelectComp.js';
 import SubmitButtonWithWait from './SubmitButtonWithWait.js';
-import {axiosNoAuth} from '../../utils/axiosConfig.js';
+import {axiosNoAuth,axiosWithAuth} from '../../utils/axiosConfig.js';
 
 import iconEnvelope from '../../icons/fontawesome/envelope.svg';
 import iconLock from '../../icons/fontawesome/lock.svg';
+
+import {setMomData} from '../../reducers/userDataReducer.js';
 
 const StylForm = styled.form`
   display: flex;
@@ -54,6 +57,8 @@ export default function(props) {
   //This is for the error message that appears if login credentials are bad
   const[errorMsgOn,setErrorMsgOn] = useState(false); 
 
+  const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -83,7 +88,27 @@ export default function(props) {
             password: values.passwd
           }
           response = await axiosNoAuth().post('/api/auth/user_login',dataToServer);
-          // console.log('login,response=',response);
+          console.log('login,response1=',response);
+          localStorage.setItem('authToken',response.data.token);
+          localStorage.setItem('userId',response.data.id);
+          console.log('token=',localStorage.getItem('authToken'));
+
+          response = await axiosWithAuth().get(`/api/users/${response.data.id}`);
+          console.log('login,response2=',response);
+          
+          const dataForReducer = {
+            userType: 'mom',
+            users_name: response.data.users_name,
+            users_plot: response.data.users_plot,
+            users_phone_number: response.data.users_phone_number,
+            users_email: response.data.users_email
+          }
+
+          dispatch(setMomData(dataForReducer));
+
+          //Note that I don't need to useHistory to go to the mom profile page at this point, as
+          //it will go there once we make the state userData.userType='mom' with the dispatch
+          //command above because of how PublicRoute.js is written
         }
 
       

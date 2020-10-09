@@ -18,9 +18,9 @@ export default function(props) {
     <>
       <StylH1>This is the Mom Profile page</StylH1>
       <p>mom name : {userData.users_name}</p>
-      <p>mom plot : {userData.users_name}</p>
-      <p>mom phone number : {userData.users_name}</p>
-      <p>mom email : {userData.users_name}</p>
+      <p>mom plot : {userData.users_plot}</p>
+      <p>mom phone number : {userData.users_phone_number}</p>
+      <p>mom email : {userData.users_email}</p>
     </>
   );
 }

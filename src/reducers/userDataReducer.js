@@ -33,7 +33,10 @@ const reducerInitialState = {
 
 export default function(state=reducerInitialState, action) {
   switch(action.type) {
-    
+    case 'userData/setMomData': {
+      
+      return {...action.payload}
+    }
 
     default:
       return state;
@@ -41,7 +44,14 @@ export default function(state=reducerInitialState, action) {
 }
 
 
-
-
+/***********************************************************************
+ The following are the actions for this reducer only
+ ***********************************************************************/
+export function setMomData(data) {
+  return {
+    type: 'userData/setMomData',
+    payload: data
+  }
+}
 
 
