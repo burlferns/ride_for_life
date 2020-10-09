@@ -13,7 +13,7 @@ import {axiosNoAuth,axiosWithAuth} from '../../utils/axiosConfig.js';
 import iconEnvelope from '../../icons/fontawesome/envelope.svg';
 import iconLock from '../../icons/fontawesome/lock.svg';
 
-import {setMomData} from '../../reducers/userDataReducer.js';
+import {setUserData} from '../../reducers/userDataReducer.js';
 
 const StylForm = styled.form`
   display: flex;
@@ -103,19 +103,42 @@ export default function(props) {
             users_phone_number: response.data.users_phone_number,
             users_email: response.data.users_email
           }
-
-          dispatch(setMomData(dataForReducer));
+          dispatch(setUserData(dataForReducer));
 
           //Note that I don't need to useHistory to go to the mom profile page at this point, as
           //it will go there once we make the state userData.userType='mom' with the dispatch
           //command above because of how PublicRoute.js is written
         }
+        if(values.userType==='Driver') {
+          const dataToServer = {
+            drivers_email: values.email,
+            password: values.passwd
+          }
+          response = await axiosNoAuth().post('/api/auth/driver_login',dataToServer);
+          console.log('login,response1=',response);
+          localStorage.setItem('authToken',response.data.token);
+          localStorage.setItem('userId',response.data.id);
+          console.log('token=',localStorage.getItem('authToken'));
 
-      
+          response = await axiosWithAuth().get(`/api/drivers/${response.data.id}`);
+          console.log('login,response2=',response);
+          
+          const dataForReducer = {
+            userType: 'driver',
+            drivers_name: response.data.drivers_name,
+            drivers_plot: response.data.drivers_plot,
+            drivers_phone_number: response.data.drivers_phone_number,
+            drivers_email: response.data.drivers_email,
+            drivers_price: response.data.drivers_price
+          }
+          dispatch(setUserData(dataForReducer));
 
-
+          //Note that I don't need to useHistory to go to the driver profile page at this point, as
+          //it will go there once we make the state userData.userType='driver' with the dispatch
+          //command above because of how PublicRoute.js is written
+        }
       } catch(error) {
-        // console.log('login,error.response=',error.response);
+        console.log('login,error.response=',error.response);
         if(error.response && error.response.data.message==='Invalid credentials') {
           setErrorMsgOn(true);
           setWaitMsgOn(false);

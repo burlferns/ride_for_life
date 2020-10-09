@@ -14,6 +14,7 @@ import MomRegisterUpdateProfile from './components/MomPages/MomRegisterUpdatePro
 
 import PublicRoute from './utils/PublicRoute.js';
 import MomPrivateRoute from './utils/MomPrivateRoute.js';
+import DriverPrivateRoute from './utils/DriverPrivateRoute.js';
 
 //import Temp from './components/GeneralPages/Temp.js';
 
@@ -49,27 +50,34 @@ function App() {
           routeAttributes={ {exact:true, path:'/'} }
           element={<SignIn/>}
         />
+        <PublicRoute 
+          routeAttributes={ {exact:true, path:'/mom/register'} }
+          element={<MomRegisterUpdateProfile useForm='register'/>}
+        />
+        <PublicRoute 
+          routeAttributes={ {exact:true, path:'/driver/register'} }
+          element={<DriverRegisterUpdateProfile useForm='register'/>}
+        />
+
+
+        {/* Routes for mom only */}
         <MomPrivateRoute 
           routeAttributes={ {exact:true, path:'/mom/profile'} }
           element={<MomProfile/>}
         />  
-    
-        
-        
         <Route exact path='/mom/driversList' component={MomDriversList}/>
         <Route exact path='/mom/reviewsList' component={MomReviewsList}/>
-        <Route exact path='/mom/register'>
-          <MomRegisterUpdateProfile useForm='register'/>
-        </Route>
         <Route exact path='/mom/updateprofile'>
           <MomRegisterUpdateProfile useForm='update'/>
         </Route>
 
-        <Route exact path='/driver/profile' component={DriverProfile}/>
+
+        {/* Routes for drivers only */}
+        <DriverPrivateRoute 
+          routeAttributes={ {exact:true, path:'/driver/profile'} }
+          element={<DriverProfile/>}
+        />  
         <Route exact path='/driver/reviewsList' component={DriverReviewsList}/>
-        <Route exact path='/driver/register'>
-          <DriverRegisterUpdateProfile useForm='register'/>
-        </Route>
         <Route exact path='/driver/updateprofile'>
           <DriverRegisterUpdateProfile useForm='update'/>
         </Route>
