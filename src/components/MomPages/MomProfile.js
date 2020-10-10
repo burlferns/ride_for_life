@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import {useSelector} from 'react-redux';
+import {Link} from "react-router-dom";
 
 const StylH1 = styled.h1`
   margin:5rem 5rem;
@@ -21,6 +22,7 @@ export default function(props) {
       <p>mom plot : {userData.users_plot}</p>
       <p>mom phone number : {userData.users_phone_number}</p>
       <p>mom email : {userData.users_email}</p>
+      <Link to='/mom/updateprofile'>Update Profile</Link>
     </>
   );
 }

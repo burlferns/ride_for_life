@@ -2,15 +2,20 @@ import React, {useState} from 'react';
 import styled from "styled-components";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import {useDispatch, useSelector} from 'react-redux';
+import {useHistory} from "react-router-dom";
 
 import InputComp from './InputComp.js';
 import DisplayProfileValueComp from './DisplayProfileValueComp.js';
 import SubmitButtonWithWait from './SubmitButtonWithWait.js';
 import ActionButton from './ActionButton.js';
+import {axiosWithAuth} from '../../utils/axiosConfig.js';
 
 import iconUser from '../../icons/fontawesome/user-alt.svg';
 import iconMobile from '../../icons/fontawesome/mobile.svg';
 import iconMap from '../../icons/fontawesome/map-marked-alt.svg';
+
+import {updateUserData} from '../../reducers/userDataReducer.js';
 
 const StylForm = styled.form`
   display: flex;
@@ -61,15 +66,22 @@ const WarnButtons = styled(ActionButton)`
   margin-bottom:2.5rem;
 `;
 
+const selectorFunc = state=>state.userData.users_email;
+
 export default function(props) {
   const className = props.className;
-  const email = 'abc@def.com';
+  const dispatch = useDispatch();
+  const email = useSelector(selectorFunc);
+  const histObj = useHistory();
 
   //This is for the please wait message that appears after the login button is pressed
   const [waitMsgOn,setWaitMsgOn] = useState(false); 
 
   //This is for the delete profile warning
   const [warningOn, setWarningOn] = useState(false);
+
+  //This is for the message 'update successful'
+  const[doSuccessMsg,setDoSuccessMsg] = useState(false); 
 
   const formik = useFormik({
     initialValues: {
@@ -85,9 +97,24 @@ export default function(props) {
         .typeError("Please input an integer plot number")
         .integer("Please input an integer plot number")
     }),
-    onSubmit: function(values) {
+    onSubmit: async function(values) {
       setWaitMsgOn(true);
-      console.log('onSubmit func, values=',values);
+
+      try {
+        const dataToServer = {
+          users_name: values.name,
+          users_plot: values.plot,
+          users_phone_number: values.phone
+        }
+        const userId = localStorage.getItem('userId');
+        await axiosWithAuth().put(`/api/users/${userId}`, dataToServer);
+        dispatch(updateUserData(dataToServer));
+        setWaitMsgOn(false);
+        setDoSuccessMsg(true);
+      }
+      catch(error) {
+        // console.log('MomUpdateProfileForm error :', error.response);
+      }      
     }
   })
 
@@ -97,6 +124,10 @@ export default function(props) {
 
   function noHdnl() {
     setWarningOn(false);
+  }
+
+  function toProfileHdnl() {
+    histObj.push('/mom/profile')
   }
 
   return (
@@ -162,7 +193,17 @@ export default function(props) {
         </ScreenDiv>
       }
 
-      
+      { doSuccessMsg &&
+        <ScreenDiv>
+          <WarnDiv>
+            <WarnText>Profile update complete</WarnText>
+            <WarnButtons
+              text='Back to Profile'
+              onClick={toProfileHdnl}
+            />
+          </WarnDiv>
+        </ScreenDiv>
+      }
 
 
     </StylForm>      

@@ -152,6 +152,7 @@ export default function(props) {
           setErrorMsgOn(true);
           setWaitMsgOn(false);
         }
+        // console.log('DriverRegisterForm error :', error.response);
       }
     }
   })

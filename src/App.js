@@ -65,11 +65,13 @@ function App() {
           routeAttributes={ {exact:true, path:'/mom/profile'} }
           element={<MomProfile/>}
         />  
+        <MomPrivateRoute 
+          routeAttributes={ {exact:true, path:'/mom/updateprofile'} }
+          element={<MomRegisterUpdateProfile useForm='update'/>}
+        />  
         <Route exact path='/mom/driversList' component={MomDriversList}/>
         <Route exact path='/mom/reviewsList' component={MomReviewsList}/>
-        <Route exact path='/mom/updateprofile'>
-          <MomRegisterUpdateProfile useForm='update'/>
-        </Route>
+        
 
 
         {/* Routes for drivers only */}
