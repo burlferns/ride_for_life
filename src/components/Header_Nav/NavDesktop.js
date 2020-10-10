@@ -22,9 +22,9 @@ export default function(props) {
   const dispatch = useDispatch();
 
   function logOut() {
-    dispatch({
-      type:'setUserTypeNone'
-    });
+    // dispatch({
+    //   type:'setUserTypeNone'
+    // });
   }
 
   return (

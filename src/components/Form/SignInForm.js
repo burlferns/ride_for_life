@@ -3,28 +3,31 @@ import styled from "styled-components";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {Link} from "react-router-dom";
+import {useDispatch} from 'react-redux';
 
 import InputComp from './InputComp.js';
 import DropDownSelectComp from './DropDownSelectComp.js';
 import SubmitButtonWithWait from './SubmitButtonWithWait.js';
+import {axiosNoAuth,axiosWithAuth} from '../../utils/axiosConfig.js';
 
 import iconEnvelope from '../../icons/fontawesome/envelope.svg';
 import iconLock from '../../icons/fontawesome/lock.svg';
 
+import {setUserData} from '../../reducers/userDataReducer.js';
+
 const StylForm = styled.form`
   display: flex;
   flex-direction: column;
-
   width:fit-content;
-  // border:1px solid black;
 `;
 
 const ErrorMsgDiv = styled.div`
   margin-top 0.5rem;
   width:fit-content;
+  height: 1.2rem;
 `;
 
-const ErrorP = styled.div`
+const ErrorP = styled.p`
   color:red;
   font-size: 1.2rem;
 `;
@@ -52,7 +55,9 @@ export default function(props) {
   const[waitMsgOn,setWaitMsgOn] = useState(false); 
 
   //This is for the error message that appears if login credentials are bad
-  const[errorMsgOn,setErrorMsgOn] = useState(true); 
+  const[errorMsgOn,setErrorMsgOn] = useState(false); 
+
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -70,10 +75,67 @@ export default function(props) {
         .oneOf(["Mom", "Driver"],"Please choose account type")
         .required("Please choose account type")
     }),
-    onSubmit: function(values) {
+    onSubmit: async function(values) {
       setWaitMsgOn(true);
       setErrorMsgOn(false);
-      console.log('onSubmit func, values=',values);
+      let response;
+      
+      try {
+        if(values.userType==='Mom') {
+          const dataToServer = {
+            users_email: values.email,
+            password: values.passwd
+          }
+          response = await axiosNoAuth().post('/api/auth/user_login',dataToServer);
+          localStorage.setItem('authToken',response.data.token);
+          localStorage.setItem('userId',response.data.id);
+
+          response = await axiosWithAuth().get(`/api/users/${response.data.id}`);
+          
+          const dataForReducer = {
+            userType: 'mom',
+            users_name: response.data.users_name,
+            users_plot: response.data.users_plot,
+            users_phone_number: response.data.users_phone_number,
+            users_email: response.data.users_email
+          }
+          dispatch(setUserData(dataForReducer));
+
+          //Note that I don't need to useHistory to go to the mom profile page at this point, as
+          //it will go there once we make the state userData.userType='mom' with the dispatch
+          //command above because of how PublicRoute.js is written
+        }
+        if(values.userType==='Driver') {
+          const dataToServer = {
+            drivers_email: values.email,
+            password: values.passwd
+          }
+          response = await axiosNoAuth().post('/api/auth/driver_login',dataToServer);
+          localStorage.setItem('authToken',response.data.token);
+          localStorage.setItem('userId',response.data.id);
+
+          response = await axiosWithAuth().get(`/api/drivers/${response.data.id}`);
+          
+          const dataForReducer = {
+            userType: 'driver',
+            drivers_name: response.data.drivers_name,
+            drivers_plot: response.data.drivers_plot,
+            drivers_phone_number: response.data.drivers_phone_number,
+            drivers_email: response.data.drivers_email,
+            drivers_price: response.data.drivers_price
+          }
+          dispatch(setUserData(dataForReducer));
+
+          //Note that I don't need to useHistory to go to the driver profile page at this point, as
+          //it will go there once we make the state userData.userType='driver' with the dispatch
+          //command above because of how PublicRoute.js is written
+        }
+      } catch(error) {
+        if(error.response && error.response.data.message==='Invalid credentials') {
+          setErrorMsgOn(true);
+          setWaitMsgOn(false);
+        }
+      }
     }
   })
 
@@ -83,7 +145,7 @@ export default function(props) {
       <InputComp
         name='email'
         description='Email Address'
-        type='text'
+        type='email'   
         icon={iconEnvelope}
         error={formik.touched.email && formik.errors.email}
         onChange={formik.handleChange}
@@ -130,9 +192,7 @@ export default function(props) {
         <StylLink to='/driver/register'>
           Want to be a driver? Register here.
         </StylLink>
-      </RegisterDiv>
-
-      
+      </RegisterDiv>     
 
     </StylForm>    
   )

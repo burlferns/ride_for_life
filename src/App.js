@@ -1,5 +1,5 @@
 import React, {useEffect,useState} from 'react';
-import { Route, Switch } from "react-router-dom";
+import {Route} from "react-router-dom";
 
 import HeaderNav from './components/Header_Nav/HeaderNav.js';
 import SignIn from './components/GeneralPages/SignIn.js';
@@ -9,8 +9,14 @@ import MomDriversList from './components/MomPages/MomDriversList.js';
 import MomReviewsList from './components/MomPages/MomReviewsList.js';
 import DriverProfile from './components/DriverPages/DriverProfile.js';
 import DriverReviewsList from './components/DriverPages/DriverReviewsList.js';
+import DriverRegisterUpdateProfile from './components/DriverPages/DriverRegisterUpdateProfile.js';
+import MomRegisterUpdateProfile from './components/MomPages/MomRegisterUpdateProfile.js';
 
-import Temp from './components/GeneralPages/Temp.js';
+import PublicRoute from './utils/PublicRoute.js';
+import MomPrivateRoute from './utils/MomPrivateRoute.js';
+import DriverPrivateRoute from './utils/DriverPrivateRoute.js';
+
+//import Temp from './components/GeneralPages/Temp.js';
 
 export const ViewportContext = React.createContext([]);
 
@@ -35,24 +41,46 @@ function App() {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
   
-
   return (
     <ViewportContext.Provider value={vpSize}>
       <div className="App">
         <HeaderNav/>
 
-        <Switch>
-          <Route exact path='/' component={SignIn}/>
-          <Route exact path='/mom/profile' component={MomProfile}/>
-          <Route exact path='/mom/driversList' component={MomDriversList}/>
-          <Route exact path='/mom/reviewsList' component={MomReviewsList}/>
+        <PublicRoute 
+          routeAttributes={ {exact:true, path:'/'} }
+          element={<SignIn/>}
+        />
+        <PublicRoute 
+          routeAttributes={ {exact:true, path:'/mom/register'} }
+          element={<MomRegisterUpdateProfile useForm='register'/>}
+        />
+        <PublicRoute 
+          routeAttributes={ {exact:true, path:'/driver/register'} }
+          element={<DriverRegisterUpdateProfile useForm='register'/>}
+        />
 
-          <Route exact path='/driver/profile' component={DriverProfile}/>
-          <Route exact path='/driver/reviewsList' component={DriverReviewsList}/>
 
-          {/* <Route exact path='/temp' component={Temp}/> */}
+        {/* Routes for mom only */}
+        <MomPrivateRoute 
+          routeAttributes={ {exact:true, path:'/mom/profile'} }
+          element={<MomProfile/>}
+        />  
+        <Route exact path='/mom/driversList' component={MomDriversList}/>
+        <Route exact path='/mom/reviewsList' component={MomReviewsList}/>
+        <Route exact path='/mom/updateprofile'>
+          <MomRegisterUpdateProfile useForm='update'/>
+        </Route>
 
-        </Switch>      
+
+        {/* Routes for drivers only */}
+        <DriverPrivateRoute 
+          routeAttributes={ {exact:true, path:'/driver/profile'} }
+          element={<DriverProfile/>}
+        />  
+        <Route exact path='/driver/reviewsList' component={DriverReviewsList}/>
+        <Route exact path='/driver/updateprofile'>
+          <DriverRegisterUpdateProfile useForm='update'/>
+        </Route>
 
         <Footer/>
       </div>

@@ -42,10 +42,7 @@ const DivContainer = styled.div`
     grid-template-columns: auto;
     grid-template-rows: auto;
     grid-template-areas: "picture" "content";
-
-    // justify-items: center;
   }
-
 `; 
 
 const PictureDiv = styled.div`
@@ -87,11 +84,6 @@ const StylH1 = styled.h1`
   margin-bottom: 2.5rem;
 `;
 
-const StylSignInForm = styled(SignInForm)`
-  
-
-`;
-
 export default function SignIn() {
 
   return (
@@ -101,7 +93,7 @@ export default function SignIn() {
         <PictureDiv></PictureDiv>
         <ContentsDiv>
           <StylH1>Login to Ride for Life</StylH1>   
-          <StylSignInForm/>
+          <SignInForm/>
         </ContentsDiv>
       </DivContainer>
 

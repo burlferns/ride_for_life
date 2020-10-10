@@ -34,7 +34,7 @@ const StylDriverNav = styled(DriverNav)`
   justify-self: end;
 `;
 
-const selectorFunc = state=>state.userType;
+const selectorFunc = state=>state.userData.userType;
 
 export default function() {
   const userType = useSelector(selectorFunc);
