@@ -22,7 +22,7 @@ export default function(props) {
       <p>mom plot : {userData.users_plot}</p>
       <p>mom phone number : {userData.users_phone_number}</p>
       <p>mom email : {userData.users_email}</p>
-      <Link to='/mom/updateprofile'>Update Profile</Link>
+      <Link to='/mom/updateprofile'>Update or Delete Profile</Link>
     </>
   );
 }
