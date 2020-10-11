@@ -6,6 +6,8 @@ import {useHistory} from "react-router-dom";
 import NavBtn from './NavBtn.js';
 import HamMenu from './HamMenu.js';
 
+import {resetReducers} from '../../reducers/rootReducer.js';
+
 const DivContainer = styled.div`
   height: 4.4rem;
   width: 4.4rem;
@@ -46,9 +48,8 @@ export default function(props) {
   }
 
   function logOut() {
-    // dispatch({
-    //   type:'setUserTypeNone'
-    // });
+    dispatch(resetReducers());
+    localStorage.clear();
   }
 
   function blurHndl(event) {

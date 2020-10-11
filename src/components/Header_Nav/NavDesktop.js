@@ -5,6 +5,8 @@ import {useHistory} from "react-router-dom";
 
 import NavBtn from './NavBtn.js';
 
+import {resetReducers} from '../../reducers/rootReducer.js';
+
 const DivContainer = styled.div`
   width:fit-content;
 `;
@@ -22,9 +24,8 @@ export default function(props) {
   const dispatch = useDispatch();
 
   function logOut() {
-    // dispatch({
-    //   type:'setUserTypeNone'
-    // });
+    dispatch(resetReducers());
+    localStorage.clear();
   }
 
   return (

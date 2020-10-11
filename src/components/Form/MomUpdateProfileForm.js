@@ -16,6 +16,7 @@ import iconMobile from '../../icons/fontawesome/mobile.svg';
 import iconMap from '../../icons/fontawesome/map-marked-alt.svg';
 
 import {updateUserData} from '../../reducers/userDataReducer.js';
+import {resetReducers} from '../../reducers/rootReducer.js';
 
 const StylForm = styled.form`
   display: flex;
@@ -75,7 +76,10 @@ export default function(props) {
   const histObj = useHistory();
 
   //This is for the please wait message that appears after the login button is pressed
-  const [waitMsgOn,setWaitMsgOn] = useState(false); 
+  const [updateWaitMsgOn,setUpdateWaitMsgOn] = useState(false); 
+
+   //This is for the please wait message that appears after the confirm delete button is pressed
+   const [removeWaitMsgOn,setRemoveWaitMsgOn] = useState(false);
 
   //This is for the delete profile warning
   const [warningOn, setWarningOn] = useState(false);
@@ -98,7 +102,7 @@ export default function(props) {
         .integer("Please input an integer plot number")
     }),
     onSubmit: async function(values) {
-      setWaitMsgOn(true);
+      setUpdateWaitMsgOn(true);
 
       try {
         const dataToServer = {
@@ -109,7 +113,7 @@ export default function(props) {
         const userId = localStorage.getItem('userId');
         await axiosWithAuth().put(`/api/users/${userId}`, dataToServer);
         dispatch(updateUserData(dataToServer));
-        setWaitMsgOn(false);
+        setUpdateWaitMsgOn(false);
         setDoSuccessMsg(true);
       }
       catch(error) {
@@ -129,6 +133,23 @@ export default function(props) {
   function toProfileHdnl() {
     histObj.push('/mom/profile')
   }
+
+  async function removeHdnl() {
+    setRemoveWaitMsgOn(true);
+    const userId = localStorage.getItem('userId');
+    try {
+      await axiosWithAuth().delete(`/api/users/${userId}`);
+      setTimeout(()=>{
+        dispatch(resetReducers());
+        localStorage.clear();
+      },3000)
+    }
+    catch(error) {
+      // console.log('MomUpdateProfileForm error :', error.response);
+    }
+  }
+
+
 
   return (
     <StylForm onSubmit={formik.handleSubmit} className={className}>
@@ -170,7 +191,7 @@ export default function(props) {
 
       <SubmitButtonWithWait
         text='Update Profile'
-        msgOn={waitMsgOn}
+        msgOn={updateWaitMsgOn}
       />
 
       <DeleteButton
@@ -184,6 +205,8 @@ export default function(props) {
             <WarnText>Are you sure you want to delete your profile?</WarnText>
             <WarnButtons
               text='Yes - delete profile'
+              onClick={removeHdnl}
+              msgOn={removeWaitMsgOn}
             />
             <WarnButtons
               text='No - keep profile'

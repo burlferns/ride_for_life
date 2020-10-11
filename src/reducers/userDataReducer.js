@@ -33,6 +33,9 @@ const reducerInitialState = {
 
 export default function(state=reducerInitialState, action) {
   switch(action.type) {
+    case 'resetReducers': {
+      return reducerInitialState
+    }
     case 'userData/setUserData': {
       
       return action.payload
@@ -41,6 +44,7 @@ export default function(state=reducerInitialState, action) {
       let newState = {...state, ...action.payload}
       return newState
     }
+   
 
     default:
       return state;
