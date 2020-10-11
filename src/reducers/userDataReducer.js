@@ -33,10 +33,18 @@ const reducerInitialState = {
 
 export default function(state=reducerInitialState, action) {
   switch(action.type) {
+    case 'resetReducers': {
+      return reducerInitialState
+    }
     case 'userData/setUserData': {
       
-      return {...action.payload}
+      return action.payload
     }
+    case 'userData/updateUserData': {
+      let newState = {...state, ...action.payload}
+      return newState
+    }
+   
 
     default:
       return state;
@@ -54,4 +62,10 @@ export function setUserData(data) {
   }
 }
 
+export function updateUserData(data) {
+  return {
+    type: 'userData/updateUserData',
+    payload: data
+  }
+}
 

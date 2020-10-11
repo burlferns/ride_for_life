@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -146,6 +146,7 @@ export default function(props) {
           setErrorMsgOn(true);
           setWaitMsgOn(false);
         }
+        // console.log('MomRegisterForm error :', error.response);
       }
     }
   })

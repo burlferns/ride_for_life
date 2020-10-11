@@ -33,4 +33,11 @@ export const rootReducer = combineReducers(
   }
 )
 
-
+/***********************************************************************
+ The following are the actions for all reducers
+ ***********************************************************************/
+export function resetReducers() {
+  return {
+    type: 'resetReducers'
+  }
+}

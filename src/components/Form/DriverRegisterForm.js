@@ -3,9 +3,12 @@ import styled from "styled-components";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {Link} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 import InputComp from './InputComp.js';
 import SubmitButtonWithWait from './SubmitButtonWithWait.js';
+import ActionButton from './ActionButton.js';
+import {axiosNoAuth} from '../../utils/axiosConfig.js';
 
 import iconUser from '../../icons/fontawesome/user-alt.svg';
 import iconEnvelope from '../../icons/fontawesome/envelope.svg';
@@ -41,14 +44,60 @@ const StylLink = styled(Link)`
   font-size: 1.2rem;
 `;
 
+const ScreenDiv = styled.div`
+  width:100vw;
+  height:100vh;
+  position:fixed;
+  top:0;
+  left:0;
+  z-index: 2;
+  background: rgba(192,192,192, 0.9);
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const TransferDiv = styled.div`
+  width:fit-content;
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  background: white;
+`;
+
+const TransferText = styled.p`
+  font-size: 2.5rem;
+  margin-top:2.5rem;
+  text-align: center;
+  width: 32rem;
+  font-weight: 900;
+`;
+
+const TransferButton = styled(ActionButton)`
+  margin-top:2.5rem;
+  margin-bottom:2.5rem;
+`;
+
 export default function(props) {
   const className = props.className;
+
+  const histObj = useHistory();
 
   //This is for the please wait message that appears after the login button is pressed
   const[waitMsgOn,setWaitMsgOn] = useState(false); 
 
   //This is for the error message that appears if email is already being used
-  const[errorMsgOn,setErrorMsgOn] = useState(true); 
+  const[errorMsgOn,setErrorMsgOn] = useState(false); 
+
+  //This is for the message 'transferring to login page' after registration is successful
+  const[doTransfer,setDoTransfer] = useState(false); 
+
+  function transferHdnl() {
+    histObj.push('/');
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -81,10 +130,30 @@ export default function(props) {
       .typeError("Please input only numeric digits")
       .integer("Please input only integers")
     }),
-    onSubmit: function(values) {
+    onSubmit: async function(values) {
       setWaitMsgOn(true);
       setErrorMsgOn(false);
-      console.log('onSubmit func, values=',values);
+      
+      try {
+        const dataToServer = {
+          drivers_name: values.name,
+          drivers_plot: values.plot,
+          drivers_phone_number: values.phone,
+          drivers_email: values.email,
+          password: values.passwd,
+          drivers_price:values.price
+        }
+        await axiosNoAuth().post('/api/auth/register_driver',dataToServer);
+        setWaitMsgOn(false);
+        setDoTransfer(true);
+      }
+      catch(error) {
+        if(error.response && error.response.data.msg==='Email already being used') {
+          setErrorMsgOn(true);
+          setWaitMsgOn(false);
+        }
+        // console.log('DriverRegisterForm error :', error.response);
+      }
     }
   })
 
@@ -186,6 +255,18 @@ export default function(props) {
         </StylLink>
       </RegisterDiv> 
 
+      { doTransfer &&
+        <ScreenDiv>
+          <TransferDiv>
+            <TransferText>Registration successful.</TransferText>
+            <TransferText>Please click the button below to transfer to Login page.</TransferText>
+            <TransferButton
+              text='Transfer'
+              onClick={transferHdnl}
+            />
+          </TransferDiv>
+        </ScreenDiv>
+      }  
     </StylForm>      
   )
 }

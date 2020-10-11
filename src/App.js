@@ -65,11 +65,13 @@ function App() {
           routeAttributes={ {exact:true, path:'/mom/profile'} }
           element={<MomProfile/>}
         />  
+        <MomPrivateRoute 
+          routeAttributes={ {exact:true, path:'/mom/updateprofile'} }
+          element={<MomRegisterUpdateProfile useForm='update'/>}
+        />  
         <Route exact path='/mom/driversList' component={MomDriversList}/>
         <Route exact path='/mom/reviewsList' component={MomReviewsList}/>
-        <Route exact path='/mom/updateprofile'>
-          <MomRegisterUpdateProfile useForm='update'/>
-        </Route>
+        
 
 
         {/* Routes for drivers only */}
@@ -77,10 +79,12 @@ function App() {
           routeAttributes={ {exact:true, path:'/driver/profile'} }
           element={<DriverProfile/>}
         />  
+        <DriverPrivateRoute 
+          routeAttributes={ {exact:true, path:'/driver/updateprofile'} }
+          element={<DriverRegisterUpdateProfile useForm='update'/>}
+        />  
         <Route exact path='/driver/reviewsList' component={DriverReviewsList}/>
-        <Route exact path='/driver/updateprofile'>
-          <DriverRegisterUpdateProfile useForm='update'/>
-        </Route>
+        
 
         <Footer/>
       </div>
