@@ -2,14 +2,20 @@ import React, {useState} from 'react';
 import styled from "styled-components";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import {useSelector, useDispatch} from 'react-redux';
+import {useHistory} from "react-router-dom";
 
 import InputComp from './InputComp.js';
 import DisplayProfileValueComp from './DisplayProfileValueComp.js';
 import SubmitButtonWithWait from './SubmitButtonWithWait.js';
 import ActionButton from './ActionButton.js';
+import {axiosWithAuth} from '../../utils/axiosConfig.js';
 
 import iconUser from '../../icons/fontawesome/user-alt.svg';
 import iconMoney from '../../icons/fontawesome/money-bill.svg';
+
+import {updateUserData} from '../../reducers/userDataReducer.js';
+import {resetReducers} from '../../reducers/rootReducer.js';
 
 const StylForm = styled.form`
   display: flex;
@@ -58,18 +64,31 @@ const WarnButtons = styled(ActionButton)`
   margin-bottom:2.5rem;
 `;
 
+const selectorFunc = state=>state.userData;
+
 export default function(props) {
   const className = props.className;
-  const email = 'abc@def.com';
-  const phone = '123-789';
-  const plot = '456';
+
+  const userData = useSelector(selectorFunc);
+  const email = userData.drivers_email;
+  const phone = userData.drivers_phone_number;
+  const plot = userData.drivers_plot;
+
+  const dispatch = useDispatch();
+
+  const histObj = useHistory();
 
   //This is for the please wait message that appears after the login button is pressed
-  const[waitMsgOn,setWaitMsgOn] = useState(false); 
+  const[updateWaitMsgOn,setUpdateWaitMsgOn] = useState(false); 
 
-   //This is for the delete profile warning
-   const [warningOn, setWarningOn] = useState(false);
+  //This is for the delete profile warning
+  const [warningOn, setWarningOn] = useState(false);
 
+  //This is for the message 'update successful'
+  const[doSuccessMsg,setDoSuccessMsg] = useState(false); 
+
+  //This is for the please wait message that appears after the confirm delete button is pressed
+  const [removeWaitMsgOn,setRemoveWaitMsgOn] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -83,9 +102,23 @@ export default function(props) {
       .typeError("Please input only numeric digits")
       .integer("Please input only integers")
     }),
-    onSubmit: function(values) {
-      setWaitMsgOn(true);
-      console.log('onSubmit func, values=',values);
+    onSubmit: async function(values) {
+      setUpdateWaitMsgOn(true);
+      
+      try {
+        const dataToServer = {
+          drivers_name: values.name,
+          drivers_price: values.price
+        }
+        const userId = localStorage.getItem('userId');
+        await axiosWithAuth().put(`/api/drivers/${userId}`, dataToServer);
+        dispatch(updateUserData(dataToServer));
+        setUpdateWaitMsgOn(false);
+        setDoSuccessMsg(true);
+      }
+      catch(error) {
+        // console.log('DriverUpdateProfileForm error :', error.response);
+      }
     }
   })
 
@@ -96,6 +129,26 @@ export default function(props) {
   function noHdnl() {
     setWarningOn(false);
   }
+
+  function toProfileHdnl() {
+    histObj.push('/driver/profile')
+  }
+
+  async function removeHdnl() {
+    setRemoveWaitMsgOn(true);
+    const userId = localStorage.getItem('userId');
+    try {
+      await axiosWithAuth().delete(`/api/drivers/${userId}`);
+      setTimeout(()=>{
+        dispatch(resetReducers());
+        localStorage.clear();
+      },3000)
+    }
+    catch(error) {
+      // console.log('MomUpdateProfileForm error :', error.response);
+    }
+  }
+
 
   return (
     <StylForm onSubmit={formik.handleSubmit} className={className}>
@@ -130,7 +183,7 @@ export default function(props) {
 
       <SubmitButtonWithWait
         text='Update Profile'
-        msgOn={waitMsgOn}
+        msgOn={updateWaitMsgOn}
       />
 
       <DeleteButton
@@ -144,6 +197,8 @@ export default function(props) {
             <WarnText>Are you sure you want to delete your profile?</WarnText>
             <WarnButtons
               text='Yes - delete profile'
+              onClick={removeHdnl}
+              msgOn={removeWaitMsgOn}
             />
             <WarnButtons
               text='No - keep profile'
@@ -153,6 +208,17 @@ export default function(props) {
         </ScreenDiv>
       }
 
+      { doSuccessMsg &&
+        <ScreenDiv>
+          <WarnDiv>
+            <WarnText>Profile update complete</WarnText>
+            <WarnButtons
+              text='Back to Profile'
+              onClick={toProfileHdnl}
+            />
+          </WarnDiv>
+        </ScreenDiv>
+      }
 
     </StylForm>      
   )
