@@ -4,7 +4,7 @@ import {Route} from "react-router-dom";
 import HeaderNav from './components/Header_Nav/HeaderNav.js';
 import SignIn from './components/GeneralPages/SignIn.js';
 import Footer from './components/GeneralComponents/Footer.js';
-import MomProfile from './components/MomPages/MomProfile.js';
+import MomPage from './components/MomPages/MomPage.js';
 import MomDriversList from './components/MomPages/MomDriversList.js';
 import MomReviewsList from './components/MomPages/MomReviewsList.js';
 import DriverProfile from './components/DriverPages/DriverProfile.js';
@@ -63,7 +63,7 @@ function App() {
         {/* Routes for mom only */}
         <MomPrivateRoute 
           routeAttributes={ {exact:true, path:'/mom/profile'} }
-          element={<MomProfile/>}
+          element={<MomPage/>}
         />  
         <MomPrivateRoute 
           routeAttributes={ {exact:true, path:'/mom/updateprofile'} }
@@ -86,7 +86,8 @@ function App() {
         <Route exact path='/driver/reviewsList' component={DriverReviewsList}/>
         
 
-        <Route exact path='/' component={Temp}/>
+        <Route exact path='/' component={MomPage}/>
+        
 
         <Footer/>
       </div>

@@ -4,14 +4,16 @@ import styled from "styled-components";
 import DDSelect from '../Form/DDSelect';
 
 
-const ContentsDiv = styled.div`
-  
+const ContentsDiv = styled.div`  
   width:30rem;
   height:40rem;
   box-sizing:content-box;
 `;
 
+const StylInput = styled.input`
+  
 
+`;
 
 
 export default function() {
