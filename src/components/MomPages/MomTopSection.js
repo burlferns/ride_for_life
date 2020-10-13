@@ -18,9 +18,9 @@ const OuterContainer = styled.div`
   align-items: center;
   justify-content:flex-start;
 
-  @media (max-width:774px) {
-    flex-direction: column;
-  }
+  // @media (max-width:774px) {
+  //   flex-direction: column;
+  // }
 
 `;
 
@@ -40,7 +40,11 @@ const NameDiv= styled.div`
   margin-left:5rem;
 
   @media (max-width:884px) {
-    margin-left:5rem;
+    margin-left:2.5rem;
+  }
+
+  @media (max-width:774px) {
+    margin-left:2.5rem;
   }
 `;
 
@@ -49,6 +53,12 @@ const StylH1 = styled.h1`
   font-size: 2rem;
   color:white;
   width: 30rem;
+
+  @media (max-width:774px) {
+    font-size: 1.6rem;
+    width: 22rem;
+  }
+
 
   background: green;
 `;
