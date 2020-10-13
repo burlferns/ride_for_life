@@ -16,7 +16,7 @@ import PublicRoute from './utils/PublicRoute.js';
 import MomPrivateRoute from './utils/MomPrivateRoute.js';
 import DriverPrivateRoute from './utils/DriverPrivateRoute.js';
 
-//import Temp from './components/GeneralPages/Temp.js';
+import Temp from './components/GeneralPages/Temp.js';
 
 export const ViewportContext = React.createContext([]);
 
@@ -46,10 +46,10 @@ function App() {
       <div className="App">
         <HeaderNav/>
 
-        <PublicRoute 
+        {/* <PublicRoute 
           routeAttributes={ {exact:true, path:'/'} }
           element={<SignIn/>}
-        />
+        /> */}
         <PublicRoute 
           routeAttributes={ {exact:true, path:'/mom/register'} }
           element={<MomRegisterUpdateProfile useForm='register'/>}
@@ -85,6 +85,8 @@ function App() {
         />  
         <Route exact path='/driver/reviewsList' component={DriverReviewsList}/>
         
+
+        <Route exact path='/' component={Temp}/>
 
         <Footer/>
       </div>
