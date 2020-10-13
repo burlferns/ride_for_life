@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
 
 import DDSelect from '../Form/DDSelect';
@@ -15,6 +15,8 @@ const ContentsDiv = styled.div`
 
 
 export default function() {
+  const [search,setSearch] = useState('');
+  const [sort,setSort] = useState('');
 
   return (
     
@@ -25,7 +27,9 @@ export default function() {
             border:'3px solid transparent', width:'fit-content', height:'fit-content'}}
           >
             <p style={{width:'8rem', background:'cyan'}}>Search by: </p>
-            <DDSelect description='Choose search criteria'/>
+            <DDSelect description='Choose search criteria' setValue={setSearch}
+              options={["Driver's name", 'Plot location', 'Price range']}
+            />
           </div>
 
           <div style={{height:'50px'}}/>
@@ -35,9 +39,17 @@ export default function() {
             border:'3px solid transparent', width:'fit-content', height:'fit-content'}}
           >
             <p style={{width:'8rem', background:'cyan'}}>Sort by: </p>
-            <DDSelect description='Choose sort criteria'/>
+            <DDSelect description='Choose sort criteria' setValue={setSort}
+              options={['Price', 'Rating']}
+            />
           </div>
           
+          <div style={{height:'50px'}}/>
+          <p>Search = {search}</p>
+          <p>Sort = {sort}</p>
+
+
+
         </ContentsDiv>
       
     );

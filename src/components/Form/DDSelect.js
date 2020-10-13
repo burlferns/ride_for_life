@@ -47,16 +47,80 @@ const StylImage = styled.img`
   right: 0.2rem;
 `;
 
+const MenuDiv = styled.div`
+  max-width:none;
+  width:18.2rem;
+  height:fit-content;
+  border-radius: 0.5rem;
+  background: #E5E7E9;
+  border:0.1rem solid #A6ACAF;
+
+  position: absolute;
+  top: 100%;
+  right: -0.2rem;
+  z-index: ${props=>props.zIndexValue};
+`;
+
+const StylBtn = styled.button`
+  max-width:none;
+  width:18.2rem;
+  font-size: 1.6rem;
+  padding: 0.5rem 0;
+  color:black;
+  background:transparent;
+  border:none;
+
+  :hover {
+    background: #3C97D7;
+  }
+
+  :focus {
+    outline:0;
+  }
+`;
+
+
 export default function(props) {
   const className = props.className;
-  const textDisplay = props.description;
+  const description = props.description;
+  const options = props.options;
+  const zIndexValue = props.zIndexValue || 1;
+  const setValue = props.setValue;
 
-  function containerBlur() {
+  const [menuOn, setMenuOn] = useState(false);
+  const [textDisplay, setTextDisplay] = useState(description); 
 
+  function containerBlur(event) {
+    setMenuOn(false);
+
+    /*
+    See long note in ./DDSelectError.js for why the if statement below is 
+    necessary
+    */
+   if( event.relatedTarget &&
+    event.relatedTarget.type==='button' &&
+    event.relatedTarget.name==='menuItems' 
+    ) {
+      setTextDisplay(event.relatedTarget.value);
+      setValue(event.relatedTarget.value);
+    } 
   }
 
   function containerClick() {
+    if(menuOn) {
+      setMenuOn(false);
+    }
+    else {
+      setMenuOn(true);
+      setTextDisplay(description);
+      setValue('');
+    }
+  }
 
+  function btnClick(event) {
+    setMenuOn(false);
+    setTextDisplay(event.target.value);
+    setValue(event.target.value);
   }
 
   return (
@@ -65,23 +129,23 @@ export default function(props) {
       onBlur={containerBlur} onClick={containerClick}  
       tabIndex='-1' //Setting a tabIndex value makes the div focusable
     >
-        <DisplayP>{textDisplay}</DisplayP>
-        <StylImage src={iconDropDown} />
+      <DisplayP>{textDisplay}</DisplayP>
+      <StylImage src={iconDropDown} />
 
-        {/* The menu of options */}
-        {/* { menuOn && 
-          <MenuDiv>
-            { options.map((elem,index) => (
-                <StylBtn
-                  type='button' name={name} value={elem} 
-                  onClick={btnClick} key={index}
-                >
-                  {elem}
-                </StylBtn>
-              ))
-            }
-          </MenuDiv>
-        }     */}
+      {/* The menu of options */}
+      { menuOn && 
+        <MenuDiv zIndexValue={zIndexValue}>
+          { options.map((elem,index) => (
+              <StylBtn
+                type='button' name='menuItems' value={elem} 
+                onClick={btnClick} key={index}
+              >
+                {elem}
+              </StylBtn>
+            ))
+          }
+        </MenuDiv>
+      }    
 
 
     </DivSelect>
