@@ -62,7 +62,7 @@ export default function(props) {
     setMenuOn(false);
 
     /* For why the if statement is needed below, see the long comment in the file
-    ../Form/DropDownSelectComp.js    */
+    ../Form/DDSelectError.js    */
     if( event.relatedTarget &&
       event.relatedTarget.type==='button' &&
       event.relatedTarget.name==='navBtn' 

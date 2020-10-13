@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import {useDispatch} from 'react-redux';
 
 import InputComp from './InputComp.js';
-import DropDownSelectComp from './DropDownSelectComp.js';
+import DDSelectError from './DDSelectError.js';
 import SubmitButtonWithWait from './SubmitButtonWithWait.js';
 import {axiosNoAuth,axiosWithAuth} from '../../utils/axiosConfig.js';
 
@@ -165,7 +165,7 @@ export default function(props) {
         value={formik.values.passwd}
       />
 
-      <DropDownSelectComp 
+      <DDSelectError 
         name='userType'
         description='Account Type'
         error={formik.touched.userType && formik.errors.userType}

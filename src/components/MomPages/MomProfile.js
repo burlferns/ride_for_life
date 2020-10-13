@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux';
 import {Link} from "react-router-dom";
 
 import ActionButton from '../Form/ActionButton.js';
-import DropDownSelectComp from '../Form/DropDownSelectComp.js';
+import DDSelectError from '../Form/DDSelectError.js';
 
 import momImg from '../../images/baby-6000verticalPixels.jpg';
 
@@ -50,12 +50,12 @@ export default function(props) {
 
         <div style={{display:'flex', flexDirection:'row', border:'1px solid purple', width:'fit-content', height:'fit-content'}}>
           <p style={{whiteSpace:'nowrap'}}>Search by: </p>
-          <DropDownSelectComp options={["Driver's name", 'Plot location', 'Price range']} onChange={()=>{}} onBlur={()=>{}} description='Choose search criteria'/>
+          <DDSelectError options={["Driver's name", 'Plot location', 'Price range']} onChange={()=>{}} onBlur={()=>{}} description='Choose search criteria'/>
         </div>
 
         <div style={{display:'flex', flexDirection:'row', border:'1px solid purple', width:'fit-content', height:'fit-content'}}>
           <p style={{whiteSpace:'nowrap'}}>Sort by: </p>
-          <DropDownSelectComp options={['Price', 'Rating']} onChange={()=>{}} onBlur={()=>{}} description='Choose sort criteria' />
+          <DDSelectError options={['Price', 'Rating']} onChange={()=>{}} onBlur={()=>{}} description='Choose sort criteria' />
         </div>
 
         <div style={{display:'flex', flexDirection:'row', border:'1px solid purple', width:'fit-content', height:'fit-content'}}>

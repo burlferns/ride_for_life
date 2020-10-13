@@ -28,7 +28,7 @@ The userData reducer state slice looks like this:
 */
 
 const reducerInitialState = { 
-  userType: 'mom'
+  userType: null
 };
 
 export default function(state=reducerInitialState, action) {
