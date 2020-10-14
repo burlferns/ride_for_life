@@ -9,6 +9,7 @@ export default function(props) {
     <div
       style={{height:'50rem', background:'cyan'}}
     >
+      This in MomProfile page
     </div>
 
 

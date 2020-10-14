@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import { useRouteMatch, Route } from 'react-router-dom';
 
 import MomProfile from './MomProfile.js';
 import MomTopSection from './MomTopSection.js';
@@ -59,8 +60,6 @@ const StylImg = styled.img`
   @media (max-width:599px) {
     display:none;
   }
-
-
 `;
 
 
@@ -68,13 +67,15 @@ const StylImg = styled.img`
 
 
 export default function() {
-  
+  const match = useRouteMatch();
+
 
   return (
     <OuterContainer>
       <StylMomTopSection/>
 
-      <StylMomProfile/>
+      {/* <Route path={`${match.url}/login`} component={StylMomProfile}/>  */}
+
 
       <StylImg src={narrowImg}/>
       

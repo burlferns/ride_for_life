@@ -24,7 +24,9 @@ export default function(props) {
       <p>driver phone number : {driverData.drivers_phone_number}</p>
       <p>driver email : {driverData.drivers_email}</p>
       <p>driver price : {driverData.drivers_price}</p>
-      <Link to='/driver/updateprofile'>Update Profile</Link>
+      <Link to='/driver/updateprofile' style={{margin:'0 20px'}}>Update Driver Profile</Link>
+      <Link to='/' style={{margin:'0 20px'}}>Home page</Link>
+      <Link to='/mom' style={{margin:'0 20px'}}>To mom page</Link>
     </>
   );
 }

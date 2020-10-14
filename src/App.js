@@ -1,5 +1,5 @@
 import React, {useEffect,useState} from 'react';
-import {Route} from "react-router-dom";
+import {Route, Switch, Redirect} from "react-router-dom";
 
 import HeaderNav from './components/Header_Nav/HeaderNav.js';
 import SignIn from './components/GeneralPages/SignIn.js';
@@ -45,50 +45,107 @@ function App() {
     <ViewportContext.Provider value={vpSize}>
       <div className="App">
         <HeaderNav/>
+          <Switch>  {/* Note that the Switch component can only have Route and Redirect 
+                      as its children.  It cannot have a custom component as its child */}
 
-        {/* <PublicRoute 
-          routeAttributes={ {exact:true, path:'/'} }
-          element={<SignIn/>}
-        /> */}
-        <PublicRoute 
-          routeAttributes={ {exact:true, path:'/mom/register'} }
-          element={<MomRegisterUpdateProfile useForm='register'/>}
-        />
-        <PublicRoute 
-          routeAttributes={ {exact:true, path:'/driver/register'} }
-          element={<DriverRegisterUpdateProfile useForm='register'/>}
-        />
+            {/* These are public routes */}
+            <Route exact path='/'>
+              <PublicRoute elemToRndr={<SignIn/>}/>
+            </Route>
+            
+            <Route exact path='/mom/register'>
+              <PublicRoute 
+                elemToRndr={<MomRegisterUpdateProfile useForm='register'/>}
+              />
+            </Route>
+            
+            <Route exact path='/driver/register'>
+              <PublicRoute 
+                elemToRndr={<DriverRegisterUpdateProfile useForm='register'/>}
+              />
+            </Route>
 
 
-        {/* Routes for mom only */}
-        <MomPrivateRoute 
-          routeAttributes={ {exact:true, path:'/mom/profile'} }
-          element={<MomPage/>}
-        />  
-        <MomPrivateRoute 
-          routeAttributes={ {exact:true, path:'/mom/updateprofile'} }
-          element={<MomRegisterUpdateProfile useForm='update'/>}
-        />  
-        <Route exact path='/mom/driversList' component={MomDriversList}/>
-        <Route exact path='/mom/reviewsList' component={MomReviewsList}/>
+
+
+            {/* These are private driver routes */}
+            <Route exact path='/driver/profile'>
+              <DriverPrivateRoute elemToRndr={<DriverProfile/>}/>
+            </Route>
+
+            <Route exact path='/driver/updateprofile'>
+              <DriverPrivateRoute 
+                elemToRndr={<DriverRegisterUpdateProfile useForm='update'/>}
+              />
+            </Route>
+
+            <Route exact path='/driver/reviewsList'>
+              <DriverPrivateRoute 
+                elemToRndr={<DriverReviewsList/>}
+              />
+            </Route>
+
+
+
+            {/* These are private mom routes */}
+            <Route path='/mom'>
+              <MomPrivateRoute elemToRndr={<MomPage/>}/>
+            </Route>
+
+
+
+
+            {/* For any other path, default redirect */}
+            <Redirect to="/" />          
+
+
+
+          {/* <PublicRoute 
+            exact={true} path='/'
+            // routeAttributes={ {exact:true, path:'/'} }
+            element={<SignIn/>}
+          />
+          <PublicRoute 
+            exact={true} path='/mom/register'
+            // routeAttributes={ {exact:true, path:'/mom/register'} }
+            element={<MomRegisterUpdateProfile useForm='register'/>}
+          />
+          <PublicRoute 
+            exact={true} path='/driver/register'
+            // routeAttributes={ {exact:true, path:'/driver/register'} }
+            element={<DriverRegisterUpdateProfile useForm='register'/>}
+          /> */}
+
+
+          {/* Routes for mom only */}
+          {/* <MomPrivateRoute 
+            routeAttributes={ {exact:true, path:'/mom/updateprofile'} }
+            element={<MomRegisterUpdateProfile useForm='update'/>}
+          /> 
+          <MomPrivateRoute 
+            routeAttributes={ {exact:false, path:'/mom'} }
+            element={<MomPage/>}
+          />  
+          <Route exact path='/mom/driversList' component={MomDriversList}/>
+          <Route exact path='/mom/reviewsList' component={MomReviewsList}/> */}
+          
+
+
+          {/* Routes for drivers only */}
+          {/* <DriverPrivateRoute 
+            routeAttributes={ {exact:true, path:'/driver/profile'} }
+            element={<DriverProfile/>}
+          />  
+          <DriverPrivateRoute 
+            routeAttributes={ {exact:true, path:'/driver/updateprofile'} }
+            element={<DriverRegisterUpdateProfile useForm='update'/>}
+          />  
+          <Route exact path='/driver/reviewsList' component={DriverReviewsList}/> */}
+          
+
+          {/* <Route exact path='/' component={MomPage}/> */}
         
-
-
-        {/* Routes for drivers only */}
-        <DriverPrivateRoute 
-          routeAttributes={ {exact:true, path:'/driver/profile'} }
-          element={<DriverProfile/>}
-        />  
-        <DriverPrivateRoute 
-          routeAttributes={ {exact:true, path:'/driver/updateprofile'} }
-          element={<DriverRegisterUpdateProfile useForm='update'/>}
-        />  
-        <Route exact path='/driver/reviewsList' component={DriverReviewsList}/>
-        
-
-        <Route exact path='/' component={MomPage}/>
-        
-
+          </Switch>
         <Footer/>
       </div>
     </ViewportContext.Provider>
