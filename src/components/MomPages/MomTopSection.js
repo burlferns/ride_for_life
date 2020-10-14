@@ -61,10 +61,12 @@ const NameDiv= styled.div`
     align-self: flex-end;
     margin-top:1.5rem;
     margin-left:0;
+    margin-right:2.5rem;
   }
 
   @media (max-width:459px) {
     align-self: center;
+    margin-right:0;
   }
 
 `;
