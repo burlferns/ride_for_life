@@ -18,9 +18,15 @@ const OuterContainer = styled.div`
   align-items: center;
   justify-content:flex-start;
 
-  // @media (max-width:774px) {
-  //   flex-direction: column;
-  // }
+  @media (max-width:669px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  @media (max-width:459px) {
+    align-items: center;
+  }
 
 `;
 
@@ -31,8 +37,12 @@ const StylImg = styled.img`
   box-sizing: content-box;
 
   @media (max-width:884px) {
-    max-width:30rem;
+    max-width:29.2rem;
     margin-left:1rem;
+  }
+
+  @media (max-width:459px) {
+    margin-left:0;
   }
 `;
 
@@ -46,6 +56,17 @@ const NameDiv= styled.div`
   @media (max-width:774px) {
     margin-left:2.5rem;
   }
+
+  @media (max-width:669px) {
+    align-self: flex-end;
+    margin-top:1.5rem;
+    margin-left:0;
+  }
+
+  @media (max-width:459px) {
+    align-self: center;
+  }
+
 `;
 
 const StylH1 = styled.h1`
@@ -60,7 +81,7 @@ const StylH1 = styled.h1`
   }
 
 
-  background: green;
+  // background: green;
 `;
 
 export default function(props) {

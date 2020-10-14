@@ -22,6 +22,20 @@ const OuterContainer = styled.div`
   grid-template-rows: auto;
   grid-template-areas: "topsection topsection" "leftprofile rightimg";
 
+  @media (max-width:741px) {
+    grid-template-columns: 34rem 1fr;
+  }
+
+  @media (max-width:599px) {
+    grid-template-columns: auto;
+    grid-template-areas: "topsection" "leftprofile";
+  }
+
+  @media (max-width:459px) {
+    width: calc(100vw - 2rem);
+    margin: 1rem auto;
+
+  }
 
 `;
 
@@ -33,14 +47,20 @@ const StylMomProfile = styled(MomProfile)`
   grid-area: leftprofile;
 `;
 
-
-
 const StylImg = styled.img`
+  width: calc(100% - 5rem);
   max-width:25rem;
   margin-left:2.5rem;
-  margin-bottom:2.5rem;-
+  margin-right:2.5rem;
+  margin-bottom:2.5rem;
 
   grid-area: rightimg;
+
+  @media (max-width:599px) {
+    display:none;
+  }
+
+
 `;
 
 
