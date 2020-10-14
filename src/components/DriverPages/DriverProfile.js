@@ -27,6 +27,8 @@ export default function(props) {
       <Link to='/driver/updateprofile' style={{margin:'0 20px'}}>Update Driver Profile</Link>
       <Link to='/' style={{margin:'0 20px'}}>Home page</Link>
       <Link to='/mom' style={{margin:'0 20px'}}>To mom page</Link>
+      <Link to='/driver' style={{margin:'0 20px'}}>To just /driver page</Link>
+      <Link to='/driver/junk' style={{margin:'0 20px'}}>To /driver/junk page</Link>
     </>
   );
 }

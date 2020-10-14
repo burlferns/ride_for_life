@@ -3,9 +3,9 @@ import styled from "styled-components";
 import {useRouteMatch, Route, Switch, Redirect} from 'react-router-dom';
 
 import MomProfile from './MomProfile.js';
+import MomDriversList from './MomDriversList.js';
 import MomReviewsList from './MomReviewsList.js';
 import MomTopSection from './MomTopSection.js';
-
 
 import narrowImg from '../../images/narrow.jpg';
 
@@ -38,7 +38,6 @@ const OuterContainer = styled.div`
     margin: 1rem auto;
 
   }
-
 `;
 
 const StylMomTopSection = styled(MomTopSection)`
@@ -46,6 +45,10 @@ const StylMomTopSection = styled(MomTopSection)`
 `;
 
 const StylMomProfile = styled(MomProfile)`
+  grid-area: leftprofile;
+`;
+
+const StylMomDriversList = styled(MomDriversList)`
   grid-area: leftprofile;
 `;
 
@@ -68,12 +71,8 @@ const StylImg = styled.img`
 `;
 
 
-
-
-
 export default function() {
   const match = useRouteMatch();
-
 
   return (
     <OuterContainer>
@@ -81,15 +80,12 @@ export default function() {
 
       <Switch>
         <Route exact path={`${match.url}/profile`} component={StylMomProfile}/>
+        <Route exact path={`${match.url}/driversList`} component={StylMomDriversList}/>
         <Route exact path={`${match.url}/reviewsList`} component={StylMomReviewsList}/>
         <Redirect to="/" /> 
       </Switch>
 
-
-
       <StylImg src={narrowImg}/>
-      
-
     </OuterContainer>
   );
 }
