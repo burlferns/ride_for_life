@@ -87,7 +87,14 @@ function App() {
 
 
 
+
             {/* These are private mom routes */}
+            <Route exact path='/mom/updateprofile'>
+              <MomPrivateRoute 
+                elemToRndr={<MomRegisterUpdateProfile useForm='update'/>}
+              />
+            </Route>
+
             <Route path='/mom'>
               <MomPrivateRoute elemToRndr={<MomPage/>}/>
             </Route>

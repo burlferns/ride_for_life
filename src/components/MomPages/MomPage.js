@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from "styled-components";
-import { useRouteMatch, Route } from 'react-router-dom';
+import {useRouteMatch, Route, Switch, Redirect} from 'react-router-dom';
 
 import MomProfile from './MomProfile.js';
+import MomReviewsList from './MomReviewsList.js';
 import MomTopSection from './MomTopSection.js';
 
 
@@ -48,6 +49,10 @@ const StylMomProfile = styled(MomProfile)`
   grid-area: leftprofile;
 `;
 
+const StylMomReviewsList = styled(MomReviewsList)`
+  grid-area: leftprofile;
+`;
+
 const StylImg = styled.img`
   width: calc(100% - 5rem);
   max-width:25rem;
@@ -74,7 +79,12 @@ export default function() {
     <OuterContainer>
       <StylMomTopSection/>
 
-      {/* <Route path={`${match.url}/login`} component={StylMomProfile}/>  */}
+      <Switch>
+        <Route exact path={`${match.url}/profile`} component={StylMomProfile}/>
+        <Route exact path={`${match.url}/reviewsList`} component={StylMomReviewsList}/>
+        <Redirect to="/" /> 
+      </Switch>
+
 
 
       <StylImg src={narrowImg}/>
