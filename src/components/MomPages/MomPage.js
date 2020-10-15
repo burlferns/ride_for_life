@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect, useRef, useContext} from 'react';
 import styled from "styled-components";
 import {useRouteMatch, Route, Switch, Redirect} from 'react-router-dom';
 
@@ -6,25 +6,15 @@ import MomProfile from './MomProfile.js';
 import MomDriversList from './MomDriversList.js';
 import MomReviewsList from './MomReviewsList.js';
 import MomTopSection from './MomTopSection.js';
+import {ViewportContext} from '../../App.js';
 
 import narrowImg from '../../images/narrow.jpg';
 
-const MarginOuterContainer = styled.div`
-  width:100vw;
-  height:calc(100vh - 4.4rem - 4rem);
-  display:grid;
-  grid-template-columns: minmax(5rem,1fr) auto minmax(5rem,1fr);
-  grid-template-rows: minmax(2rem,1fr) auto minmax(2rem,1fr);
-  grid-template-areas: ". . ." ". innerContiner ." ". . .";
-
-  @media (max-width:459px) {
-    width: calc(100vw - 2rem);
-    grid-template-columns: minmax(1rem,1fr) auto minmax(1rem,1fr);
+const OuterContainer = styled.div.attrs(props=>({
+  style: {
+    margin:`${props.topMargin}px auto ${props.botMargin}px`
   }
-`;
-
-const InnerContainer = styled.div`
-  grid-area: innerContiner;
+}))`
   box-sizing: content-box;
   box-shadow:  4px 4px 3px 0px #f2f2f2;
   border:1px solid #e6e6e6;
@@ -86,12 +76,70 @@ const StylImg = styled.img`
 
 
 export default function() {
+  const divRef = useRef(null);
+  const [cntrHgt,setCntHgt] = useState(0); //This stores the measured container height
+  const vpSize = useContext(ViewportContext);
   const match = useRouteMatch();
 
+  const [,doChromeKick] = useState(false); //This is just there to get chromium based browsers
+                                           //to set the initial height of OuterContainer properly
+                                           //This is not needed for Firefox or Safari 
+
+
+  // useEffect(()=>{
+  //   const newHeight = divRef.current.offsetHeight;
+  //   const bcr = divRef.current.getBoundingClientRect();
+  //   console.log('*****START********');
+  //   console.log('current cntrHgt=',cntrHgt);
+  //   console.log('newHeight',newHeight);
+  //   console.log('bcr height=',bcr.height);
+  //   console.log('divRef.current=',divRef.current);
+  //   console.log('*****END********');
+  //   setCntHgt(newHeight);
+  // })
+
+  // useEffect(()=>{
+  //   const newHeight = divRef.current.offsetHeight;
+  //   const bcr = divRef.current.getBoundingClientRect();
+  //   console.log('*****START********');
+  //   console.log('current cntrHgt=',cntrHgt);
+  //   console.log('newHeight',newHeight);
+  //   console.log('bcr height=',bcr.height);
+  //   console.log('divRef.current=',divRef.current)
+  //   console.log('*****END********');
+  //   if(Math.abs(newHeight-cntrHgt)>2) {
+  //     setCntHgt(newHeight);
+  //   }
+  // })
+
+  useEffect(()=>{
+    const newHeight = Math.round(divRef.current.getBoundingClientRect().height);
+    if(Math.abs(newHeight-cntrHgt)>2) {
+      setCntHgt(newHeight);
+    }
+  })
+
+  useEffect(()=>{
+    setTimeout(()=>doChromeKick(true),100);
+  },[])
+
+
+  //These are the vertical margin calculations for OuterContainer
+  let topMargin ;
+  let botMargin ;
+  const minMargin = 2*vpSize[2];
+  const spaceForMargins = vpSize[1]-(4.4+4)*vpSize[2]-cntrHgt;
+  if(spaceForMargins<minMargin*2) {
+    topMargin = minMargin;
+    botMargin = minMargin;
+  }
+  else {
+    topMargin = Math.round(spaceForMargins/2);
+    botMargin = spaceForMargins - topMargin;
+  }
 
   return (
-    <MarginOuterContainer>
-    <InnerContainer>
+    <OuterContainer ref={divRef} topMargin={topMargin} botMargin={botMargin} >
       <StylMomTopSection/>
 
       <Switch>
@@ -102,7 +150,6 @@ export default function() {
       </Switch>
 
       <StylImg src={narrowImg}/>
-    </InnerContainer>
-    </MarginOuterContainer>
+    </OuterContainer>
   );
 }

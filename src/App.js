@@ -19,6 +19,8 @@ export const ViewportContext = React.createContext([]);
 
 const hfs = 10; //This is the font-size set on the html element in px
 
+let timeOutId;
+
 export default function App() {
   const [vpSize,setVpSize] = useState([
     document.documentElement.clientWidth,
@@ -27,11 +29,22 @@ export default function App() {
   ]);
   
   useEffect(() => {
-    const handleWindowResize = () => setVpSize([
-      document.documentElement.clientWidth,
-      document.documentElement.clientHeight,
-      hfs
-    ]);
+    const handleWindowResize = () => {
+      if(timeOutId) {
+        clearTimeout(timeOutId);
+      }
+
+      timeOutId = setTimeout(()=>{
+        setVpSize([      
+          document.documentElement.clientWidth,
+          document.documentElement.clientHeight,
+          hfs
+        ])
+        // console.log('setState event');
+      },15)      
+
+      // console.log('resize event');
+    };
     window.addEventListener("resize", handleWindowResize);
 
     // Return a function from the effect that removes the event listener
