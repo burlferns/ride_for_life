@@ -58,6 +58,8 @@ export default function App() {
           <Switch>  {/* Note that the Switch component can only have Route and Redirect 
                       as its children.  It cannot have a custom component as its child */}
 
+
+            {/* This is temp path used just while mom page development is ongoing */}
             <Route path='/mom'>
               <MomPage/>
             </Route>

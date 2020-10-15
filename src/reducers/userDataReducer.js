@@ -33,13 +33,11 @@ The userData reducer state slice looks like this:
 
 const reducerInitialState = { 
   userType: 'mom',
-  users_name: 'Alice',
-  users_plot: '123',
-  users_phone_number: '456',
-  users_email: 'al@gmail.com'
+  users_name: 'seedMom1',
+  users_plot: '100',
+  users_phone_number: '1234-1000',
+  users_email: 'seedMom1@gmail.com'
 };
-
-
 
 export default function(state=reducerInitialState, action) {
   switch(action.type) {
@@ -90,4 +88,12 @@ export function updateUserData(data) {
 //   users_plot: '123',
 //   users_phone_number: '456',
 //   users_email: 'al@gmail.com'
+// };
+
+// const reducerInitialState = { 
+//   userType: 'mom',
+//   users_name: 'seedMom1',
+//   users_plot: '100',
+//   users_phone_number: '1234-1000',
+//   users_email: 'seedMom1@gmail.com'
 // };

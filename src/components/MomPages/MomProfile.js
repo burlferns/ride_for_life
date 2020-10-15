@@ -15,9 +15,7 @@ const PositionDiv = styled.div`
   height: fit-content;
   padding: 2rem 0;
   margin: 0 auto;
-  // background: cyan;
 `;
-
 
 const StylH1 = styled.h1`
   font-size: 3rem;
@@ -28,6 +26,12 @@ const StylH1 = styled.h1`
 
 const StylP = styled.p`
   margin-top: 1rem;
+`;
+
+const StylLink = styled(Link)`
+  margin-top: 2rem;
+  font-size:1.4rem;
+  display:block;
 `;
 
 const selectorFunc = state=>state.userData;
@@ -44,23 +48,9 @@ export default function(props) {
         <StylP>Plot number: {userData.users_plot}</StylP>
         <StylP>Phone number: {userData.users_phone_number}</StylP>
         <StylP>Email: {userData.users_email}</StylP>
+
+        <StylLink to='/mom/updateprofile'>Update/Delete your profile</StylLink>
       </PositionDiv>
     </ContainerDiv>
   );
 }
-
-/*
-
-<div
-      style={{height:'50rem', background:'beige'}}
-    >
-      This in MomProfile page
-      <Link to='/driver/updateprofile' style={{margin:'0 20px'}}>Update Driver Profile</Link>
-      <Link to='/' style={{margin:'0 20px'}}>Home page</Link>
-      <Link to='/mom/junk' style={{margin:'0 20px'}}>To mom junk page</Link>
-      <Link to='/mom/register' style={{margin:'0 20px'}}>To new mom register page</Link>
-    </div>
-
-
-
-*/

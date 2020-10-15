@@ -11,7 +11,7 @@ const StylH1 = styled.h1`
 
 
 export default function(props) {
-  const className = props.className;
+  // const className = props.className;
 
   return (
     <>

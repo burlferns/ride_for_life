@@ -112,6 +112,8 @@ export default function() {
   //   }
   // })
 
+  // The following comment line is to remove a warning from eslint
+  // eslint-disable-next-line   
   useEffect(()=>{
     const newHeight = Math.round(divRef.current.getBoundingClientRect().height);
     if(Math.abs(newHeight-cntrHgt)>2) {

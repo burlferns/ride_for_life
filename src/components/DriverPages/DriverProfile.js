@@ -13,7 +13,7 @@ const StylH1 = styled.h1`
 const selectorFunc = state=>state.userData;
 
 export default function(props) {
-  const className = props.className;
+  // const className = props.className;
   const driverData = useSelector(selectorFunc);
 
   return (

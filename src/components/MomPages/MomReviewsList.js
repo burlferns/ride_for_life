@@ -1,10 +1,10 @@
 import React from 'react';
-import styled from "styled-components";
+// import styled from "styled-components";
 import {Link} from "react-router-dom";
 
 
 export default function(props) {
-  const className = props.className;
+  // const className = props.className;
 
   return (
     <div
