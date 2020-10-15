@@ -27,9 +27,19 @@ The userData reducer state slice looks like this:
 
 */
 
+// const reducerInitialState = { 
+//   userType: null
+// };
+
 const reducerInitialState = { 
-  userType: null
+  userType: 'mom',
+  users_name: 'Alice',
+  users_plot: '123',
+  users_phone_number: '456',
+  users_email: 'al@gmail.com'
 };
+
+
 
 export default function(state=reducerInitialState, action) {
   switch(action.type) {
@@ -69,3 +79,15 @@ export function updateUserData(data) {
   }
 }
 
+
+
+/***********************************************************************
+ The following is some dummy data
+ ***********************************************************************/
+// const reducerInitialState = { 
+//   userType: 'mom',
+//   users_name: 'Alice',
+//   users_plot: '123',
+//   users_phone_number: '456',
+//   users_email: 'al@gmail.com'
+// };

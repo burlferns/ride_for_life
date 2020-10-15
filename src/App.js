@@ -13,7 +13,7 @@ import PublicRoute from './utils/PublicRoute.js';
 import MomPrivateRoute from './utils/MomPrivateRoute.js';
 import DriverPrivateRoute from './utils/DriverPrivateRoute.js';
 
-import Temp from './components/GeneralPages/Temp.js';
+// import Temp from './components/GeneralPages/Temp.js';
 
 export const ViewportContext = React.createContext([]);
 
@@ -44,6 +44,12 @@ export default function App() {
         <HeaderNav/>
           <Switch>  {/* Note that the Switch component can only have Route and Redirect 
                       as its children.  It cannot have a custom component as its child */}
+
+            <Route path='/mom'>
+              <MomPage/>
+            </Route>
+
+
 
             {/* These are public routes */}
             <Route exact path='/'>

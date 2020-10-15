@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useLayoutEffect, useRef, useContext} from 'react';
 import styled from "styled-components";
 import {useRouteMatch, Route, Switch, Redirect} from 'react-router-dom';
 
@@ -6,10 +6,15 @@ import MomProfile from './MomProfile.js';
 import MomDriversList from './MomDriversList.js';
 import MomReviewsList from './MomReviewsList.js';
 import MomTopSection from './MomTopSection.js';
+import {ViewportContext} from '../../App.js';
 
 import narrowImg from '../../images/narrow.jpg';
 
-const OuterContainer = styled.div`
+const OuterContainer = styled.div.attrs(props=>({
+  style: {
+    margin:`${props.verticalmargin}px auto`
+  }
+}))`
   box-sizing: content-box;
   box-shadow:  4px 4px 3px 0px #f2f2f2;
   border:1px solid #e6e6e6;
@@ -17,7 +22,7 @@ const OuterContainer = styled.div`
   width: calc(100vw - 10rem - 0.2rem);
   max-width:100rem;
   height:fit-content;
-  margin: 2rem auto;
+  
 
   display: grid;
   grid-template-columns: 1fr 30rem;
@@ -35,8 +40,6 @@ const OuterContainer = styled.div`
 
   @media (max-width:459px) {
     width: calc(100vw - 2rem);
-    margin: 1rem auto;
-
   }
 `;
 
@@ -71,11 +74,23 @@ const StylImg = styled.img`
 `;
 
 
+
 export default function() {
+  const divRef = useRef(null);
+  const [cntrHgt,setCntHgt] = useState(0); //This stores the measured container height
+  const vpSize = useContext(ViewportContext);
   const match = useRouteMatch();
 
+  useLayoutEffect(()=>{
+    setCntHgt(divRef.current.offsetHeight);
+  })
+
   return (
-    <OuterContainer>
+    <OuterContainer ref={divRef} 
+      verticalmargin={
+        Math.max( (vpSize[1]-(4.4+4)*vpSize[2]-cntrHgt)/2 , 2*vpSize[2] )
+      }
+    >
       <StylMomTopSection/>
 
       <Switch>

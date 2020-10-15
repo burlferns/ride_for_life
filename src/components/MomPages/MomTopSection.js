@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import {useSelector} from 'react-redux';
 
 import wideImg from '../../images/baby-6000verticalPixels.jpg';
 
@@ -36,7 +37,7 @@ const StylImg = styled.img`
   margin-left: 2.5rem;
   box-sizing: content-box;
 
-  @media (max-width:884px) {
+  @media (max-width:901px) {
     max-width:29.2rem;
     margin-left:1rem;
   }
@@ -48,8 +49,9 @@ const StylImg = styled.img`
 
 const NameDiv= styled.div`
   margin-left:5rem;
+  text-align: right;
 
-  @media (max-width:884px) {
+  @media (max-width:901px) {
     margin-left:2.5rem;
   }
 
@@ -67,6 +69,7 @@ const NameDiv= styled.div`
   @media (max-width:459px) {
     align-self: center;
     margin-right:0;
+    text-align: left;
   }
 
 `;
@@ -76,18 +79,19 @@ const StylH1 = styled.h1`
   font-size: 2rem;
   color:white;
   width: 30rem;
+  line-height:normal;
 
   @media (max-width:774px) {
     font-size: 1.6rem;
     width: 22rem;
   }
-
-
-  // background: green;
 `;
+
+const selectorFunc = state=>state.userData.users_name;
 
 export default function(props) {
   const className = props.className;
+  const users_name = useSelector(selectorFunc);
 
   return (
     <OuterContainer className={className}>
@@ -95,7 +99,8 @@ export default function(props) {
 
       <NameDiv>
         <StylH1>User name:</StylH1>
-        <StylH1>ABCDEFGHIJKLMNOPQRST@</StylH1>
+        <StylH1>{users_name}</StylH1>
+        {/* <StylH1>ABCDEFGHIJKLMNOPQRST@</StylH1> */}
       </NameDiv>
 
     </OuterContainer>
