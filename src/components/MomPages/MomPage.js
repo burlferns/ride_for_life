@@ -1,4 +1,4 @@
-import React, {useState, useLayoutEffect, useRef, useContext} from 'react';
+import React, {useState, useLayoutEffect, useEffect,useRef, useContext} from 'react';
 import styled from "styled-components";
 import {useRouteMatch, Route, Switch, Redirect} from 'react-router-dom';
 
@@ -82,8 +82,33 @@ export default function() {
   const match = useRouteMatch();
 
   useLayoutEffect(()=>{
-    setCntHgt(divRef.current.offsetHeight);
+    const newHeight = divRef.current.offsetHeight;
+    const bcr = divRef.current.getBoundingClientRect();
+    console.log('*****START********');
+    console.log('current cntrHgt=',cntrHgt);
+    console.log('newHeight',newHeight);
+    console.log('bcr height=',bcr.height);
+    console.log('divRef.current=',divRef.current)
+    console.log('*****END********');
+    setCntHgt(newHeight);
   })
+
+  // useLayoutEffect(()=>{
+  //   const newHeight = divRef.current.offsetHeight;
+  //   const bcr = divRef.current.getBoundingClientRect();
+  //   console.log('*****START********');
+  //   console.log('current cntrHgt=',cntrHgt);
+  //   console.log('newHeight',newHeight);
+  //   console.log('bcr height=',bcr.height);
+  //   console.log('divRef.current=',divRef.current)
+  //   console.log('*****END********');
+  //   if(Math.abs(newHeight-cntrHgt)>2) {
+  //     setCntHgt(newHeight);
+  //   }
+  // })
+
+
+
 
   return (
     <OuterContainer ref={divRef} 
