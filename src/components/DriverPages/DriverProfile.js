@@ -13,7 +13,7 @@ const StylH1 = styled.h1`
 const selectorFunc = state=>state.userData;
 
 export default function(props) {
-  const className = props.className;
+  // const className = props.className;
   const driverData = useSelector(selectorFunc);
 
   return (
@@ -24,7 +24,11 @@ export default function(props) {
       <p>driver phone number : {driverData.drivers_phone_number}</p>
       <p>driver email : {driverData.drivers_email}</p>
       <p>driver price : {driverData.drivers_price}</p>
-      <Link to='/driver/updateprofile'>Update Profile</Link>
+      <Link to='/driver/updateprofile' style={{margin:'0 20px'}}>Update Driver Profile</Link>
+      <Link to='/' style={{margin:'0 20px'}}>Home page</Link>
+      <Link to='/mom' style={{margin:'0 20px'}}>To mom page</Link>
+      <Link to='/driver' style={{margin:'0 20px'}}>To just /driver page</Link>
+      <Link to='/driver/junk' style={{margin:'0 20px'}}>To /driver/junk page</Link>
     </>
   );
 }

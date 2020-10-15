@@ -109,7 +109,10 @@ export default function(props) {
       plot:''
     },
     validationSchema: Yup.object({
-      name: Yup.string().required("Please input a name"),
+      name: Yup.string()
+        .required("Please input a name")
+        .max(20,"Max of 20 chars for name")
+        ,
       email: Yup.string()
         .email('Please input a valid email address')
         .required('Email address is required'),

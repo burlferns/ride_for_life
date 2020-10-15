@@ -1,12 +1,37 @@
 import React from 'react';
 import styled from "styled-components";
-import {useSelector} from 'react-redux';
 import {Link} from "react-router-dom";
+import {useSelector} from 'react-redux';
+
+const ContainerDiv = styled.div`
+  width:100%;
+  background: beige;
+  display: flex;
+  align-items: center;
+`;
+
+const PositionDiv = styled.div`
+  width: 90%;
+  height: fit-content;
+  padding: 2rem 0;
+  margin: 0 auto;
+`;
 
 const StylH1 = styled.h1`
-  margin:5rem 5rem;
   font-size: 3rem;
-  color:orange;
+  text-align: center;
+  text-decoration: underline;
+  margin-bottom: 2rem;
+`;
+
+const StylP = styled.p`
+  margin-top: 1rem;
+`;
+
+const StylLink = styled(Link)`
+  margin-top: 2rem;
+  font-size:1.4rem;
+  display:block;
 `;
 
 const selectorFunc = state=>state.userData;
@@ -16,13 +41,16 @@ export default function(props) {
   const userData = useSelector(selectorFunc);
 
   return (
-    <>
-      <StylH1>This is the Mom Profile page</StylH1>
-      <p>mom name : {userData.users_name}</p>
-      <p>mom plot : {userData.users_plot}</p>
-      <p>mom phone number : {userData.users_phone_number}</p>
-      <p>mom email : {userData.users_email}</p>
-      <Link to='/mom/updateprofile'>Update Profile</Link>
-    </>
+    <ContainerDiv className={className}>
+      <PositionDiv>
+        <StylH1>Profile Data</StylH1>
+
+        <StylP>Plot number: {userData.users_plot}</StylP>
+        <StylP>Phone number: {userData.users_phone_number}</StylP>
+        <StylP>Email: {userData.users_email}</StylP>
+
+        <StylLink to='/mom/updateprofile'>Update/Delete your profile</StylLink>
+      </PositionDiv>
+    </ContainerDiv>
   );
 }
