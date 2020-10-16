@@ -32,29 +32,12 @@ const StylMomDriverSearch = styled(MomDriverSearch)`
 export default function(props) {
   const className = props.className;
   
-  //unSortedData contains the searched data sorted by driver's id
-  const [searchType, setSearchType] = useState('');
-  const [unSortedData, setUnSortedData] = useState([]);
-
-  //sortedData contains the sorted searched data, that is sorted by sortType
-  const [sortType, setSortType] = useState('');
-  const [sortedData, setSortedData] = useState([]);
-
-  //This stores the driverID for the driver whose details is to be shown
-  //If it is null, then no driver has been selected for his details to be shown
-  const [driverIdDetail, setDriverIdDetail] = useState(null);
-
-
   return (
     <ContainerDiv className={className}>
       <PositionDiv>
         <StylH1>Find Drivers</StylH1>
 
-        <StylMomDriverSearch
-          searchType={searchType}
-          setSearchType={setSearchType}
-          setUnSortedData={setUnSortedData}
-        />
+        <StylMomDriverSearch/>
 
 
 

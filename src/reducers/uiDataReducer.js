@@ -14,3 +14,13 @@
 */
 
 import { combineReducers} from 'redux';
+import uiMomDrvListReducer from './uiMomDrvListReducer.js';
+import uiMomRvwListReducer from './uiMomRvwListReducer.js'
+
+export default combineReducers(
+  {
+    uiMomDrvList: uiMomDrvListReducer, 
+    uiMomRvwList: uiMomRvwListReducer
+  }
+)
+

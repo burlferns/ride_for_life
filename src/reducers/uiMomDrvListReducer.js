@@ -37,7 +37,11 @@ export default function(state=reducerInitialState, action) {
     case 'resetReducers': {
       return reducerInitialState
     }
-   
+    case 'uiData/MomDrvList/setSearchType': {
+      let newState = {...state, searchType:action.payload};
+      return newState;
+    }
+
 
     default:
       return state;
@@ -47,3 +51,9 @@ export default function(state=reducerInitialState, action) {
 /***********************************************************************
  The following are the actions for this reducer only
  ***********************************************************************/
+export function setSearchType(data) {
+  return {
+    type: 'uiData/MomDrvList/setSearchType',
+    payload: data
+  }
+}

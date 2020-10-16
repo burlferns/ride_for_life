@@ -1,8 +1,11 @@
 import React, {useEffect} from 'react';
 import styled from "styled-components";
+import {useDispatch, useSelector} from 'react-redux';
 
 import DDSelect from '../Form/DDSelect.js';
 import MomDrvSchName from './MomDrvSchName.js'
+
+import {setSearchType} from '../../reducers/uiMomDrvListReducer.js';
 
 
 const ContainerDiv = styled.div`
@@ -26,25 +29,25 @@ const DDsearchDiv = styled.div`
   margin-top: 1rem;
 `;
 
-const StylLabel = styled.label`
+const StylLabelP = styled.p`
   margin-right: 0.8rem;
 `;
 
+const StylButton = styled.button`
+
+
+`;
+
+const selectFunc = state=>state.uiData.uiMomDrvList.searchType; 
 
 export default function(props) {
   const className = props.className;
-  const setSearchType = props.setSearchType;
-  const searchType = props.searchType;
-  const setUnSortedData = props.setUnSortedData;
-
-  //This variable points to the search function that must be run when
-  //the search button is pressed
-  const [searchFunc, setSearchFunc] = useState(null); 
-
-  function runSearch() {
-    searchFunc();
+  const dispatch = useDispatch();
+  const searchType = useSelector(selectFunc);
+  
+  function setDDvalue(data) {
+    dispatch(setSearchType(data));
   }
-
 
   return (
     <ContainerDiv className={className}>
@@ -52,28 +55,19 @@ export default function(props) {
 
       {/* Displays the Drop Down Search Menu */}
       <DDsearchDiv>
-        <StylLabel>Search by:</StylLabel>
+        <StylLabelP>Search by:</StylLabelP>
         <DDSelect 
           options={["Driver's name", "Plot location range", "Price range"]} 
           description='Choose search criteria'
-          setValue={setSearchType}
+          setValue={setDDvalue}
         />
       </DDsearchDiv>
 
 
-
-
       {/* Displays the various search inputs and the Search Button */}
-      { searchType==="Driver's name" && 
-        <MomDrvSchName 
-          setSearchFunc={setSearchFunc}
-        />
-      }
+      { searchType==="Driver's name" && <MomDrvSchName/> }
 
-      {/* {
-        searchType!=='' &&
-        
-      } */}
+      { searchType!=='' && <StylButton>Search</StylButton> }
 
 
 
