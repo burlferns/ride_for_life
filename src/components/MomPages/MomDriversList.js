@@ -1,16 +1,44 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
 
-const StylH1 = styled.h1`
-  margin:5rem 5rem;
-  font-size: 5rem;
+const ContainerDiv = styled.div`
+  width:100%;
+  background: beige;
+  display: flex;
+  flex-direction: column;
 
-  color:orange;
+  
+`;
+
+const PositionDiv = styled.div`
+  width: calc(100% - 4rem);
+  height: fit-content;
+  padding: 2rem 0;
+  margin: 0 auto;
+`;
+
+const StylH1 = styled.h1`
+  font-size: 3rem;
+  text-align: center;
+  text-decoration: underline;
+  margin-bottom: 2rem;
 `;
 
 
-export default function SignIn() {
+export default function(props) {
+  const className = props.className;
+  const [searchType, setSearchType] = useState('');
+
   return (
-    <StylH1>This is the Mom's Drivers listing page</StylH1>
-    );
+    <ContainerDiv className={className}>
+      <PositionDiv>
+        <StylH1>Find Drivers</StylH1>
+
+
+
+
+
+      </PositionDiv>
+    </ContainerDiv>  
+  );
 }

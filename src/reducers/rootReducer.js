@@ -24,6 +24,8 @@ import userDataReducer from './userDataReducer.js';
 import momDataReducer from './momDataReducer.js';
 import driverDataReducer from './driverDataReducer.js';
 
+export const timeDelta = 5*60*1000; //This is the timeDelta used to check if the downloaded 
+                                    //data is fresh enough
 
 export const rootReducer = combineReducers(
   {
