@@ -40,21 +40,7 @@
                    calculated when the array of reviews is downloaded
       }
 
-
-
-
-
-
-
-
-
-
-
     }
-
-
-
-
   }
 
 

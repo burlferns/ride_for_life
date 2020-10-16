@@ -27,7 +27,17 @@ const StylH1 = styled.h1`
 
 export default function(props) {
   const className = props.className;
+  
+  //unSortedData contains the searched data sorted by driver's id
+  //When the searchType is cleared, the unSortedData must also be cleared
   const [searchType, setSearchType] = useState('');
+  const [unSortedData, setUnSortedData] = useState([]);
+
+  //sortedData contains the sorted searched data, that is sorted by sortType
+  //When the sortType is cleared, the sortedData must also be cleared
+  const [sortType, setSortType] = useState('');
+  const [sortedData, setSortedData] = useState([]);
+
 
   return (
     <ContainerDiv className={className}>
