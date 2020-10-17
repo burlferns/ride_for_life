@@ -86,6 +86,14 @@ function saveDriversList(driverArray,timeNow) {
   }
 }
 
+function saveDriversReview(driverId,reviewArray,timeNow) {
+  return {
+    type: 'momData/saveDriversList',
+    payload: {driverArray,timeNow}
+  }
+}
+
+
 export function downloadDriverArray() {
   return async function(dispatch, getState) {
     const drivers = getState().momData.drivers;
@@ -95,7 +103,7 @@ export function downloadDriverArray() {
     try {
       //If there is no drivers data or it was last downloaded over timeDelta
       //milliseconds ago, then download fresh driver data
-      if(drivers===undefined || (timeNow - drivers.lastDwnldTime>timeDelta)){
+      if(drivers===undefined || (timeNow - drivers.lastDwnldTime > timeDelta)){
         response = await axiosWithAuth().get(`/api/drivers`);
         timeNow = Date.now();
         dispatch(saveDriversList(response.data,timeNow));
@@ -105,5 +113,38 @@ export function downloadDriverArray() {
     catch(error) {
       console.log('momDatareducer.js/downloadDriverArray error :', error.response)
     }    
+  }
+}
+
+export function downloadDriverReviews(driverId) {
+  return async function(dispatch, getState) { 
+    const driverReviews = getState().momData.driverReviews;
+    let timeNow = Date.now();
+    let response;
+
+    try {
+      //If there is no driver review data for the particular driver, or it was last
+      //downloaded over timeDelta milliseconds ago, then download fresh data
+      if( driverReviews===undefined || 
+        driverReviews.driverId===undefined ||
+        (timeNow - driverReviews.driverId.lastDwnldTime > timeDelta) 
+      ) {
+        response = await axiosWithAuth().get(`/api/drivers/${driverId}/reviews`);
+        timeNow = Date.now();
+        reviewArray = response.data;
+        dispatch(saveDriversReview(driverId,reviewArray,timeNow));
+
+      }
+
+
+
+
+    }
+    catch(error) {
+      console.log('momDatareducer.js/downloadDriverReviews error :', error.response)
+    }
+
+
+
   }
 }

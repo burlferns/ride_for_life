@@ -4,6 +4,7 @@ import {useDispatch} from 'react-redux';
 
 import SmallButton from '../Form/SmallButton.js'
 import {downloadDriverArray} from '../../reducers/momDataReducer.js';
+import {doNameSearch} from '../../reducers/uiMomDrvListReducer.js';
 
 const NameSearchDiv = styled.div`
   width: fit-content;
@@ -61,12 +62,12 @@ export default function(props) {
     if(nameValue==='') {
       return;
     }
-    
+
     //First make sure array of all drivers in state.momData.drivers
     //is the latest downloaded
     await dispatch(downloadDriverArray());
 
-
+    await dispatch(doNameSearch(nameValue));
   }
 
   return (

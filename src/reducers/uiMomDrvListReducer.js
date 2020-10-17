@@ -1,6 +1,6 @@
 /*
 
-  This is state.uiData.uiMomDrvList
+  This is state.uiData.uiMomDrvList  in uiMomDrvListReducer.js
 
   The uiMomDrvList reducer state slice looks like this:
 
@@ -30,22 +30,39 @@
 
 */
 
+import {downloadDriverReviews} from './momDataReducer.js';
+
+
+
 const reducerInitialState = { 
   searchType: ''
 };
 
 export default function(state=reducerInitialState, action) {
   switch(action.type) {
+    
+    /****** These are for general ******/
     case 'resetReducers': {
       return reducerInitialState;
     }
     case 'uiData/MomDrvList/resetST': {
       return reducerInitialState;
     }
+
+
+    /****** These are for serching by name ******/
     case 'uiData/MomDrvList/setSTName': {
       return {
         searchType: "Driver's name",
         driverId: '',
+        driverData: {}
+      }
+    }
+
+    case 'uiData/MomDrvList/setSTName_None': {
+      return {
+        searchType: "Driver's name",
+        driverId: 'none',
         driverData: {}
       }
     }
@@ -58,20 +75,13 @@ export default function(state=reducerInitialState, action) {
 }
 
 /***********************************************************************
- The following are the actions for this reducer only
- ***********************************************************************/
+ The following are the general actions for this reducer only
+************************************************************************/
 //This resets the search type if the Drop Down Menu used to choose the 
 //the type of search is reset to its initial state of nothing choosen 
 function resetST() {
   return {
     type: 'uiData/MomDrvList/resetST'
-  }
-}
-
-//Initializes state to search by driver's name
-function setSTName() {
-  return {
-    type: 'uiData/MomDrvList/setSTName'
   }
 }
 
@@ -91,5 +101,49 @@ export function setSearchType(theType) {
       }
 
     }
+  }
+}
+
+/***********************************************************************
+ The following are the actions for this reducer only for searching by
+ driver's name 
+************************************************************************/
+//Initializes state to search by driver's name
+function setSTName() {
+  return {
+    type: 'uiData/MomDrvList/setSTName'
+  }
+}
+
+//Sets state if after a search the name is not found
+function setSTName_None() {
+  return {
+    type: 'uiData/MomDrvList/setSTName_None'
+  }
+}
+
+//Perform the name search
+export function doNameSearch(name) {
+  return async function(dispatch, getState) {
+    const driverArray = getState().momData.drivers.driverArray;
+    const found = driverArray.find(elem=>elem.drivers_name===name);
+    if(found===undefined) {
+      dispatch(setSTName_None());
+      return Promise.resolve();
+    }
+    const dataToDisplay = {...found};
+    delete dataToDisplay.password;
+
+    //Now get the drivers reviews
+    try {
+      await dispatch(downloadDriverReviews(dataToDisplay.id));
+
+      // dispatch(setSTName_Found())
+    }
+    catch(error) {
+      console.log('uiMomDrvListReducer.js/doNameSearch error :', error.response)
+    }
+    
+    
   }
 }
