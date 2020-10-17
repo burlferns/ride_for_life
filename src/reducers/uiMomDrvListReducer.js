@@ -134,7 +134,7 @@ export function doNameSearch(name) {
     const dataToDisplay = {...found};
     delete dataToDisplay.password;
 
-    //Now get the drivers reviews
+    //Now get the driver's reviews
     try {
       await dispatch(downloadDriverReviews(dataToDisplay.id));
 

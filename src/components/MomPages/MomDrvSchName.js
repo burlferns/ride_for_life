@@ -65,7 +65,8 @@ export default function(props) {
 
     //First make sure array of all drivers in state.momData.drivers
     //is the latest downloaded
-    await dispatch(downloadDriverArray());
+    let result = await dispatch(downloadDriverArray());
+    console.log('momdrvschname.js/result=',result);
 
     await dispatch(doNameSearch(nameValue));
   }

@@ -70,6 +70,19 @@ export default function(state=reducerInitialState, action) {
       return newState;
     }
 
+    case 'momData/saveDriversReview': {
+      const newState = {...state};
+      const driverId = action.payload.driverId;
+      if(newState.driverReviews===undefined) {
+        newState.driverReviews = {};        
+      }
+      newState.driverReviews[driverId] = {
+        reviews: action.payload.reviewArray,
+        lastDwnldTime: action.payload.timeNow,
+        avgRating: action.payload.reviewAvg
+      }
+      return newState;
+    }
 
     default:
       return state;
@@ -86,10 +99,10 @@ function saveDriversList(driverArray,timeNow) {
   }
 }
 
-function saveDriversReview(driverId,reviewArray,timeNow) {
+function saveDriversReview(driverId,reviewArray,reviewAvg,timeNow) {
   return {
-    type: 'momData/saveDriversList',
-    payload: {driverArray,timeNow}
+    type: 'momData/saveDriversReview',
+    payload: {driverId,reviewArray,reviewAvg,timeNow}
   }
 }
 
@@ -108,10 +121,11 @@ export function downloadDriverArray() {
         timeNow = Date.now();
         dispatch(saveDriversList(response.data,timeNow));
       }
-      return Promise.resolve();
+      return Promise.resolve(true);
     }
     catch(error) {
-      console.log('momDatareducer.js/downloadDriverArray error :', error.response)
+      console.log('momDatareducer.js/downloadDriverArray error :', error.response);
+      return Promise.resolve(false);
     }    
   }
 }
@@ -131,14 +145,12 @@ export function downloadDriverReviews(driverId) {
       ) {
         response = await axiosWithAuth().get(`/api/drivers/${driverId}/reviews`);
         timeNow = Date.now();
-        reviewArray = response.data;
-        dispatch(saveDriversReview(driverId,reviewArray,timeNow));
-
+        const reviewArray = response.data;
+        const reviewSum = reviewArray.reduce((acc,curr)=>acc+curr.rating,0);
+        const reviewAvg = (reviewSum/(reviewArray.length)).toFixed(1);
+        dispatch(saveDriversReview(driverId,reviewArray,reviewAvg,timeNow));
       }
-
-
-
-
+      return Promise.resolve();
     }
     catch(error) {
       console.log('momDatareducer.js/downloadDriverReviews error :', error.response)
