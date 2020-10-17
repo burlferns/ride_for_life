@@ -117,7 +117,7 @@ export default function(props) {
         setDoSuccessMsg(true);
       }
       catch(error) {
-        // console.log('DriverUpdateProfileForm error :', error.response);
+        console.log('DriverUpdateProfileForm error :', error.response);
       }
     }
   })
@@ -145,7 +145,7 @@ export default function(props) {
       },3000)
     }
     catch(error) {
-      // console.log('MomUpdateProfileForm error :', error.response);
+      console.log('MomUpdateProfileForm error :', error.response);
     }
   }
 

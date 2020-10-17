@@ -15,6 +15,8 @@
     driverId: '' is initial value
               'none' for when a driver is not found with the name
               'int' for when a driver is found and his id is an integer int
+    driverData: this is the data to display. It is an empty object, or filled 
+                with key/value pairs of driver data
   }
 
 
@@ -43,7 +45,8 @@ export default function(state=reducerInitialState, action) {
     case 'uiData/MomDrvList/setSTName': {
       return {
         searchType: "Driver's name",
-        driverId: ''
+        driverId: '',
+        driverData: {}
       }
     }
     

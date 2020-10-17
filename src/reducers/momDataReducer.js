@@ -50,7 +50,7 @@
 */
 
 import {timeDelta} from './rootReducer.js';
-
+import {axiosWithAuth} from '../utils/axiosConfig.js';
 
 
 const reducerInitialState = { };
@@ -69,8 +69,22 @@ export default function(state=reducerInitialState, action) {
 /***********************************************************************
  The following are the actions for this reducer only
  ***********************************************************************/
-// export function downloadDriverArray() {
-//   return async function(disatch, getState) {
+export function downloadDriverArray() {
+  return async function(disatch, getState) {
+    const drivers = getState().momData.drivers;
+    const timeNow = Date.now();
 
-//   }
-// }
+    let response;
+
+    try {
+      //If there is no drivers data or it was last downloaded over timeDelta
+      //milliseconds ago, then download fresh driver data
+      if(drivers===undefined || (timeNow - drivers.lastDwnldTime>timeDelta)){
+        response = await axiosWithAuth().get(`/api/drivers`);
+      }
+    }
+    catch(error) {
+      
+    }    
+  }
+}

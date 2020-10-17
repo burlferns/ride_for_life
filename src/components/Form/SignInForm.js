@@ -135,7 +135,9 @@ export default function(props) {
           setErrorMsgOn(true);
           setWaitMsgOn(false);
         }
-        // console.log('SignInForm error :', error.response);
+        else {
+          console.log('SignInForm error :', error.response);
+        }
       }
     }
   })
