@@ -1,4 +1,7 @@
 /*
+  
+  This is state.uiData
+
   The uiDataReducer reducer state slice looks like this:
 
   {

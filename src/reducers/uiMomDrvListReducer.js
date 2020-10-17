@@ -1,4 +1,7 @@
 /*
+
+  This is state.uiData.uiMomDrvList
+
   The uiMomDrvList reducer state slice looks like this:
 
   {

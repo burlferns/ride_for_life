@@ -1,3 +1,18 @@
+/*
+
+  This is state.uiData.uiMomRvwList
+
+  The uiMomRvwList reducer state slice looks like this:
+
+  {
+    
+  }
+
+*/
+
+
+
+
 
 const reducerInitialState = { };
 

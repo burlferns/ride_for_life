@@ -1,4 +1,7 @@
 /*
+  
+  This is state.momData
+
   The momData reducer state slice looks like this:
 
   {
@@ -63,4 +66,11 @@ export default function(state=reducerInitialState, action) {
   }
 }
 
-
+/***********************************************************************
+ The following are the actions for this reducer only
+ ***********************************************************************/
+export function downloadDriverArray() {
+  return async function(disatch, getState) {
+    
+  }
+}

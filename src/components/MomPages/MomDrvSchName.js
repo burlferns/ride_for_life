@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
 
 
@@ -16,7 +16,7 @@ const StylLabel = styled.label`
 `;
 
 const StylInput = styled.input`
-  font-size:1.5rem;
+  font-size:1.6rem;
   color: #5F6A6A;
   background: transparent;
   border-radius: 0.5rem;
@@ -43,12 +43,30 @@ export default function(props) {
   const className = props.className;
   const [nameValue,setNameValue] = useState('');
 
+
+  // eslint-disable-next-line
+  useEffect(()=>{
+    setNameValue(nameSearch);
+  });
+
   function onChange(event) {
     setNameValue(event.target.value);
   }
 
+  async function nameSearch() {
+    if(nameValue==='') {
+      return;
+    }
+
+    //First make sure array of all drivers in state.momData.drivers
+    //is the latest downloaded
+    dispatch()
+
+
+  }
+
   return (
-    <NameSearchDiv>
+    <NameSearchDiv className={className}>
       <StylLabel htmlFor='drvName'>Driver's name:</StylLabel>
       <StylInput type='text' name='drvName' id='drvName' 
         value={nameValue} onChange={onChange}
