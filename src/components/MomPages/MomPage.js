@@ -19,7 +19,7 @@ const OuterContainer = styled.div.attrs(props=>({
   box-shadow:  4px 4px 3px 0px #f2f2f2;
   border:1px solid #e6e6e6;
 
-  width: calc(100vw - 10rem - 0.2rem);
+  width: calc(100vw - 10rem - 0.2rem); //5rem*2 is the margin & 0.1rem*2 is the border
   max-width:100rem;
   height:fit-content;
   
@@ -39,7 +39,7 @@ const OuterContainer = styled.div.attrs(props=>({
   }
 
   @media (max-width:459px) {
-    width: calc(100vw - 2rem);
+    width: calc(100vw - 2rem);  //1rem*2 is for the margin & border
   }
 `;
 

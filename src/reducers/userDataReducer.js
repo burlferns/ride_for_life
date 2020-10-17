@@ -1,5 +1,8 @@
 /*
-The userData reducer state slice looks like this:
+
+  This is state.userData
+
+  The userData reducer state slice looks like this:
 
     If a mom/driver is not not logged in:
     {

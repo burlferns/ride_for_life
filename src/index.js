@@ -8,7 +8,7 @@ import logger from 'redux-logger';
 
 import './index.css';
 import App from './App.js';
-import {rootReducer} from './reducers/rootReducer.js';
+import rootReducer from './reducers/rootReducer.js';
 
 const store = createStore(rootReducer, applyMiddleware(thunk,logger));
 
