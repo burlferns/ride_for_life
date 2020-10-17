@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
+import {useDispatch} from 'react-redux';
 
+import SmallButton from '../Form/SmallButton.js'
+import {setSearchFunc} from '../../reducers/uiMomDrvListReducer.js';
 
 const NameSearchDiv = styled.div`
   width: fit-content;
@@ -22,6 +25,7 @@ const StylInput = styled.input`
   border-radius: 0.5rem;
   border:0.1rem solid black;
   padding: 0.2rem 0.8rem;
+  width: 15rem;
 
   position: relative;
   top:0;
@@ -39,15 +43,15 @@ const StylInput = styled.input`
   }
 `;
 
+const StylButton = styled(SmallButton)`
+  margin-bottom: 1rem;
+`;
+
+
 export default function(props) {
-  const className = props.className;
   const [nameValue,setNameValue] = useState('');
-
-
-  // eslint-disable-next-line
-  useEffect(()=>{
-    setNameValue(nameSearch);
-  });
+  const dispatch = useDispatch();
+  
 
   function onChange(event) {
     setNameValue(event.target.value);
@@ -58,20 +62,25 @@ export default function(props) {
       return;
     }
 
+    console.log('In name search, button was clicked, nameValue=',nameValue)
+
     //First make sure array of all drivers in state.momData.drivers
     //is the latest downloaded
-    dispatch()
+    // dispatch()
 
 
   }
 
   return (
-    <NameSearchDiv className={className}>
+    <>
+    <NameSearchDiv>
       <StylLabel htmlFor='drvName'>Driver's name:</StylLabel>
       <StylInput type='text' name='drvName' id='drvName' 
         value={nameValue} onChange={onChange}
       />
     </NameSearchDiv>
+    <StylButton onClick={nameSearch} text='Run Search'/>
+    </>
   );
 } 
 

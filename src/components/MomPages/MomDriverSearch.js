@@ -16,6 +16,7 @@ const ContainerDiv = styled.div`
 const StylP = styled.p`
   font-size: 1.4rem;
   margin-left:1rem;
+  margin-right:1rem;
   width:fit-content;
   margin-top: 1rem;
 `;
@@ -33,40 +34,6 @@ const StylLabelP = styled.p`
   margin-right: 0.8rem;
 `;
 
-const StylButton = styled.button`
-  font-size:1.6rem;
-  color: white;
-  background: grey;
-  border:0.2rem solid grey;
-  border-radius: 0.5rem;
-  margin-left:1rem;
-  margin-top: 1rem;
-  padding: 0.2rem 0.8rem;
-  border:grey;
-  outline:none;
-
-  position: relative;
-  top:0;
-  left:0;
-  :hover::after {
-    content: '';
-    position:absolute;
-    box-sizing: border-box;
-    top: -0.2rem;
-    left: -0.2rem;
-    bottom: -0.2rem;
-    right: -0.2rem;
-    border-radius: 0.5rem;
-    border: 0.2rem solid #5DADE2;
-  }
-
-  :active {
-    background: lightgrey;
-  }
-
-
-`;
-
 const selectFunc = state=>state.uiData.uiMomDrvList; 
 
 export default function(props) {
@@ -74,7 +41,6 @@ export default function(props) {
   const dispatch = useDispatch();
   const uiMomDrvList = useSelector(selectFunc);
   const searchType = uiMomDrvList.searchType;
-  const searchFunc = uiMomDrvList.searchFunc;
   
   function setDDvalue(data) {
     dispatch(setSearchType(data));
@@ -98,9 +64,7 @@ export default function(props) {
       {/* Displays the various search inputs and the Search Button */}
       { searchType==="Driver's name" && <MomDrvSchName/> }
 
-      { searchType!=='' && 
-        <StylButton onClick={searchFunc}>Run Search</StylButton> 
-      }
+      
 
 
 

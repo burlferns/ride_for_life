@@ -69,8 +69,8 @@ export default function(state=reducerInitialState, action) {
 /***********************************************************************
  The following are the actions for this reducer only
  ***********************************************************************/
-export function downloadDriverArray() {
-  return async function(disatch, getState) {
-    
-  }
-}
+// export function downloadDriverArray() {
+//   return async function(disatch, getState) {
+
+//   }
+// }
