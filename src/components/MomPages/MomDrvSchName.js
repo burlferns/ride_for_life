@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {useDispatch} from 'react-redux';
 
 import SmallButton from '../Form/SmallButton.js'
-import {setSearchFunc} from '../../reducers/uiMomDrvListReducer.js';
+import {downloadDriverArray} from '../../reducers/momDataReducer.js';
 
 const NameSearchDiv = styled.div`
   width: fit-content;
@@ -61,12 +61,10 @@ export default function(props) {
     if(nameValue==='') {
       return;
     }
-
-    console.log('In name search, button was clicked, nameValue=',nameValue)
-
+    
     //First make sure array of all drivers in state.momData.drivers
     //is the latest downloaded
-    // dispatch()
+    await dispatch(downloadDriverArray());
 
 
   }

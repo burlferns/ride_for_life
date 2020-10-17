@@ -1,6 +1,6 @@
 /*
   
-  This is state.momData
+  This is state.momData in momDatareducer.js
 
   The momData reducer state slice looks like this:
 
@@ -61,6 +61,16 @@ export default function(state=reducerInitialState, action) {
       return reducerInitialState
     }
 
+    case 'momData/saveDriversList': {
+      const newState = {...state};
+      newState.drivers = {
+        driverArray: action.payload.driverArray,
+        lastDwnldTime: action.payload.timeNow
+      }
+      return newState;
+    }
+
+
     default:
       return state;
   }
@@ -68,12 +78,18 @@ export default function(state=reducerInitialState, action) {
 
 /***********************************************************************
  The following are the actions for this reducer only
- ***********************************************************************/
-export function downloadDriverArray() {
-  return async function(disatch, getState) {
-    const drivers = getState().momData.drivers;
-    const timeNow = Date.now();
+************************************************************************/
+function saveDriversList(driverArray,timeNow) {
+  return {
+    type: 'momData/saveDriversList',
+    payload: {driverArray,timeNow}
+  }
+}
 
+export function downloadDriverArray() {
+  return async function(dispatch, getState) {
+    const drivers = getState().momData.drivers;
+    let timeNow = Date.now();
     let response;
 
     try {
@@ -81,10 +97,13 @@ export function downloadDriverArray() {
       //milliseconds ago, then download fresh driver data
       if(drivers===undefined || (timeNow - drivers.lastDwnldTime>timeDelta)){
         response = await axiosWithAuth().get(`/api/drivers`);
+        timeNow = Date.now();
+        dispatch(saveDriversList(response.data,timeNow));
       }
+      return Promise.resolve();
     }
     catch(error) {
-      
+      console.log('momDatareducer.js/downloadDriverArray error :', error.response)
     }    
   }
 }
