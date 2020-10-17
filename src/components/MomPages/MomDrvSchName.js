@@ -63,12 +63,18 @@ export default function(props) {
       return;
     }
 
-    //First make sure array of all drivers in state.momData.drivers
-    //is the latest downloaded
-    let result = await dispatch(downloadDriverArray());
-    console.log('momdrvschname.js/result=',result);
+    try {
+      //First make sure array of all drivers in state.momData.drivers
+      //is the latest downloaded
+      await dispatch(downloadDriverArray());
+      
+      await dispatch(doNameSearch(nameValue));
+    }
+    catch(error) {
+      console.log('MomDrvSchName.js/nameSearch, error=',error);
+    }
 
-    await dispatch(doNameSearch(nameValue));
+    
   }
 
   return (

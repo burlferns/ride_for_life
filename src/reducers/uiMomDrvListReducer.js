@@ -134,15 +134,14 @@ export function doNameSearch(name) {
     const dataToDisplay = {...found};
     delete dataToDisplay.password;
 
-    //Now get the driver's reviews
-    try {
-      await dispatch(downloadDriverReviews(dataToDisplay.id));
+    //Now make sure that the latest reviews for the found driver
+    //are at state.momData.driverReviews.[dataToDisplay.id] 
+    await dispatch(downloadDriverReviews(dataToDisplay.id));
 
-      // dispatch(setSTName_Found())
-    }
-    catch(error) {
-      console.log('uiMomDrvListReducer.js/doNameSearch error :', error.response)
-    }
+    //Get the review data and format it for display:
+
+    // dispatch(setSTName_Found())
+    
     
     
   }

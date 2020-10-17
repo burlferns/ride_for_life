@@ -113,20 +113,14 @@ export function downloadDriverArray() {
     let timeNow = Date.now();
     let response;
 
-    try {
-      //If there is no drivers data or it was last downloaded over timeDelta
-      //milliseconds ago, then download fresh driver data
-      if(drivers===undefined || (timeNow - drivers.lastDwnldTime > timeDelta)){
-        response = await axiosWithAuth().get(`/api/drivers`);
-        timeNow = Date.now();
-        dispatch(saveDriversList(response.data,timeNow));
-      }
-      return Promise.resolve(true);
+    //If there is no drivers data or it was last downloaded over timeDelta
+    //milliseconds ago, then download fresh driver data
+    if(drivers===undefined || (timeNow - drivers.lastDwnldTime > timeDelta)){
+      response = await axiosWithAuth().get(`/api/drivers`);
+      timeNow = Date.now();
+      dispatch(saveDriversList(response.data,timeNow));
     }
-    catch(error) {
-      console.log('momDatareducer.js/downloadDriverArray error :', error.response);
-      return Promise.resolve(false);
-    }    
+    return Promise.resolve();        
   }
 }
 
@@ -136,27 +130,20 @@ export function downloadDriverReviews(driverId) {
     let timeNow = Date.now();
     let response;
 
-    try {
-      //If there is no driver review data for the particular driver, or it was last
-      //downloaded over timeDelta milliseconds ago, then download fresh data
-      if( driverReviews===undefined || 
-        driverReviews.driverId===undefined ||
-        (timeNow - driverReviews.driverId.lastDwnldTime > timeDelta) 
-      ) {
-        response = await axiosWithAuth().get(`/api/drivers/${driverId}/reviews`);
-        timeNow = Date.now();
-        const reviewArray = response.data;
-        const reviewSum = reviewArray.reduce((acc,curr)=>acc+curr.rating,0);
-        const reviewAvg = (reviewSum/(reviewArray.length)).toFixed(1);
-        dispatch(saveDriversReview(driverId,reviewArray,reviewAvg,timeNow));
-      }
-      return Promise.resolve();
-    }
-    catch(error) {
-      console.log('momDatareducer.js/downloadDriverReviews error :', error.response)
+    //If there is no driver review data for the particular driver, or it was last
+    //downloaded over timeDelta milliseconds ago, then download fresh data
+    if( driverReviews===undefined || 
+      driverReviews[driverId]===undefined ||
+      (timeNow - driverReviews[driverId].lastDwnldTime > timeDelta) 
+    ) {
+      response = await axiosWithAuth().get(`/api/drivers/${driverId}/reviews`);
+      timeNow = Date.now();
+      const reviewArray = response.data;
+      const reviewSum = reviewArray.reduce((acc,curr)=>acc+curr.rating,0);
+      const reviewAvg = (reviewSum/(reviewArray.length)).toFixed(1);
+      dispatch(saveDriversReview(driverId,reviewArray,reviewAvg,timeNow));
     }
 
-
-
+    return Promise.resolve();
   }
 }
