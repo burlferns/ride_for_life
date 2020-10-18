@@ -20,7 +20,19 @@
   }
 
 
-
+  If the search type is "Plot location range":
+  {
+    searchType: "Plot location range",
+    unsortedDrivers: {} i.e. empty object for when no data is found
+                     {...} i.e. filled object when data is found 
+    driverId: '' for when no driver details is requested
+              'int' for when a driver details is requested
+    driverData: this is the driver details to display.
+    sortType: '' is initial value and when no sort is selected
+              'Price' for sort by price
+              'Rating' for sort by rating 
+    sortedData: {} i.e. empty object when no sort is selected or data 
+  }
 
 
 

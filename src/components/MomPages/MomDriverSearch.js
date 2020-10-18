@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from "styled-components";
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -43,6 +43,18 @@ export default function(props) {
   const uiMomDrvList = useSelector(selectFunc);
   const searchType = uiMomDrvList.searchType;
   
+  useEffect(()=>{
+    //This useEffect does nothing on mount and nothing on re-render.
+    //However when we are done with the Mom Drivers page, and this component is
+    //unmounted, it will reset the state.uiData.uiMomDrvList state slice to 
+    //its initial value, thus ensuring that when we later come back to Mom Drivers page
+    //it is in its initial reset state
+
+    return ()=>dispatch(setSearchType(''));
+  },[])
+
+
+
   function setDDvalue(data) {
     dispatch(setSearchType(data));
   }
