@@ -41,6 +41,9 @@
 
         avgRating: This is a float number that is the average of all the ratings for the driver
                    calculated when the array of reviews is downloaded
+
+        reviewStatus: 'add' if logged-in mom does not already have a review for driver
+                      'update' if logged-in mom already has a review for driver
       }
 
     }
@@ -79,7 +82,8 @@ export default function(state=reducerInitialState, action) {
       newState.driverReviews[driverId] = {
         reviews: action.payload.reviewArray,
         lastDwnldTime: action.payload.timeNow,
-        avgRating: action.payload.reviewAvg
+        avgRating: action.payload.reviewAvg,
+        reviewStatus: action.payload.reviewStatus
       }
       return newState;
     }
@@ -102,10 +106,10 @@ function saveDriversList(driverArray,timeNow) {
   }
 }
 
-function saveDriversReview(driverId,reviewArray,reviewAvg,timeNow) {
+function saveDriversReview(driverId,reviewArray,reviewAvg,timeNow,reviewStatus) {
   return {
     type: 'momData/saveDriversReview',
-    payload: {driverId,reviewArray,reviewAvg,timeNow}
+    payload: {driverId,reviewArray,reviewAvg,timeNow,reviewStatus}
   }
 }
 
@@ -139,11 +143,26 @@ export function downloadDriverReviews(driverId) {
       (timeNow - driverReviews[driverId].lastDwnldTime > timeDelta) 
     ) {
       response = await axiosWithAuth().get(`/api/drivers/${driverId}/reviews`);
+      
+
+      //Calculate the average rating for driver
       timeNow = Date.now();
       const reviewArray = response.data;
       const reviewSum = reviewArray.reduce((acc,curr)=>acc+curr.rating,0);
       const reviewAvg = (reviewSum/(reviewArray.length)).toFixed(1);
-      dispatch(saveDriversReview(driverId,reviewArray,reviewAvg,timeNow));
+
+
+      //Determine if mom already has a review for driver
+      let reviewStatus = 'add';
+      const found = reviewArray.find(elem=>
+        parseInt(elem.user_id)===parseInt(localStorage.getItem('userId'))
+      );
+      if(found!==undefined) {
+        reviewStatus = 'update';
+      }
+
+
+      dispatch(saveDriversReview(driverId,reviewArray,reviewAvg,timeNow,reviewStatus));
     }
   }
 }
