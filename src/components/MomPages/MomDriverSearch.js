@@ -28,6 +28,7 @@ const DDsearchDiv = styled.div`
   align-items: center;
   margin-left:1rem;
   margin-top: 1rem;
+  margin-bottom: 1rem;
 `;
 
 const StylLabelP = styled.p`

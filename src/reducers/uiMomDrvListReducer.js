@@ -106,6 +106,8 @@ export function setSearchType(theType) {
         return;
       }
 
+      default:
+        return;
     }
   }
 }
