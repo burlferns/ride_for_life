@@ -83,6 +83,9 @@ export default function(state=reducerInitialState, action) {
       }
       return newState;
     }
+   
+
+
 
     default:
       return state;
@@ -119,8 +122,7 @@ export function downloadDriverArray() {
       response = await axiosWithAuth().get(`/api/drivers`);
       timeNow = Date.now();
       dispatch(saveDriversList(response.data,timeNow));
-    }
-    return Promise.resolve();        
+    }   
   }
 }
 
@@ -143,7 +145,5 @@ export function downloadDriverReviews(driverId) {
       const reviewAvg = (reviewSum/(reviewArray.length)).toFixed(1);
       dispatch(saveDriversReview(driverId,reviewArray,reviewAvg,timeNow));
     }
-
-    return Promise.resolve();
   }
 }

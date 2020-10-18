@@ -72,9 +72,7 @@ export default function(props) {
     }
     catch(error) {
       console.log('MomDrvSchName.js/nameSearch, error=',error);
-    }
-
-    
+    }   
   }
 
   return (

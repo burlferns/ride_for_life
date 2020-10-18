@@ -12,7 +12,7 @@ export default function(props) {
 
   return (
     <ContainerDiv className={className}>
-      Here is where the display is done
+      
     </ContainerDiv>
   )
 }

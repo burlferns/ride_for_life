@@ -67,7 +67,13 @@ export default function(state=reducerInitialState, action) {
       }
     }
     
-
+    case 'uiData/MomDrvList/setSTName_Found': {
+      return {
+        searchType: "Driver's name",
+        driverId: `${action.payload.id}`,
+        driverData: action.payload
+      }
+    }
 
     default:
       return state;
@@ -122,6 +128,16 @@ function setSTName_None() {
   }
 }
 
+//Sets state if after a search the name is found
+function setSTName_Found(data) {
+  return {
+    type: 'uiData/MomDrvList/setSTName_Found',
+    payload: data
+  }
+}
+
+
+
 //Perform the name search
 export function doNameSearch(name) {
   return async function(dispatch, getState) {
@@ -129,20 +145,18 @@ export function doNameSearch(name) {
     const found = driverArray.find(elem=>elem.drivers_name===name);
     if(found===undefined) {
       dispatch(setSTName_None());
-      return Promise.resolve();
+      return;
     }
-    const dataToDisplay = {...found};
-    delete dataToDisplay.password;
+    const dataToSave = {...found};
+    delete dataToSave.password;
 
     //Now make sure that the latest reviews for the found driver
-    //are at state.momData.driverReviews.[dataToDisplay.id] 
-    await dispatch(downloadDriverReviews(dataToDisplay.id));
+    //are at state.momData.driverReviews[dataToSave.id] 
+    await dispatch(downloadDriverReviews(dataToSave.id));
 
-    //Get the review data and format it for display:
-
-    // dispatch(setSTName_Found())
-    
-    
-    
+    //Add the review data and save everything to state.uiData.uiMomDrvList.driverData
+    const reviewArray = getState().momData.driverReviews[dataToSave.id];
+    dataToSave.reviews = reviewArray;
+    dispatch(setSTName_Found(dataToSave));
   }
 }
