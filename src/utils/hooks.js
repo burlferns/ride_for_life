@@ -1,10 +1,14 @@
 import {useState, useEffect, useRef, useContext} from 'react';
 
+/*
+  This hook can measure the size of an element. It has to be called in the following way:
+  const [elemRef,elemSize] = useSizeObserver();
 
-//This hook can measure the size of an element. It has to be called in the following way:
-
-
-
+  where:
+    elemRef must be set to the ref attribute of the ReactDOMelement that is to be measured
+    elemSize is an object that contains the width and height of the measured ReactDOMelement
+    So the height is obtained as elemSize.height and the width as elemSize.width 
+*/
 export const useSizeObserver = function () {
   const elemRef = useRef(null);  //Reference to element that is measured
   const observerRef = useRef(null); //Reference to the resizeObserver object
@@ -20,8 +24,6 @@ export const useSizeObserver = function () {
 
     return ()=>{observerRef.current.unobserve(elemRef.current)};
   },[])
-
-  //elemRef must be set to the ref attribute of the ReactDOMelement that is to be measured
-  //elemSize contains the width and height of the measured ReactDOMelement 
+  
   return [elemRef,elemSize]
 }
