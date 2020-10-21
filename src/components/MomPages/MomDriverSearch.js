@@ -51,7 +51,8 @@ export default function(props) {
     //it is in its initial reset state
 
     return ()=>dispatch(setSearchType(''));
-  },[dispatch])
+    // eslint-disable-next-line
+  },[])
 
 
 

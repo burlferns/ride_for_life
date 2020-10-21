@@ -1,7 +1,6 @@
-import React, {useState, useEffect, useRef, useContext} from 'react';
+import React, {useContext} from 'react';
 import styled from "styled-components";
 import {useRouteMatch, Route, Switch, Redirect} from 'react-router-dom';
-import ResizeObserver from 'resize-observer-polyfill';
 
 import MomProfile from './MomProfile.js';
 import MomDriversList from './MomDriversList.js';
@@ -11,7 +10,7 @@ import {ViewportContext} from '../../App.js';
 
 import narrowImg from '../../images/narrow.jpg';
 
-import {useSizeObserver} from '../../utils/hooks.js';
+import {useSizeObserver} from '../../utils/customHooks.js';
 
 const OuterContainer = styled.div.attrs(props=>({
   style: {
