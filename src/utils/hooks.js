@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef, useContext} from 'react';
+import {useState, useEffect, useRef} from 'react';
 
 /*
   This hook can measure the size of an element. It has to be called in the following way:
@@ -26,7 +26,15 @@ export const useSizeObserver = function () {
     });
     observerRef.current.observe(elemRef.current);
 
-    return ()=>{observerRef.current.unobserve(elemRef.current)};
+    //I was getting a warning from React when I used elemRef.current in the unobserver function
+    //that is run on dismount, saying: 
+    //    "The ref value 'elemRef.current' will likely have changed by the time this effect cleanup
+    //    function runs. If this ref points to a node rendered by React, copy 'elemRef.current'
+    //    to a variable inside the effect, and use that variable in the cleanup function"
+    //So that is why the variable refToElement is used here 
+    const refToElement = elemRef.current;
+
+    return ()=>{observerRef.current.unobserve(refToElement)};
   },[])
   
   return [elemRef,elemSize]
