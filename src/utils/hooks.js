@@ -17,7 +17,11 @@ export const useSizeObserver = function () {
 
   useEffect(()=>{
     observerRef.current = new ResizeObserver(entries=>{
-      const entry = entries[0];
+      const entry = entries[0]; //The ResizeObserver can observe more than one element at a time
+                                //so that is why entries is an array of measurement objects for 
+                                //each of the elements that ResizeObserver observes. In this hook,
+                                //since the resizeObserver is only looking at one element, we only 
+                                //use the first entry in the array
       setElemSize({width:entry.contentRect.width, height:entry.contentRect.height});
     });
     observerRef.current.observe(elemRef.current);
