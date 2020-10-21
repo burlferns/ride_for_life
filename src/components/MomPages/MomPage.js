@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef, useContext} from 'react';
 import styled from "styled-components";
 import {useRouteMatch, Route, Switch, Redirect} from 'react-router-dom';
+import ResizeObserver from 'resize-observer-polyfill';
 
 import MomProfile from './MomProfile.js';
 import MomDriversList from './MomDriversList.js';
@@ -76,14 +77,15 @@ const StylImg = styled.img`
 
 
 export default function() {
-  const divRef = useRef(null);
+  const divRef = useRef(null);  //Reference to element that is measured
+  const observerRef = useRef(null); //Reference to the resizeObserver object
   const [cntrHgt,setCntHgt] = useState(0); //This stores the measured container height
   const vpSize = useContext(ViewportContext);
   const match = useRouteMatch();
 
-  const [,doChromeKick] = useState(false); //This is just there to get chromium based browsers
-                                           //to set the initial height of OuterContainer properly
-                                           //This is not needed for Firefox or Safari 
+  // const [,doChromeKick] = useState(false); //This is just there to get chromium based browsers
+  //                                          //to set the initial height of OuterContainer properly
+  //                                          //This is not needed for Firefox or Safari 
 
 
   // useEffect(()=>{
@@ -112,25 +114,36 @@ export default function() {
   //   }
   // })
 
-  // The following comment line is to remove a warning from eslint
-  // eslint-disable-next-line   
-  useEffect(()=>{
-    const newHeight = Math.round(divRef.current.getBoundingClientRect().height);
-    if(Math.abs(newHeight-cntrHgt)>2) {
-      setCntHgt(newHeight);
-    }
-  })
+  // // The following comment line is to remove a warning from eslint
+  // // eslint-disable-next-line   
+  // useEffect(()=>{
+  //   const newHeight = Math.round(divRef.current.getBoundingClientRect().height);
+  //   if(Math.abs(newHeight-cntrHgt)>2) {
+  //     setCntHgt(newHeight);
+  //   }
+  // })
+
+  // useEffect(()=>{
+  //   setTimeout(()=>doChromeKick(true),100);
+  // },[])
 
   useEffect(()=>{
-    setTimeout(()=>doChromeKick(true),100);
+    observerRef.current = new ResizeObserver(entries=>{
+      const entry = entries[0];
+      setCntHgt(entry.contentRect.height);
+    });
+    observerRef.current.observe(divRef.current);
+
+    return ()=>{observerRef.current.unobserve(divRef.current)};
   },[])
+
 
 
   //These are the vertical margin calculations for OuterContainer
   let topMargin ;
   let botMargin ;
   const minMargin = 2*vpSize[2];
-  const spaceForMargins = vpSize[1]-(4.4+4)*vpSize[2]-cntrHgt;
+  const spaceForMargins = vpSize[1]-(4.4+4)*vpSize[2]-Math.round(cntrHgt);
   if(spaceForMargins<minMargin*2) {
     topMargin = minMargin;
     botMargin = minMargin;
@@ -141,7 +154,7 @@ export default function() {
   }
 
   return (
-    <OuterContainer ref={divRef} topMargin={topMargin} botMargin={botMargin} >
+    <OuterContainer ref={divRef} topMargin={topMargin} botMargin={botMargin} data-name='outerContainer'>
       <StylMomTopSection/>
 
       <Switch>
@@ -152,6 +165,7 @@ export default function() {
       </Switch>
 
       <StylImg src={narrowImg}/>
+      <p>height is {cntrHgt}</p>
     </OuterContainer>
   );
 }
