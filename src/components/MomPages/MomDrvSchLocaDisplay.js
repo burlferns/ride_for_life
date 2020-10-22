@@ -13,6 +13,8 @@ const selectFunc = state=>state.uiData.uiMomDrvList;
 export default function() {
   const uiMomDrvList = useSelector(selectFunc);
   const error = uiMomDrvList.error;
+  const driverId = uiMomDrvList.driverId;
+  const drvsInLoca = uiMomDrvList.drvsInLoca;
 
   return (
     <>
@@ -24,6 +26,29 @@ export default function() {
     }
 
     
+
+
+
+    {
+      !error && driverId!=='' &&
+      <>
+        {
+          drvsInLoca==='none' &&
+          <StylErrorP>
+            No drivers have been found within this location range.
+          </StylErrorP>
+        }
+
+        {
+          Array.isArray(drvsInLoca) && drvsInLoca.length>0 &&
+          <StylErrorP>
+            Here is a list of drivers found
+          </StylErrorP>
+        }
+      </>       
+    }
+
+
 
     </>
   )

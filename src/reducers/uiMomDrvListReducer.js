@@ -24,6 +24,7 @@
   {
     searchType: "Plot location range",
     drvsInLoca: [] i.e. empty array for when no drivers in location range is found
+                'none' for when drivers are not found within the location range
                [...] i.e. filled array when drivers are found 
     driverId: '' for when no driver details is requested
               'int' for when a driver details is requested
@@ -166,7 +167,7 @@ export function setSearchType(theType) {
  driver's name 
 ************************************************************************/
 //Initializes state to search by driver's name
-function setSTName() {
+export function setSTName() {
   return {
     type: 'uiData/MomDrvList/setSTName'
   }
@@ -186,8 +187,6 @@ function setSTName_Found(data) {
     payload: data
   }
 }
-
-
 
 //Perform the name search
 export function doNameSearch(name) {
@@ -217,7 +216,7 @@ export function doNameSearch(name) {
  driver's location 
 ************************************************************************/
 //Initializes state to search by driver's location
-function setSTLoca() {
+export function setSTLoca() {
   return {
     type: 'uiData/MomDrvList/setSTLoca'
   }
@@ -236,5 +235,20 @@ export function setSTLoca_setError(value) {
   return {
     type: 'uiData/MomDrvList/setSTLoca_setError',
     payload: value
+  }
+}
+
+//Perform the search
+export function doLocaSearch(lowVal,highVal) {
+  return async function(dispatch,getState) {
+    const driverArray = getState().momData.drivers.driverArray;
+    const found = driverArray.find(elem=>
+      (elem.drivers_plot>=lowVal && elem.drivers_plot<=highVal) );
+    if(found===undefined) {
+      dispatch(setSTName_None());
+      return;
+    }  
+    
+
   }
 }

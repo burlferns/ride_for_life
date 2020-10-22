@@ -6,7 +6,8 @@ import * as Yup from 'yup';
 import SmallButton from '../Form/SmallButton.js';
 import RadioInput from '../Form/RadioInput.js';
 import {downloadDriverArray} from '../../reducers/momDataReducer.js';
-import {setSTLoca_setSort,setSTLoca_setError} from '../../reducers/uiMomDrvListReducer.js';
+import {setSTLoca_setSort,setSTLoca_setError, setSTLoca} 
+  from '../../reducers/uiMomDrvListReducer.js';
 
 const LocaSearchDiv = styled.div`
   width: fit-content;
@@ -64,9 +65,6 @@ const StylRadioInput = styled(RadioInput)`
 `;
 
 
-
-
-
 const selectFunc = state=>state.uiData.uiMomDrvList; 
 
 export default function(props) {
@@ -78,10 +76,12 @@ export default function(props) {
   
 
   function onLowChange(event) {
+    dispatch(setSTLoca());
     setLowValue(event.target.value);
   }
 
   function onUppChange(event) {
+    dispatch(setSTLoca());
     setUppValue(event.target.value);
   }
 
@@ -114,7 +114,7 @@ export default function(props) {
 
       //Then make sure array of all drivers in state.momData.drivers
       //is the latest downloaded
-      // await dispatch(downloadDriverArray());
+      await dispatch(downloadDriverArray());
       
       // await dispatch(doLocaSearch(lowValue,uppValue))
 

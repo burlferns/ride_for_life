@@ -4,7 +4,7 @@ import {useDispatch} from 'react-redux';
 
 import SmallButton from '../Form/SmallButton.js'
 import {downloadDriverArray} from '../../reducers/momDataReducer.js';
-import {doNameSearch} from '../../reducers/uiMomDrvListReducer.js';
+import {doNameSearch,setSTName} from '../../reducers/uiMomDrvListReducer.js';
 
 const NameSearchDiv = styled.div`
   width: fit-content;
@@ -55,6 +55,7 @@ export default function(props) {
   
 
   function onChange(event) {
+    dispatch(setSTName());
     setNameValue(event.target.value);
   }
 
