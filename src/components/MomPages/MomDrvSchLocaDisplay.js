@@ -25,12 +25,15 @@ export default function() {
       </StylErrorP>  
     }
 
-    
-
-
+    {
+      driverId!=='' &&
+      <StylErrorP>
+        Here are details on one driver.
+      </StylErrorP>
+    }
 
     {
-      !error && driverId!=='' &&
+      !error && driverId==='' &&
       <>
         {
           drvsInLoca==='none' &&

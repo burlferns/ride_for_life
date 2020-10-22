@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import SmallButton from '../Form/SmallButton.js';
 import RadioInput from '../Form/RadioInput.js';
 import {downloadDriverArray} from '../../reducers/momDataReducer.js';
-import {setSTLoca_setSort,setSTLoca_setError, setSTLoca} 
+import {setSTLoca_setSort,setSTLoca_setError, setSTLoca, doLocaSearch} 
   from '../../reducers/uiMomDrvListReducer.js';
 
 const LocaSearchDiv = styled.div`
@@ -91,9 +91,6 @@ export default function(props) {
 
 
   async function locaSearch() {   
-    console.log('Yup =', Yup);
-    console.log('Yup.object =', Yup.object);
-    console.log('Yup.object().shape =', Yup.object().shape);
     try {
       //First check location input values for errors and display error message
       //if necessary
@@ -116,7 +113,7 @@ export default function(props) {
       //is the latest downloaded
       await dispatch(downloadDriverArray());
       
-      // await dispatch(doLocaSearch(lowValue,uppValue))
+      await dispatch(doLocaSearch(lowValue,uppValue))
 
 
     }
