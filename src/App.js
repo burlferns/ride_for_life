@@ -60,9 +60,10 @@ export default function App() {
 
 
             {/* This is temp path used just while mom page development is ongoing */}
-            {/* <Route path='/mom'>
+            <Route path='/mom'>
               <MomPage/>
-            </Route> */}
+              {/* <Temp/> */}
+            </Route>
 
 
 

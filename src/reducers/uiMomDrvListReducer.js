@@ -23,15 +23,16 @@
   If the search type is "Plot location range":
   {
     searchType: "Plot location range",
-    unsortedDrivers: {} i.e. empty object for when no data is found
-                     {...} i.e. filled object when data is found 
+    drvsInLoca: [] i.e. empty array for when no drivers in location range is found
+               [...] i.e. filled array when drivers are found 
     driverId: '' for when no driver details is requested
               'int' for when a driver details is requested
     driverData: this is the driver details to display.
-    sortType: '' is initial value and when no sort is selected
-              'Price' for sort by price
-              'Rating' for sort by rating 
-    sortedData: {} i.e. empty object when no sort is selected or data 
+    sortType: 'Rating' is initial value and it is sort by rating
+              'Price' for sort by price 
+    error: false is initial value but can be set to true if location inputs are 
+           not integer numbers or upper range value is less than lower range 
+           value. Upper equals lower is fine 
   }
 
 
@@ -43,8 +44,6 @@
 */
 
 import {downloadDriverReviews} from './momDataReducer.js';
-
-
 
 const reducerInitialState = { 
   searchType: ''
@@ -87,6 +86,24 @@ export default function(state=reducerInitialState, action) {
       }
     }
 
+
+    /****** These are for serching by location ******/
+    case 'uiData/MomDrvList/setSTLoca': {
+      return {
+        searchType: "Plot location range",
+        drvsInLoca: [],
+        driverId: '',
+        driverData: {},
+        sortType: 'Rating',
+        error: false
+      }
+    }
+
+    case 'uiData/MomDrvList/setSTLoca_setSort': {
+      const newState = {...state, sortType:action.payload}
+      return newState;
+    }
+
     default:
       return state;
   }
@@ -115,6 +132,11 @@ export function setSearchType(theType) {
 
       case "Driver's name": {
         dispatch(setSTName());
+        return;
+      }
+
+      case "Plot location range": {
+        dispatch(setSTLoca());
         return;
       }
 
@@ -172,5 +194,24 @@ export function doNameSearch(name) {
     const reviewArray = getState().momData.driverReviews[dataToSave.id];
     dataToSave.reviews = reviewArray;
     dispatch(setSTName_Found(dataToSave));
+  }
+}
+
+/***********************************************************************
+ The following are the actions for this reducer only for searching by
+ driver's location 
+************************************************************************/
+//Initializes state to search by driver's location
+function setSTLoca() {
+  return {
+    type: 'uiData/MomDrvList/setSTLoca'
+  }
+}
+
+//Sets the type of sort for search by driver's location
+export function setSTLoca_setSort(sortType) {
+  return {
+    type: 'uiData/MomDrvList/setSTLoca_setSort',
+    payload: sortType
   }
 }

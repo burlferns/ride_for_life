@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import DDSelect from '../Form/DDSelect.js';
 import MomDrvSchName from './MomDrvSchName.js'
+import MomDrvSchLoca from './MomDrvSchLoca.js'
 
 import {setSearchType} from '../../reducers/uiMomDrvListReducer.js';
 
@@ -77,6 +78,7 @@ export default function(props) {
 
       {/* Displays the various search inputs and the Search Button */}
       { searchType==="Driver's name" && <MomDrvSchName/> }
+      { searchType==="Plot location range" && <MomDrvSchLoca/> }
 
       
 
