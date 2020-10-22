@@ -2,6 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 
 import MomDriverSearch from './MomDriverSearch.js';
+import MomDriverDisplay from './MomDriverDisplay.js';
 
 const ContainerDiv = styled.div`
   width:100%;
@@ -25,7 +26,7 @@ const StylH1 = styled.h1`
 `;
 
 const StylMomDriverSearch = styled(MomDriverSearch)`
-
+  margin-bottom:1.5rem;
 `;
 
 
@@ -39,7 +40,7 @@ export default function(props) {
 
         <StylMomDriverSearch/>
 
-
+        <MomDriverDisplay/>
 
 
       </PositionDiv>

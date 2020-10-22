@@ -149,7 +149,9 @@ export default function(props) {
           setErrorMsgOn(true);
           setWaitMsgOn(false);
         }
-        // console.log('MomRegisterForm error :', error.response);
+        else {
+          console.log('MomRegisterForm error :', error.response);
+        }
       }
     }
   })

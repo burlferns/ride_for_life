@@ -1,6 +1,6 @@
 /*
   
-  This is state.momData
+  This is state.momData in momDatareducer.js
 
   The momData reducer state slice looks like this:
 
@@ -41,6 +41,9 @@
 
         avgRating: This is a float number that is the average of all the ratings for the driver
                    calculated when the array of reviews is downloaded
+
+        reviewStatus: 'add' if logged-in mom does not already have a review for driver
+                      'update' if logged-in mom already has a review for driver
       }
 
     }
@@ -50,7 +53,7 @@
 */
 
 import {timeDelta} from './rootReducer.js';
-
+import {axiosWithAuth} from '../utils/axiosConfig.js';
 
 
 const reducerInitialState = { };
@@ -61,6 +64,33 @@ export default function(state=reducerInitialState, action) {
       return reducerInitialState
     }
 
+    case 'momData/saveDriversList': {
+      const newState = {...state};
+      newState.drivers = {
+        driverArray: action.payload.driverArray,
+        lastDwnldTime: action.payload.timeNow
+      }
+      return newState;
+    }
+
+    case 'momData/saveDriversReview': {
+      const newState = {...state};
+      const driverId = action.payload.driverId;
+      if(newState.driverReviews===undefined) {
+        newState.driverReviews = {};        
+      }
+      newState.driverReviews[driverId] = {
+        reviews: action.payload.reviewArray,
+        lastDwnldTime: action.payload.timeNow,
+        avgRating: action.payload.reviewAvg,
+        reviewStatus: action.payload.reviewStatus
+      }
+      return newState;
+    }
+   
+
+
+
     default:
       return state;
   }
@@ -68,9 +98,71 @@ export default function(state=reducerInitialState, action) {
 
 /***********************************************************************
  The following are the actions for this reducer only
- ***********************************************************************/
+************************************************************************/
+function saveDriversList(driverArray,timeNow) {
+  return {
+    type: 'momData/saveDriversList',
+    payload: {driverArray,timeNow}
+  }
+}
+
+function saveDriversReview(driverId,reviewArray,reviewAvg,timeNow,reviewStatus) {
+  return {
+    type: 'momData/saveDriversReview',
+    payload: {driverId,reviewArray,reviewAvg,timeNow,reviewStatus}
+  }
+}
+
+
 export function downloadDriverArray() {
-  return async function(disatch, getState) {
-    
+  return async function(dispatch, getState) {
+    const drivers = getState().momData.drivers;
+    let timeNow = Date.now();
+    let response;
+
+    //If there is no drivers data or it was last downloaded over timeDelta
+    //milliseconds ago, then download fresh driver data
+    if(drivers===undefined || (timeNow - drivers.lastDwnldTime > timeDelta)){
+      response = await axiosWithAuth().get(`/api/drivers`);
+      timeNow = Date.now();
+      dispatch(saveDriversList(response.data,timeNow));
+    }   
+  }
+}
+
+export function downloadDriverReviews(driverId) {
+  return async function(dispatch, getState) { 
+    const driverReviews = getState().momData.driverReviews;
+    let timeNow = Date.now();
+    let response;
+
+    //If there is no driver review data for the particular driver, or it was last
+    //downloaded over timeDelta milliseconds ago, then download fresh data
+    if( driverReviews===undefined || 
+      driverReviews[driverId]===undefined ||
+      (timeNow - driverReviews[driverId].lastDwnldTime > timeDelta) 
+    ) {
+      response = await axiosWithAuth().get(`/api/drivers/${driverId}/reviews`);
+      
+
+      //Calculate the average rating for driver
+      timeNow = Date.now();
+      const reviewArray = response.data;
+      const reviewSum = reviewArray.reduce((acc,curr)=>acc+curr.rating,0);
+      const reviewAvg = (reviewSum/(reviewArray.length)).toFixed(1);
+
+
+      //Determine if mom already has a review for driver
+      let reviewStatus = 'add';
+      const found = reviewArray.find(elem=>
+        parseInt(elem.user_id)===parseInt(localStorage.getItem('userId'))
+      );
+      if(found!==undefined) {
+        reviewStatus = 'update';
+      }
+
+
+      dispatch(saveDriversReview(driverId,reviewArray,reviewAvg,timeNow,reviewStatus));
+    }
   }
 }
