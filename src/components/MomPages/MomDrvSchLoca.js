@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import {useDispatch, useSelector} from 'react-redux';
+import * as Yup from 'yup';
 
 import SmallButton from '../Form/SmallButton.js';
 import RadioInput from '../Form/RadioInput.js';
 import {downloadDriverArray} from '../../reducers/momDataReducer.js';
-import {setSTLoca_setSort} from '../../reducers/uiMomDrvListReducer.js';
+import {setSTLoca_setSort,setSTLoca_setError} from '../../reducers/uiMomDrvListReducer.js';
 
 const LocaSearchDiv = styled.div`
   width: fit-content;
@@ -63,6 +64,9 @@ const StylRadioInput = styled(RadioInput)`
 `;
 
 
+
+
+
 const selectFunc = state=>state.uiData.uiMomDrvList; 
 
 export default function(props) {
@@ -86,8 +90,37 @@ export default function(props) {
   }
 
 
-  async function locaSearch() {
-    
+  async function locaSearch() {   
+    try {
+      //First check location input values for errors and display error message
+      //if necessary
+      const checkValidLocaSchema = Yup.object.shape({
+        lowValue: Yup.number().required().typeError().integer(),
+        uppValue: Yup.number().required().typeError().integer().mim(Yup.ref('lowValue'))
+      });
+      const inputData = {lowValue, uppValue};
+
+      const isValid = await checkValidLocaSchema.isValid(inputData);
+
+      if(!isValid) {
+        dispatch(setSTLoca_setError(true));
+        return;
+      }
+      dispatch(setSTLoca_setError(false));
+     
+
+      //Then make sure array of all drivers in state.momData.drivers
+      //is the latest downloaded
+      // await dispatch(downloadDriverArray());
+      
+      // await dispatch(doLocaSearch(lowValue,uppValue))
+
+
+    }
+    catch(error) {
+      console.log('MomDrvSchLoca.js/locaSearch, error=',error);
+    } 
+
   }
 
   return (

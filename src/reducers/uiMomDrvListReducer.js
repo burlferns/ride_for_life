@@ -49,10 +49,15 @@ const reducerInitialState = {
   searchType: ''
 };
 
+/***********************************************************************
+ The following is the reducer function
+************************************************************************/
 export default function(state=reducerInitialState, action) {
   switch(action.type) {
     
-    /****** These are for general ******/
+    /************************* 
+     * These are for general 
+     * ***********************/
     case 'resetReducers': {
       return reducerInitialState;
     }
@@ -61,7 +66,9 @@ export default function(state=reducerInitialState, action) {
     }
 
 
-    /****** These are for serching by name ******/
+    /********************************** 
+     * These are for serching by name 
+     * *********************************/
     case 'uiData/MomDrvList/setSTName': {
       return {
         searchType: "Driver's name",
@@ -87,7 +94,9 @@ export default function(state=reducerInitialState, action) {
     }
 
 
-    /****** These are for serching by location ******/
+    /************************************* 
+     * These are for serching by location 
+     * ***********************************/
     case 'uiData/MomDrvList/setSTLoca': {
       return {
         searchType: "Plot location range",
@@ -103,6 +112,12 @@ export default function(state=reducerInitialState, action) {
       const newState = {...state, sortType:action.payload}
       return newState;
     }
+
+    case 'uiData/MomDrvList/setSTLoca_setError' : {
+      const newState = {...state, error:action.payload}
+      return newState;
+    }
+
 
     default:
       return state;
@@ -213,5 +228,13 @@ export function setSTLoca_setSort(sortType) {
   return {
     type: 'uiData/MomDrvList/setSTLoca_setSort',
     payload: sortType
+  }
+}
+
+//Sets the error flag
+export function setSTLoca_setError(value) {
+  return {
+    type: 'uiData/MomDrvList/setSTLoca_setError',
+    payload: value
   }
 }
