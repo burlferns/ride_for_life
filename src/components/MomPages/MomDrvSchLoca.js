@@ -91,12 +91,15 @@ export default function(props) {
 
 
   async function locaSearch() {   
+    console.log('Yup =', Yup);
+    console.log('Yup.object =', Yup.object);
+    console.log('Yup.object().shape =', Yup.object().shape);
     try {
       //First check location input values for errors and display error message
       //if necessary
-      const checkValidLocaSchema = Yup.object.shape({
+      const checkValidLocaSchema = Yup.object().shape({
         lowValue: Yup.number().required().typeError().integer(),
-        uppValue: Yup.number().required().typeError().integer().mim(Yup.ref('lowValue'))
+        uppValue: Yup.number().required().typeError().integer().min(Yup.ref('lowValue'))
       });
       const inputData = {lowValue, uppValue};
 

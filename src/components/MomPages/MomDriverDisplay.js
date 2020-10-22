@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {useSelector} from 'react-redux';
 
 import MomDrvSchNameDisplay from './MomDrvSchNameDisplay.js';
+import MomDrvSchLocaDisplay from './MomDrvSchLocaDisplay.js';
 
 const ContainerDiv = styled.div`
   border: 2px solid black;
@@ -20,6 +21,7 @@ export default function(props) {
     <ContainerDiv className={className}>
 
       { searchType==="Driver's name" && <MomDrvSchNameDisplay/> }
+      { searchType==="Plot location range" && <MomDrvSchLocaDisplay/> }
 
       
     </ContainerDiv>
