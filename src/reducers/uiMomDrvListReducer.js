@@ -24,6 +24,7 @@
   {
     searchType: "Plot location range",
     drvsInLoca: [] i.e. empty array for when no drivers in location range is found
+                'none' for when drivers are not found within the location range
                [...] i.e. filled array when drivers are found 
     driverId: '' for when no driver details is requested
               'int' for when a driver details is requested
@@ -49,10 +50,15 @@ const reducerInitialState = {
   searchType: ''
 };
 
+/***********************************************************************
+ The following is the reducer function
+************************************************************************/
 export default function(state=reducerInitialState, action) {
   switch(action.type) {
     
-    /****** These are for general ******/
+    /************************* 
+     * These are for general 
+     * ***********************/
     case 'resetReducers': {
       return reducerInitialState;
     }
@@ -61,7 +67,9 @@ export default function(state=reducerInitialState, action) {
     }
 
 
-    /****** These are for serching by name ******/
+    /********************************** 
+     * These are for serching by name 
+     * *********************************/
     case 'uiData/MomDrvList/setSTName': {
       return {
         searchType: "Driver's name",
@@ -87,7 +95,9 @@ export default function(state=reducerInitialState, action) {
     }
 
 
-    /****** These are for serching by location ******/
+    /************************************* 
+     * These are for serching by location 
+     * ***********************************/
     case 'uiData/MomDrvList/setSTLoca': {
       return {
         searchType: "Plot location range",
@@ -103,6 +113,25 @@ export default function(state=reducerInitialState, action) {
       const newState = {...state, sortType:action.payload}
       return newState;
     }
+
+    case 'uiData/MomDrvList/setSTLoca_setError' : {
+      return {
+        searchType: "Plot location range",
+        drvsInLoca: [],
+        driverId: '',
+        driverData: {},
+        sortType: 'Rating',
+        error: action.payload
+      }
+    }
+
+    case 'uiData/MomDrvList/setSTLoca_None' : {
+      const newState = {...state, drvsInLoca:'none'}
+      return newState;
+    }
+
+
+
 
     default:
       return state;
@@ -151,7 +180,7 @@ export function setSearchType(theType) {
  driver's name 
 ************************************************************************/
 //Initializes state to search by driver's name
-function setSTName() {
+export function setSTName() {
   return {
     type: 'uiData/MomDrvList/setSTName'
   }
@@ -171,8 +200,6 @@ function setSTName_Found(data) {
     payload: data
   }
 }
-
-
 
 //Perform the name search
 export function doNameSearch(name) {
@@ -202,7 +229,7 @@ export function doNameSearch(name) {
  driver's location 
 ************************************************************************/
 //Initializes state to search by driver's location
-function setSTLoca() {
+export function setSTLoca() {
   return {
     type: 'uiData/MomDrvList/setSTLoca'
   }
@@ -213,5 +240,52 @@ export function setSTLoca_setSort(sortType) {
   return {
     type: 'uiData/MomDrvList/setSTLoca_setSort',
     payload: sortType
+  }
+}
+
+//Sets the error flag
+export function setSTLoca_setError(value) {
+  return {
+    type: 'uiData/MomDrvList/setSTLoca_setError',
+    payload: value
+  }
+}
+
+//Sets state if after a search no drivers are found in location range
+function setSTLoca_None() {
+  return {
+    type: 'uiData/MomDrvList/setSTLoca_None'
+  }
+}
+
+
+//Perform the search
+export function doLocaSearch(lowVal,highVal) {
+  return async function(dispatch,getState) {
+
+    //Search the driverArray for drivers in the location range
+    const driverArray = getState().momData.drivers.driverArray;
+    lowVal = parseInt(lowVal);
+    highVal = parseInt(highVal);
+    const found = driverArray.filter(elem=>
+      (parseInt(elem.drivers_plot)>=lowVal && parseInt(elem.drivers_plot)<=highVal) );
+    if(found.length===0) {
+      dispatch(setSTLoca_None());
+      return;
+    }  
+    console.log('found1 =',found);
+
+    //Make sure for the found drivers, their driverReviews are in 
+    //state.momData.driverReviews. Then attach the review to the respective
+    //driver object in the found array
+    found.forEach(async (elem,index,array)=>{
+      await dispatch(downloadDriverReviews(elem.id));
+      array[index].reviews = getState().momData.driverReviews[elem.id];
+      delete array[index].password;
+    })
+
+    console.log('found2 =',found);
+    
+
   }
 }
