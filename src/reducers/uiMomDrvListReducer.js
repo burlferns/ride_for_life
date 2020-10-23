@@ -23,7 +23,7 @@
   If the search type is "Plot location range":
   {
     searchType: "Plot location range",
-    drvsInLoca: [] i.e. empty array for when no drivers in location range is found
+    drvsInLoca: [] i.e. empty array for initial state when search is not performed yet
                 'none' for when drivers are not found within the location range
                [...] i.e. filled array when drivers are found 
     driverId: '' for when no driver details is requested
@@ -36,7 +36,21 @@
            value. Upper equals lower is fine 
   }
 
-
+  If the search type is "Price range":
+  {
+    searchType: "Price range",
+    drvsInPrice: [] i.e. empty array for initial state when search is not performed yet
+                'none' for when drivers are not found within the price range
+               [...] i.e. filled array when drivers are found 
+    driverId: '' for when no driver details is requested
+              'int' for when a driver details is requested
+    driverData: this is the driver details to display.
+    sortType: 'Rating' is initial value and it is sort by rating
+              'Price' for sort by price 
+    error: false is initial value but can be set to true if price inputs are 
+           not integer numbers or upper range value is less than lower range 
+           value. Upper equals lower is fine. 
+  }
 
 
   
@@ -144,7 +158,57 @@ export default function(state=reducerInitialState, action) {
     }
 
 
+    /************************************* 
+     * These are for serching by price 
+     * ***********************************/
+    case 'uiData/MomDrvList/setSTPrice': {
+      return {
+        searchType: "Price range",
+        drvsInPrice: [],
+        driverId: '',
+        driverData: {},
+        sortType: 'Rating',
+        error: false
+      }
+    }
 
+    case 'uiData/MomDrvList/setSTPrice_setSort': {
+      const newState = {...state, sortType:action.payload}
+      return newState;
+    }
+
+    case 'uiData/MomDrvList/setSTPrice_setError' : {
+      return {
+        searchType: "Price range",
+        drvsInPrice: [],
+        driverId: '',
+        driverData: {},
+        sortType: 'Rating',
+        error: action.payload
+      }
+    }
+
+    case 'uiData/MomDrvList/setSTPrice_None' : {
+      const newState = {...state, drvsInPrice:'none'}
+      return newState;
+    }
+
+    case 'uiData/MomDrvList/setSTPrice_Found' : {
+      const newState = {...state, drvsInPrice:action.payload}
+      return newState;
+    }
+
+    case 'uiData/MomDrvList/setSTPrice_DrvDetails' : {
+      const newState = { ...state, 
+        driverId:action.payload.driverId,
+        driverData:action.payload.driverData
+      }
+      return newState;
+    }
+
+    /************************************* 
+     * This is the default
+     * ***********************************/
     default:
       return state;
   }
@@ -178,6 +242,11 @@ export function setSearchType(theType) {
 
       case "Plot location range": {
         dispatch(setSTLoca());
+        return;
+      }
+
+      case "Price range": {
+        dispatch(setSTPrice());
         return;
       }
 
@@ -335,7 +404,112 @@ export function doLocaSort() {
   }
 }
 
-//Helper function
+
+/***********************************************************************
+ The following are the actions for this reducer only for searching by
+ driver's price
+************************************************************************/
+//Initializes state to search by driver's price
+export function setSTPrice() {
+  return {
+    type: 'uiData/MomDrvList/setSTPrice'
+  }
+}
+
+//Sets the type of sort for search by driver's price
+export function setSTPrice_setSort(sortType) {
+  return {
+    type: 'uiData/MomDrvList/setSTPrice_setSort',
+    payload: sortType
+  }
+}
+
+//Sets the error flag
+export function setSTPrice_setError(value) {
+  return {
+    type: 'uiData/MomDrvList/setSTPrice_setError',
+    payload: value
+  }
+}
+
+//Sets state if after a search no drivers are found in price range
+function setSTPrice_None() {
+  return {
+    type: 'uiData/MomDrvList/setSTPrice_None'
+  }
+}
+
+//Set the state if after a search there are drivers found in price range
+function setSTPrice_Found(data) {
+  return {
+    type: 'uiData/MomDrvList/setSTPrice_Found',
+    payload: data
+  }
+}
+
+//Set the state to display the details of one driver
+export function setSTPrice_DrvDetails(driverId, driverData) {
+  return {
+    type: 'uiData/MomDrvList/setSTPrice_DrvDetails',
+    payload: {driverId, driverData}
+  }
+}
+
+//Perform the search
+export function doPriceSearch(lowVal,highVal) {
+  return async function(dispatch,getState) {
+
+    //Search the driverArray for drivers in the price range
+    const driverArray = getState().momData.drivers.driverArray;
+    lowVal = parseInt(lowVal);
+    highVal = parseInt(highVal);
+    const found = driverArray.filter(elem=>
+      (parseInt(elem.drivers_price)>=lowVal && parseInt(elem.drivers_price)<=highVal) );
+    if(found.length===0) {
+      dispatch(setSTPrice_None());
+      return;
+    }  
+    
+    //Make sure for the found drivers, their driverReviews are in 
+    //state.momData.driverReviews. Then attach the review to the respective
+    //driver object in the found array
+    for(let i=0; i<found.length; i++) {
+      await dispatch(downloadDriverReviews(found[i].id));
+      found[i].reviews = getState().momData.driverReviews[found[i].id];
+      delete found[i].password;
+    }
+
+    //Put the found array in the state.uiData.uiMomDrvList.drvsInPrice
+    dispatch(setSTPrice_Found(found));
+
+    //Now sort the data in the array in state.uiData.uiMomDrvList.drvsInPrice
+    dispatch(doPriceSort());
+  }
+}
+
+
+//Perform the sort
+export function doPriceSort() {
+  return function(dispatch,getState) {
+    const sortType = getState().uiData.uiMomDrvList.sortType;
+    const arrayToSort = getState().uiData.uiMomDrvList.drvsInPrice;
+
+    if(sortType==='Rating') {
+      sortByRating(arrayToSort);
+    }
+    else{
+      sortByPrice(arrayToSort);
+    }
+
+    dispatch(setSTPrice_Found(arrayToSort));
+  }
+}
+
+
+
+/***********************************************************************
+ The following are helper functions for the action creators above
+************************************************************************/
 function sortByRating(array) {
   array.sort( function(a,b) {
     let aRating;
@@ -369,7 +543,6 @@ function sortByRating(array) {
 }
 
 
-//Helper function
 function sortByPrice(array) {
   array.sort( function(a,b) {
     const aPrice = a.drivers_price;

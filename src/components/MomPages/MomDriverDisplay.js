@@ -4,6 +4,7 @@ import {useSelector} from 'react-redux';
 
 import MomDrvSchEmailDisplay from './MomDrvSchEmailDisplay.js';
 import MomDrvSchLocaDisplay from './MomDrvSchLocaDisplay.js';
+import MomDrvSchPriceDisplay from './MomDrvSchPriceDisplay.js';
 
 const ContainerDiv = styled.div`
   border: 2px solid black;
@@ -22,6 +23,7 @@ export default function(props) {
 
       { searchType==="Driver's email" && <MomDrvSchEmailDisplay/> }
       { searchType==="Plot location range" && <MomDrvSchLocaDisplay/> }
+      { searchType==="Price range" && <MomDrvSchPriceDisplay/> }
 
       
     </ContainerDiv>

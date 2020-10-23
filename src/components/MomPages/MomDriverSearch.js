@@ -5,9 +5,9 @@ import {useDispatch, useSelector} from 'react-redux';
 import DDSelect from '../Form/DDSelect.js';
 import MomDrvSchEmail from './MomDrvSchEmail.js'
 import MomDrvSchLoca from './MomDrvSchLoca.js'
+import MomDrvSchPrice from './MomDrvSchPrice.js'
 
 import {setSearchType} from '../../reducers/uiMomDrvListReducer.js';
-
 
 const ContainerDiv = styled.div`
   border: 2px solid black;
@@ -77,10 +77,7 @@ export default function(props) {
       {/* Displays the various search inputs and the Search Button */}
       { searchType==="Driver's email" && <MomDrvSchEmail/> }
       { searchType==="Plot location range" && <MomDrvSchLoca/> }
-
-      
-
-
+      { searchType==="Price range" && <MomDrvSchPrice/> }
 
     </ContainerDiv>
   );  
