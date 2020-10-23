@@ -135,6 +135,14 @@ export default function(state=reducerInitialState, action) {
       return newState;
     }
 
+    case 'uiData/MomDrvList/setSTLoca_DrvDetails' : {
+      const newState = { ...state, 
+        driverId:action.payload.driverId,
+        driverData:action.payload.driverData
+      }
+      return newState;
+    }
+
 
 
     default:
@@ -270,6 +278,13 @@ function setSTLoca_Found(data) {
   }
 }
 
+//Set the state to display the details of one driver
+export function setSTLoca_DrvDetails(driverId, driverData) {
+  return {
+    type: 'uiData/MomDrvList/setSTLoca_DrvDetails',
+    payload: {driverId, driverData}
+  }
+}
 
 //Perform the search
 export function doLocaSearch(lowVal,highVal) {
@@ -303,6 +318,7 @@ export function doLocaSearch(lowVal,highVal) {
   }
 }
 
+//Perform the sort
 export function doLocaSort() {
   return function(dispatch,getState) {
     const sortType = getState().uiData.uiMomDrvList.sortType;
@@ -311,11 +327,15 @@ export function doLocaSort() {
     if(sortType==='Rating') {
       sortByRating(arrayToSort);
     }
+    else{
+      sortByPrice(arrayToSort);
+    }
 
     dispatch(setSTLoca_Found(arrayToSort));
   }
 }
 
+//Helper function
 function sortByRating(array) {
   array.sort( function(a,b) {
     let aRating;
@@ -344,6 +364,26 @@ function sortByRating(array) {
     }
     
     //If aRating === bRating
+    return 0;    
+  })
+}
+
+
+//Helper function
+function sortByPrice(array) {
+  array.sort( function(a,b) {
+    const aPrice = a.drivers_price;
+    const bPrice = b.drivers_price;
+
+    if(aPrice<bPrice) {
+      return -1;
+    }
+
+    if(aPrice>bPrice) {
+      return 1;
+    }
+    
+    //If aPrice === bPrice
     return 0;    
   })
 }

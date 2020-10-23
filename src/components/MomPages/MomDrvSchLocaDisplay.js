@@ -37,7 +37,7 @@ export default function() {
     {
       driverId!=='' &&
       <StylErrorP>
-        Here are details on one driver.
+        Here are details on one driver with id={driverId}.
       </StylErrorP>
     }
 

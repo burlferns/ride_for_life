@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import SmallButton from '../Form/SmallButton.js';
 import RadioInput from '../Form/RadioInput.js';
 import {downloadDriverArray} from '../../reducers/momDataReducer.js';
-import {setSTLoca_setSort,setSTLoca_setError, setSTLoca, doLocaSearch} 
+import {setSTLoca_setSort,setSTLoca_setError, setSTLoca, doLocaSearch, doLocaSort} 
   from '../../reducers/uiMomDrvListReducer.js';
 
 const LocaSearchDiv = styled.div`
@@ -93,6 +93,7 @@ export default function(props) {
 
   function sortHandler(event) {
     dispatch(setSTLoca_setSort(event.currentTarget.dataset.value));
+    dispatch(doLocaSort());
   }
 
 
