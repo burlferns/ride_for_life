@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from "styled-components";
+import {useDispatch} from 'react-redux';
 
 import SmallButton from '../Form/SmallButton.js';
+
+import {setSTLoca_DrvDetails} from '../../reducers/uiMomDrvListReducer.js';
 
 const DivContainer = styled.div`
   width:22rem;
@@ -37,11 +40,14 @@ const StylButton = styled(SmallButton)`
 export default function(props) {
   const className = props.className;
   const drvsInLoca = props.drvsInLoca;
+  const dispatch = useDispatch();
+
+  
 
   return (
     <>
       {drvsInLoca.map((elem,index)=>(
-        <DivContainer key={elem.id}>
+        <DivContainer key={elem.id} className={className}>
           <NumberP>{index+1}</NumberP>
           <StylP>Name: {elem.drivers_name}</StylP>
           <StylP>Plot: {elem.drivers_plot}</StylP>
@@ -51,7 +57,7 @@ export default function(props) {
             :elem.reviews.avgRating
           }</StylP>
           <StylButton text='View details' 
-            onClick={()=>}
+            onClick={()=>dispatch(setSTLoca_DrvDetails(elem.id, elem))}
           />
         </DivContainer>
       ))}

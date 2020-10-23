@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from "styled-components";
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
+import SmallButton from '../Form/SmallButton.js'
 import MomDriverDisplayDetails from './MomDriverDisplayDetails.js'
 import MomDriverDisplayCards from './MomDriverDisplayCards.js'
+import {setSTLoca_DrvDetails} from '../../reducers/uiMomDrvListReducer.js';
 
 const StylErrorP = styled.p`
   margin:1rem;
@@ -16,14 +18,23 @@ const DivContainer = styled.div`
   justify-content: space-evenly;
 `;
 
+const StylButton = styled(SmallButton)`
+  
+`;
 
 const selectFunc = state=>state.uiData.uiMomDrvList; 
 
 export default function() {
   const uiMomDrvList = useSelector(selectFunc);
+  const dispatch = useDispatch();
   const error = uiMomDrvList.error;
   const driverId = uiMomDrvList.driverId;
   const drvsInLoca = uiMomDrvList.drvsInLoca;
+  const driverData = uiMomDrvList.driverData;
+
+  function toList() {
+    dispatch(setSTLoca_DrvDetails('',{}));
+  }
 
   return (
     <>
@@ -36,9 +47,11 @@ export default function() {
 
     {
       driverId!=='' &&
-      <StylErrorP>
-        Here are details on one driver with id={driverId}.
-      </StylErrorP>
+      <>
+        <StylButton onClick={toList} text='Back to List'/>
+        <MomDriverDisplayDetails driverData={driverData}/>
+      </>
+      
     }
 
     {
