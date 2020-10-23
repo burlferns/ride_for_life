@@ -6,7 +6,6 @@ import MomDriverDisplayDetails from './MomDriverDisplayDetails.js'
 
 const StylNoneP = styled.p`
   margin:1rem;
-
 `;
 
 const selectFunc = state=>state.uiData.uiMomDrvList; 
@@ -19,7 +18,7 @@ export default function() {
   return (
     <>
     { driverId==="none" && 
-      <StylNoneP>No driver found with that name.</StylNoneP>  
+      <StylNoneP>No driver found with that email.</StylNoneP>  
     }
 
     { driverId!=="none" && driverId!=='' &&

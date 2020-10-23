@@ -9,11 +9,11 @@
     searchType: ''
   }
 
-  If the search type is "Driver's name":
+  If the search type is "Driver's email":
   {
-    searchType: "Driver's name",
+    searchType: "Driver's email",
     driverId: '' is initial value
-              'none' for when a driver is not found with the name
+              'none' for when a driver is not found with the email
               'int' for when a driver is found and his id is an integer int
     driverData: this is the data to display. It is an empty object, or filled 
                 with key/value pairs of driver data
@@ -68,27 +68,27 @@ export default function(state=reducerInitialState, action) {
 
 
     /********************************** 
-     * These are for serching by name 
+     * These are for serching by email 
      * *********************************/
-    case 'uiData/MomDrvList/setSTName': {
+    case 'uiData/MomDrvList/setSTEmail': {
       return {
-        searchType: "Driver's name",
+        searchType: "Driver's email",
         driverId: '',
         driverData: {}
       }
     }
 
-    case 'uiData/MomDrvList/setSTName_None': {
+    case 'uiData/MomDrvList/setSTEmail_None': {
       return {
-        searchType: "Driver's name",
+        searchType: "Driver's email",
         driverId: 'none',
         driverData: {}
       }
     }
     
-    case 'uiData/MomDrvList/setSTName_Found': {
+    case 'uiData/MomDrvList/setSTEmail_Found': {
       return {
-        searchType: "Driver's name",
+        searchType: "Driver's email",
         driverId: `${action.payload.id}`,
         driverData: action.payload
       }
@@ -171,8 +171,8 @@ export function setSearchType(theType) {
         return;
       }
 
-      case "Driver's name": {
-        dispatch(setSTName());
+      case "Driver's email": {
+        dispatch(setSTEmail());
         return;
       }
 
@@ -189,37 +189,37 @@ export function setSearchType(theType) {
 
 /***********************************************************************
  The following are the actions for this reducer only for searching by
- driver's name 
+ driver's email 
 ************************************************************************/
-//Initializes state to search by driver's name
-export function setSTName() {
+//Initializes state to search by driver's email
+export function setSTEmail() {
   return {
-    type: 'uiData/MomDrvList/setSTName'
+    type: 'uiData/MomDrvList/setSTEmail'
   }
 }
 
-//Sets state if after a search the name is not found
-function setSTName_None() {
+//Sets state if after a search the email is not found
+function setSTEmail_None() {
   return {
-    type: 'uiData/MomDrvList/setSTName_None'
+    type: 'uiData/MomDrvList/setSTEmail_None'
   }
 }
 
-//Sets state if after a search the name is found
-function setSTName_Found(data) {
+//Sets state if after a search the email is found
+function setSTEmail_Found(data) {
   return {
-    type: 'uiData/MomDrvList/setSTName_Found',
+    type: 'uiData/MomDrvList/setSTEmail_Found',
     payload: data
   }
 }
 
-//Perform the name search
-export function doNameSearch(name) {
+//Perform the email search
+export function doEmailSearch(email) {
   return async function(dispatch, getState) {
     const driverArray = getState().momData.drivers.driverArray;
-    const found = driverArray.find(elem=>elem.drivers_name===name);
+    const found = driverArray.find(elem=>elem.drivers_email===email);
     if(found===undefined) {
-      dispatch(setSTName_None());
+      dispatch(setSTEmail_None());
       return;
     }
     const dataToSave = {...found};
@@ -232,7 +232,7 @@ export function doNameSearch(name) {
     //Add the review data and save everything to state.uiData.uiMomDrvList.driverData
     const reviewArray = getState().momData.driverReviews[dataToSave.id];
     dataToSave.reviews = reviewArray;
-    dispatch(setSTName_Found(dataToSave));
+    dispatch(setSTEmail_Found(dataToSave));
   }
 }
 

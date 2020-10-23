@@ -2,7 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 import {useSelector} from 'react-redux';
 
-import MomDrvSchNameDisplay from './MomDrvSchNameDisplay.js';
+import MomDrvSchEmailDisplay from './MomDrvSchEmailDisplay.js';
 import MomDrvSchLocaDisplay from './MomDrvSchLocaDisplay.js';
 
 const ContainerDiv = styled.div`
@@ -20,7 +20,7 @@ export default function(props) {
   return (
     <ContainerDiv className={className}>
 
-      { searchType==="Driver's name" && <MomDrvSchNameDisplay/> }
+      { searchType==="Driver's email" && <MomDrvSchEmailDisplay/> }
       { searchType==="Plot location range" && <MomDrvSchLocaDisplay/> }
 
       
