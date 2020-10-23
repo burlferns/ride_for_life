@@ -73,15 +73,21 @@ export default function(props) {
   const dispatch = useDispatch();
   const uiMomDrvList = useSelector(selectFunc);
   const sortType = uiMomDrvList.sortType;
+  const drvsInLoca = uiMomDrvList.drvsInLoca;
+  const error = uiMomDrvList.error;
   
 
   function onLowChange(event) {
-    dispatch(setSTLoca());
+    if((drvsInLoca==='none') || (drvsInLoca.length>0) || error) {
+      dispatch(setSTLoca());
+    }
     setLowValue(event.target.value);
   }
 
   function onUppChange(event) {
-    dispatch(setSTLoca());
+    if((drvsInLoca==='none') || (drvsInLoca.length>0) || error) {
+      dispatch(setSTLoca());
+    }
     setUppValue(event.target.value);
   }
 
@@ -114,8 +120,6 @@ export default function(props) {
       await dispatch(downloadDriverArray());
       
       await dispatch(doLocaSearch(lowValue,uppValue))
-
-
     }
     catch(error) {
       console.log('MomDrvSchLoca.js/locaSearch, error=',error);

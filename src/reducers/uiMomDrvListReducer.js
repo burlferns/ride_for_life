@@ -130,6 +130,10 @@ export default function(state=reducerInitialState, action) {
       return newState;
     }
 
+    case 'uiData/MomDrvList/setSTLoca_Found' : {
+      const newState = {...state, drvsInLoca:action.payload}
+      return newState;
+    }
 
 
 
@@ -258,6 +262,14 @@ function setSTLoca_None() {
   }
 }
 
+//Set the state if after a search there are drivers found in location range
+function setSTLoca_Found(data) {
+  return {
+    type: 'uiData/MomDrvList/setSTLoca_Found',
+    payload: data
+  }
+}
+
 
 //Perform the search
 export function doLocaSearch(lowVal,highVal) {
@@ -273,19 +285,65 @@ export function doLocaSearch(lowVal,highVal) {
       dispatch(setSTLoca_None());
       return;
     }  
-    console.log('found1 =',found);
-
+    
     //Make sure for the found drivers, their driverReviews are in 
     //state.momData.driverReviews. Then attach the review to the respective
     //driver object in the found array
-    found.forEach(async (elem,index,array)=>{
-      await dispatch(downloadDriverReviews(elem.id));
-      array[index].reviews = getState().momData.driverReviews[elem.id];
-      delete array[index].password;
-    })
+    for(let i=0; i<found.length; i++) {
+      await dispatch(downloadDriverReviews(found[i].id));
+      found[i].reviews = getState().momData.driverReviews[found[i].id];
+      delete found[i].password;
+    }
 
-    console.log('found2 =',found);
-    
+    //Put the found array in the state.uiData.uiMomDrvList.drvsInLoca
+    dispatch(setSTLoca_Found(found));
 
+    //Now sort the data in the array in state.uiData.uiMomDrvList.drvsInLoca
+    dispatch(doLocaSort());
   }
+}
+
+export function doLocaSort() {
+  return function(dispatch,getState) {
+    const sortType = getState().uiData.uiMomDrvList.sortType;
+    const arrayToSort = getState().uiData.uiMomDrvList.drvsInLoca;
+
+    if(sortType==='Rating') {
+      sortByRating(arrayToSort);
+    }
+
+    dispatch(setSTLoca_Found(arrayToSort));
+  }
+}
+
+function sortByRating(array) {
+  array.sort( function(a,b) {
+    let aRating;
+    let bRating;
+
+    if(a.reviews.reviews.length===0) {
+      aRating = 0;
+    }
+    else {
+      aRating = parseFloat(a.reviews.avgRating);
+    }
+    
+    if(b.reviews.reviews.length===0) {
+      bRating = 0;
+    }
+    else {
+      bRating = parseFloat(b.reviews.avgRating);
+    }
+
+    if(aRating>bRating) {
+      return -1;
+    }
+
+    if(aRating<bRating) {
+      return 1;
+    }
+    
+    //If aRating === bRating
+    return 0;    
+  })
 }

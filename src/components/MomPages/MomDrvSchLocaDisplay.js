@@ -3,10 +3,19 @@ import styled from "styled-components";
 import {useSelector} from 'react-redux';
 
 import MomDriverDisplayDetails from './MomDriverDisplayDetails.js'
+import MomDriverDisplayCards from './MomDriverDisplayCards.js'
 
 const StylErrorP = styled.p`
   margin:1rem;
 `;
+
+const DivContainer = styled.div`
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+`;
+
 
 const selectFunc = state=>state.uiData.uiMomDrvList; 
 
@@ -44,9 +53,9 @@ export default function() {
 
         {
           Array.isArray(drvsInLoca) && drvsInLoca.length>0 &&
-          <StylErrorP>
-            Here is a list of drivers found
-          </StylErrorP>
+          <DivContainer>
+            <MomDriverDisplayCards drvsInLoca={drvsInLoca}/>
+          </DivContainer>
         }
       </>       
     }
