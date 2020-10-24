@@ -1,20 +1,46 @@
 import React from 'react';
-// import styled from "styled-components";
-import {Link} from "react-router-dom";
+import styled from "styled-components";
 
+import MomReviewSearch from './MomReviewSearch.js';
+import MomReviewDisplay from './MomReviewDisplay.js';
+
+const ContainerDiv = styled.div`
+  width:100%;
+  background: beige;
+  display: flex;
+  flex-direction: column;  
+`;
+
+const PositionDiv = styled.div`
+  width: calc(100% - 2rem);
+  height: fit-content;
+  padding: 2rem 0;
+  margin: 0 auto;
+`;
+
+const StylH1 = styled.h1`
+  font-size: 3rem;
+  text-align: center;
+  text-decoration: underline;
+  margin-bottom: 2rem;
+`;
+
+const StylMomReviewSearch = styled(MomReviewSearch)`
+  margin-bottom:1.5rem;
+`;
 
 export default function(props) {
-  // const className = props.className;
+  const className = props.className;
 
   return (
-    <div
-      style={{height:'50rem', background:'cyan'}}
-    >
-      This in Mom Review Listing page
-      <Link to='/driver/updateprofile' style={{margin:'0 20px'}}>Update Driver Profile</Link>
-      <Link to='/' style={{margin:'0 20px'}}>Home page</Link>
-      <Link to='/mom/junk' style={{margin:'0 20px'}}>To mom junk page</Link>
-      <Link to='/mom/register' style={{margin:'0 20px'}}>To new mom register page</Link>
-    </div>
-    );
+    <ContainerDiv className={className}>
+      <PositionDiv>
+        <StylH1>Manage Your Reviews</StylH1>
+
+        <StylMomReviewSearch/>
+        <MomReviewDisplay/>
+
+      </PositionDiv>
+    </ContainerDiv>
+  );
 }

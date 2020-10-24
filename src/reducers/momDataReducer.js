@@ -122,11 +122,12 @@ export function downloadDriverArray() {
 
     //If there is no drivers data or it was last downloaded over timeDelta
     //milliseconds ago, then download fresh driver data
-    if(drivers===undefined || (timeNow - drivers.lastDwnldTime > timeDelta)){
+    if(drivers===undefined || (timeNow - drivers.lastDwnldTime > timeDelta)) {
       response = await axiosWithAuth().get(`/api/drivers`);
       timeNow = Date.now();
       dispatch(saveDriversList(response.data,timeNow));
-    }   
+    } 
+    return getState().momData.drivers;  
   }
 }
 
