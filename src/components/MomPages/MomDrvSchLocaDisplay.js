@@ -67,14 +67,12 @@ export default function() {
         {
           Array.isArray(drvsInLoca) && drvsInLoca.length>0 &&
           <DivContainer>
-            <MomDriverDisplayCards drvsInLoca={drvsInLoca}/>
+            <MomDriverDisplayCards drvsInRange={drvsInLoca}/>
           </DivContainer>
         }
       </>       
     }
 
-
-
     </>
-  )
+  );
 }

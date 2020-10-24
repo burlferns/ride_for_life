@@ -64,7 +64,6 @@ const StylRadioInput = styled(RadioInput)`
   margin-left: 1rem;
 `;
 
-
 const selectFunc = state=>state.uiData.uiMomDrvList; 
 
 export default function(props) {
@@ -120,6 +119,7 @@ export default function(props) {
       //is the latest downloaded
       await dispatch(downloadDriverArray());
       
+      //Then do location search
       await dispatch(doLocaSearch(lowValue,uppValue))
     }
     catch(error) {

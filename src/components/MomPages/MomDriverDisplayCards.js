@@ -39,14 +39,14 @@ const StylButton = styled(SmallButton)`
 
 export default function(props) {
   const className = props.className;
-  const drvsInLoca = props.drvsInLoca;
+  const drvsInRange = props.drvsInRange;
   const dispatch = useDispatch();
 
   
 
   return (
     <>
-      {drvsInLoca.map((elem,index)=>(
+      {drvsInRange.map((elem,index)=>(
         <DivContainer key={elem.id} className={className}>
           <NumberP>{index+1}</NumberP>
           <StylP>Name: {elem.drivers_name}</StylP>
