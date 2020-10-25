@@ -57,16 +57,27 @@ export default function(props) {
         return;
       }
       
-      //Get an array of ids of the drivers reviewed by the mom
-      const idDrvsRevwd = response.data.map(elem=>elem.driver_id);
-      
+      //Get the reviews from response
+      const driverReviews = response.data;
+
       //Then make sure array of all drivers in state.momData.drivers
       //is the latest downloaded
       response = await dispatch(downloadDriverArray());
       
+      const driverList = driverReviews.map(elem =>{
+        const driverData = response.find(e=>e.id===elem.driver_id);
+        const driverListItem = {
+          review_id: elem.id,
+          review_date: elem.review_date,
+          rating: elem.rating,
+          review_text: elem.review_text,
+          ...driverData
+        }
+        delete driverListItem.password;
+        return driverListItem;
+      })
 
-
-
+      dispatch(setDriverList(driverList));
     }
     catch(error) {
       console.log('MomReviewSearch.js/reviewSearch, error=',error);
