@@ -65,7 +65,7 @@ export default function(props) {
       response = await dispatch(downloadDriverArray());
       
       const driverList = driverReviews.map(elem =>{
-        const driverData = response.find(e=>e.id===elem.driver_id);
+        const driverData = response.driverArray.find(e=>e.id===elem.driver_id);
         const driverListItem = {
           review_id: elem.id,
           review_date: elem.review_date,

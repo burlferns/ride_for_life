@@ -19,24 +19,22 @@
 
   Note that driverData looks like this when the logged in mom has a review of the driver:
   {
-    id:  ...
     drivers_name:  ...
-    drivers_plot:  ...
-    drivers_phone_number:  ...
     drivers_email:  ...
-    drivers_price: ...
-    review: { ... } This is the object containing review data
+    rating: ...
+    review: '...' 
+    review_date: '...'
+    review_id: ...
   }
 
   Note that driverData looks like this when the logged in mom has no review of the driver:
   {
-    id:  ...
     drivers_name:  ...
-    drivers_plot:  ...
-    drivers_phone_number:  ...
     drivers_email:  ...
-    drivers_price: ...
-    review: {} This is an empty object
+    rating: null
+    review: '' 
+    review_date: ''
+    review_id: null
   }
 
 */
@@ -67,6 +65,21 @@ export default function(state=reducerInitialState, action) {
       return newState;
     }
 
+    case 'uiData/MomRvwList/setDriverReviewMod': {
+      const newState = { ...state,
+        driverId: action.payload.id,
+        driverData: {
+          drivers_name: action.payload.drivers_name,
+          drivers_email: action.payload.drivers_email,
+          rating: action.payload.rating,
+          review: action.payload.review_text,
+          review_date: action.payload.review_date,
+          review_id: action.payload.review_id
+        }
+      }
+      return newState;
+    }
+
 
     default:
       return state;
@@ -93,4 +106,11 @@ export function setDriverList(data) {
   }
 }
 
-
+//This sets the state to display one drivers review for 
+//adding, updating or deletion
+export function setDriverReviewMod(data) {
+  return {
+    type: 'uiData/MomRvwList/setDriverReviewMod',
+    payload: data
+  }
+}
