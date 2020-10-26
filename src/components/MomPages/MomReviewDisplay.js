@@ -6,7 +6,8 @@ import * as Yup from 'yup';
 import SmallButton from '../Form/SmallButton.js';
 import ActionButton from '../Form/ActionButton.js';
 
-import {setDriverReviewMod,deleteReview} from '../../reducers/uiMomRvwListReducer.js';
+import {setDriverReviewMod,deleteReview,updateReview} 
+  from '../../reducers/uiMomRvwListReducer.js';
 
 const ContainerDiv = styled.div`
   border: 2px solid black;
@@ -168,8 +169,9 @@ const selectFunc = state=>state.uiData.uiMomRvwList;
 export default function(props) {
   const className = props.className;
   const [rating,setRating] = useState('');
+  const [update,setUpdate] = useState('');
   const [deleteWarning,setDeleteWarning] = useState(false);
-  const [showError,setShowError] = useState(true);
+  const [showError,setShowError] = useState(false);
   const dispatch = useDispatch();
   const uiMomRvwList = useSelector(selectFunc);
   const driverList = uiMomRvwList.driverList;
@@ -180,6 +182,12 @@ export default function(props) {
     setRating(event.target.value);
     setShowError(false);
   }
+
+  function onTboxChange(event) {
+    setUpdate(event.target.value);
+    setShowError(false);
+  }
+
 
   function deleteHdlr() {
     setDeleteWarning(true);
@@ -195,7 +203,7 @@ export default function(props) {
       await dispatch(deleteReview(driverData.review_id,driverId));
     }
     catch(error) {
-      console.log('MomReviewDisplay.js/deleteHdlt, error=',error);
+      console.log('MomReviewDisplay.js/yesDelete, error=',error);
     }
   }
 
@@ -205,7 +213,7 @@ export default function(props) {
       rating: Yup.number().required().typeError().integer().min(1).max(5),
       update: Yup.string().required()
     });
-    const inputData = {rating:driverData.rating, update:review};
+    const inputData = {rating, update};
 
     const isValid = await checkValidUpdateSchema.isValid(inputData);
 
@@ -214,9 +222,26 @@ export default function(props) {
       return;
     }
 
-    //Now process update
-    console.log('update inputs good')
+    //Obtain review date
+    const today = new Date();
+    let month = today.getMonth();
+    month = ((month+1)<10) ? `0${month+1}` : (month+1);
+    const review_date = `${today.getFullYear()}-${month}-${today.getDate()}`;
 
+    //Create update object with update data
+    const updateObj = {
+      rating,
+      review_date,
+      review_text:update,
+      driver_id: driverId
+    } 
+
+    try {
+      await dispatch(updateReview(updateObj,driverData.review_id));
+    }
+    catch(error) {
+      console.log('MomReviewDisplay.js/updateHdlr, error=',error);
+    }
   }
 
 
@@ -282,8 +307,9 @@ export default function(props) {
 
           <StylTextAreaLabel >
             Review : 
-            <StylTextArea maxLength='255'
-          />
+            <StylTextArea maxLength='255' onChange={onTboxChange}
+              value={update}
+            />
           </StylTextAreaLabel>
 
           <StylButton text='Update Review' 

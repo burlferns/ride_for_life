@@ -122,10 +122,29 @@ export function deleteReview(reviewId,driverId) {
   return async function(dispatch) {
     await axiosWithAuth().delete(`/api/reviews/${reviewId}`); 
 
-    //Removing any driver review data in state.momData.driverreviews
-    //for the driver with id=driverId as it is stale data now
+    //Removing any driver review data in state.momData.driverReviews
+    //for the driver whose review was deleted, because it is now stale
     dispatch(deleteDriversReview(driverId));
 
     dispatch(resetState());
   }
 }
+
+//This updates a review
+export function updateReview(updateObj,reviewId) {
+  return async function(dispatch,getState) {
+    //Make the request object
+    updateObj.user_id = localStorage.getItem('userId');
+    updateObj.reviewer = getState().userData.users_name;
+
+    await axiosWithAuth().put(`/api/reviews/${reviewId}`,updateObj);
+
+    //Removing any driver review data in state.momData.driverReviews
+    //for the driver whose review was updated, because it is now stale
+    dispatch(deleteDriversReview(updateObj.driver_id));
+
+    dispatch(resetState());
+  }
+}
+
+
