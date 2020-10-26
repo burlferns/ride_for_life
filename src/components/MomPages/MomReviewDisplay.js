@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import {useSelector, useDispatch} from 'react-redux';
+import * as Yup from 'yup';
 
 import SmallButton from '../Form/SmallButton.js';
 import ActionButton from '../Form/ActionButton.js';
@@ -62,6 +63,13 @@ const StylButton = styled(SmallButton)`
 const UpdateP = styled.p`
   font-size: 1.4rem;
   margin:1rem;
+`;
+
+const ErrorP = styled.p`
+  font-size: 2rem;
+  margin:1rem;
+  color: darkRed;
+  align-self:center;
 `;
 
 const StylInputLabel = styled.label`
@@ -161,6 +169,7 @@ export default function(props) {
   const className = props.className;
   const [rating,setRating] = useState('');
   const [deleteWarning,setDeleteWarning] = useState(false);
+  const [showError,setShowError] = useState(true);
   const dispatch = useDispatch();
   const uiMomRvwList = useSelector(selectFunc);
   const driverList = uiMomRvwList.driverList;
@@ -169,6 +178,7 @@ export default function(props) {
 
   function onRatingChange(event) {
     setRating(event.target.value);
+    setShowError(false);
   }
 
   function deleteHdlr() {
@@ -189,7 +199,25 @@ export default function(props) {
     }
   }
 
+  async function updateHdlr() {
+    //First check if the ratings input is valid & update text is there.
+    const checkValidUpdateSchema = Yup.object().shape({
+      rating: Yup.number().required().typeError().integer().min(1).max(5),
+      update: Yup.string().required()
+    });
+    const inputData = {rating:driverData.rating, update:review};
 
+    const isValid = await checkValidUpdateSchema.isValid(inputData);
+
+    if(!isValid) {
+      setShowError(true);
+      return;
+    }
+
+    //Now process update
+    console.log('update inputs good')
+
+  }
 
 
   return (
@@ -244,6 +272,14 @@ export default function(props) {
           />
           </StylInputLabel>
           
+          { showError &&
+            <ErrorP>
+              Rating must be an integer from 1 to 5, 
+              and you must have text in the update text-box
+            </ErrorP>
+          }
+
+
           <StylTextAreaLabel >
             Review : 
             <StylTextArea maxLength='255'
@@ -251,7 +287,7 @@ export default function(props) {
           </StylTextAreaLabel>
 
           <StylButton text='Update Review' 
-            onClick={()=>{}}
+            onClick={updateHdlr}
           />
 
         </>
