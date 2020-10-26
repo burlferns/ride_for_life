@@ -8,6 +8,15 @@ import {useState, useEffect, useRef} from 'react';
     elemRef must be set to the ref attribute of the ReactDOMelement that is to be measured
     elemSize is an object that contains the width and height of the measured ReactDOMelement
     So the height is obtained as elemSize.height and the width as elemSize.width 
+
+  WARNING!! WARNING!! WARNING!! WARNING!! WARNING!! WARNING!! WARNING!! 
+  As written, this hook can only be used on an element in the component that will remain
+  rendered for the whole time that the component is mounted. If at any time the element will
+  not be rendered while the component is still mounted, then the hook cannot be used the way
+  it is written. Then it needs to have one or more useEffect where the observe and unobserve is 
+  run after every component re-render with checks to see if the element is not present anymore,
+  or when it comes back after being absent for some renders ... etc.
+
 */
 export const useSizeObserver = function () {
   const elemRef = useRef(null);  //Reference to element that is measured

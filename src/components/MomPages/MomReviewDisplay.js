@@ -3,9 +3,9 @@ import styled from "styled-components";
 import {useSelector, useDispatch} from 'react-redux';
 
 import SmallButton from '../Form/SmallButton.js';
+import ActionButton from '../Form/ActionButton.js';
 
-
-import {setDriverReviewMod} from '../../reducers/uiMomRvwListReducer.js';
+import {setDriverReviewMod,deleteReview} from '../../reducers/uiMomRvwListReducer.js';
 
 const ContainerDiv = styled.div`
   border: 2px solid black;
@@ -96,7 +96,6 @@ const StylInput = styled.input`
 
 const StylTextAreaLabel = styled.label`
   margin: 1rem;
-  width:fit-content;
 `;
 
 
@@ -111,26 +110,57 @@ const StylTextArea = styled.textarea`
   padding: 0.2rem 0.8rem;
   display:block;
   height:8.6rem;
-  // width:26.5rem;
-  width: 100%;
-  // width: calc(100% - 2rem);
-  // margin-left: 1rem;
-  // margin-right: 1rem;
-
+  width: calc(100% - 4rem);
+  margin-left: 2rem;
+  margin-right: 2rem;
   font-family: 'Roboto';
   font-style: normal;
-
-  // @media(max-width:340px) {
-  //   width:23.5rem;
-  // }
 `;
 
+const ScreenDiv = styled.div`
+  width:100vw;
+  height:100vh;
+  position:fixed;
+  top:0;
+  left:0;
+  z-index: 2;
+  background: rgba(192,192,192, 0.9);
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const WarnDiv = styled.div`
+  width:fit-content;
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  background: white;
+`;
+
+
+const WarnText = styled.p`
+  font-size: 2.5rem;
+  margin-bottom:2.5rem;
+  margin-top:2.5rem;
+  text-align: center;
+  width: 32rem;
+  font-weight: 900;
+`;
+
+const WarnButtons = styled(ActionButton)`
+  margin-bottom:2.5rem;
+`;
 
 const selectFunc = state=>state.uiData.uiMomRvwList; 
 
 export default function(props) {
   const className = props.className;
   const [rating,setRating] = useState('');
+  const [deleteWarning,setDeleteWarning] = useState(false);
   const dispatch = useDispatch();
   const uiMomRvwList = useSelector(selectFunc);
   const driverList = uiMomRvwList.driverList;
@@ -140,6 +170,27 @@ export default function(props) {
   function onRatingChange(event) {
     setRating(event.target.value);
   }
+
+  function deleteHdlr() {
+    setDeleteWarning(true);
+  }
+
+  function noDelete() {
+    setDeleteWarning(false);
+  }
+
+  async function yesDelete() {
+    setDeleteWarning(false);
+    try {
+      await dispatch(deleteReview(driverData.review_id,driverId));
+    }
+    catch(error) {
+      console.log('MomReviewDisplay.js/deleteHdlt, error=',error);
+    }
+  }
+
+
+
 
   return (
     <ContainerDiv className={className}>
@@ -180,7 +231,7 @@ export default function(props) {
             <StylP>Review: {driverData.review}</StylP>
 
             <StylButton text='Delete Review' 
-              onClick={()=>{}}
+              onClick={deleteHdlr}
             />
           </ListDiv>          
 
@@ -192,7 +243,7 @@ export default function(props) {
             value={rating} onChange={onRatingChange}
           />
           </StylInputLabel>
-
+          
           <StylTextAreaLabel >
             Review : 
             <StylTextArea maxLength='255'
@@ -204,6 +255,23 @@ export default function(props) {
           />
 
         </>
+      }
+
+      { deleteWarning &&
+        <ScreenDiv>
+          <WarnDiv>
+            <WarnText>Are you sure you want to delete your review?</WarnText>
+            <WarnButtons
+              text='Yes - delete review'
+              onClick={yesDelete}
+            />
+            <WarnButtons
+              text='No - keep review'
+              onClick={noDelete}
+            />
+          </WarnDiv>
+        </ScreenDiv>
+
       }
 
     </ContainerDiv>

@@ -39,6 +39,8 @@
 
 */
 
+import {axiosWithAuth} from '../utils/axiosConfig.js';
+import {deleteDriversReview} from './momDataReducer.js';
 
 const reducerInitialState = { 
   driverList: '',
@@ -112,5 +114,18 @@ export function setDriverReviewMod(data) {
   return {
     type: 'uiData/MomRvwList/setDriverReviewMod',
     payload: data
+  }
+}
+
+//This deletes a review
+export function deleteReview(reviewId,driverId) {
+  return async function(dispatch) {
+    await axiosWithAuth().delete(`/api/reviews/${reviewId}`); 
+
+    //Removing any driver review data in state.momData.driverreviews
+    //for the driver with id=driverId as it is stale data now
+    dispatch(deleteDriversReview(driverId));
+
+    dispatch(resetState());
   }
 }

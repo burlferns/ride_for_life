@@ -52,12 +52,14 @@ export default function(props) {
       const momId = localStorage.getItem('userId')
       response = await axiosWithAuth().get(`/api/users/${momId}/reviews`);
 
+      //If there are no reviews, then set the state to reflect this
+      //and end this function
       if(response.data.length===0) {
         dispatch(setDriverList(response.data));
         return;
       }
       
-      //Get the reviews from response
+      //Since there are reviews, get the reviews from response
       const driverReviews = response.data;
 
       //Then make sure array of all drivers in state.momData.drivers
