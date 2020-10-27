@@ -5,7 +5,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import SmallButton from '../Form/SmallButton.js'
 import MomDriverDisplayDetails from './MomDriverDisplayDetails.js'
 import MomDriverDisplayCards from './MomDriverDisplayCards.js'
-import {setSTLoca_DrvDetails} from '../../reducers/uiMomDrvListReducer.js';
+import {setSTPrice_DrvDetails} from '../../reducers/uiMomDrvListReducer.js';
 
 const StylErrorP = styled.p`
   margin:1rem;
@@ -19,7 +19,6 @@ const DivContainer = styled.div`
 `;
 
 const StylButton = styled(SmallButton)`
-  
 `;
 
 const selectFunc = state=>state.uiData.uiMomDrvList; 
@@ -29,18 +28,18 @@ export default function() {
   const dispatch = useDispatch();
   const error = uiMomDrvList.error;
   const driverId = uiMomDrvList.driverId;
-  const drvsInLoca = uiMomDrvList.drvsInLoca;
+  const drvsInPrice = uiMomDrvList.drvsInPrice;
   const driverData = uiMomDrvList.driverData;
 
   function toList() {
-    dispatch(setSTLoca_DrvDetails('',{}));
+    dispatch(setSTPrice_DrvDetails('',{}));
   }
 
   return (
     <>
     { error && 
       <StylErrorP>
-        Please enter integer values for lower and upper location range values.
+        Please enter integer values for lower and upper price range values.
         Also the upper value must be the same as or bigger than the lower value.
       </StylErrorP>  
     }
@@ -58,16 +57,16 @@ export default function() {
       !error && driverId==='' &&
       <>
         {
-          drvsInLoca==='none' &&
+          drvsInPrice==='none' &&
           <StylErrorP>
-            No drivers have been found within this location range.
+            No drivers have been found within this price range.
           </StylErrorP>
         }
 
         {
-          Array.isArray(drvsInLoca) && drvsInLoca.length>0 &&
+          Array.isArray(drvsInPrice) && drvsInPrice.length>0 &&
           <DivContainer>
-            <MomDriverDisplayCards drvsInRange={drvsInLoca}/>
+            <MomDriverDisplayCards drvsInRange={drvsInPrice}/>
           </DivContainer>
         }
       </>       
@@ -75,4 +74,24 @@ export default function() {
 
     </>
   );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -6,10 +6,10 @@ import * as Yup from 'yup';
 import SmallButton from '../Form/SmallButton.js';
 import RadioInput from '../Form/RadioInput.js';
 import {downloadDriverArray} from '../../reducers/momDataReducer.js';
-import {setSTLoca_setSort,setSTLoca_setError, setSTLoca, doLocaSearch, doLocaSort} 
+import {setSTPrice_setSort,setSTPrice_setError, setSTPrice, doPriceSearch, doPriceSort} 
   from '../../reducers/uiMomDrvListReducer.js';
 
-const LocaSearchDiv = styled.div`
+const PriceSearchDiv = styled.div`
   width: fit-content;
   display: grid;
   flex-direction: row;
@@ -72,81 +72,80 @@ export default function(props) {
   const dispatch = useDispatch();
   const uiMomDrvList = useSelector(selectFunc);
   const sortType = uiMomDrvList.sortType;
-  const drvsInLoca = uiMomDrvList.drvsInLoca;
+  const drvsInPrice = uiMomDrvList.drvsInPrice;
   const error = uiMomDrvList.error;
-  
 
   function onLowChange(event) {
-    if((drvsInLoca==='none') || (drvsInLoca.length>0) || error) {
-      dispatch(setSTLoca());
+    if((drvsInPrice==='none') || (drvsInPrice.length>0) || error) {
+      dispatch(setSTPrice());
     }
     setLowValue(event.target.value);
   }
 
   function onUppChange(event) {
-    if((drvsInLoca==='none') || (drvsInLoca.length>0) || error) {
-      dispatch(setSTLoca());
+    if((drvsInPrice==='none') || (drvsInPrice.length>0) || error) {
+      dispatch(setSTPrice());
     }
     setUppValue(event.target.value);
   }
 
   function sortHandler(event) {
-    dispatch(setSTLoca_setSort(event.currentTarget.dataset.value));
-    dispatch(doLocaSort());
+    dispatch(setSTPrice_setSort(event.currentTarget.dataset.value));
+    dispatch(doPriceSort());
   }
 
 
-  async function locaSearch() {   
+  async function priceSearch() {   
     try {
-      //First check location input values for errors and display error message
+      //First check price input values for errors and display error message
       //if necessary
-      const checkValidLocaSchema = Yup.object().shape({
+      const checkValidPriceSchema = Yup.object().shape({
         lowValue: Yup.number().required().typeError().integer(),
         uppValue: Yup.number().required().typeError().integer().min(Yup.ref('lowValue'))
       });
       const inputData = {lowValue, uppValue};
 
-      const isValid = await checkValidLocaSchema.isValid(inputData);
+      const isValid = await checkValidPriceSchema.isValid(inputData);
 
       if(!isValid) {
-        dispatch(setSTLoca_setError(true));
+        dispatch(setSTPrice_setError(true));
         return;
       }
-      dispatch(setSTLoca_setError(false));
+      dispatch(setSTPrice_setError(false));
      
 
       //Then make sure array of all drivers in state.momData.drivers
       //is the latest downloaded
       await dispatch(downloadDriverArray());
       
-      //Then do location search
-      await dispatch(doLocaSearch(lowValue,uppValue))
+      //Then do price search
+      await dispatch(doPriceSearch(lowValue,uppValue))
     }
     catch(error) {
-      console.log('MomDrvSchLoca.js/locaSearch, error=',error);
+      console.log('MomDrvSchPrice.js/priceSearch, error=',error);
     } 
 
   }
 
   return (
     <>
-    <LocaSearchDiv>
+    <PriceSearchDiv>
       <StylInputLabel >
         Lower range value:
-        <StylInput type='text' name='lowLoc'  
+        <StylInput type='text' name='lowPrice'  
         value={lowValue} onChange={onLowChange}
       />
       </StylInputLabel>
 
       <StylInputLabel >
         Upper range value:
-        <StylInput type='text' name='uppLoc'  
+        <StylInput type='text' name='uppPrice'  
         value={uppValue} onChange={onUppChange}
       />
       </StylInputLabel>      
-    </LocaSearchDiv>
+    </PriceSearchDiv>
 
-    <StylButton onClick={locaSearch} text='Run Search'/>
+    <StylButton onClick={priceSearch} text='Run Search'/>
 
     <StylPdiv> 
       Sort by:
@@ -155,12 +154,5 @@ export default function(props) {
     </StylPdiv>
     </>
   );
-} 
-
-
-
-
-
-
-
+}
 

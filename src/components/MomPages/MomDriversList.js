@@ -39,9 +39,7 @@ export default function(props) {
         <StylH1>Find Drivers</StylH1>
 
         <StylMomDriverSearch/>
-
         <MomDriverDisplay/>
-
 
       </PositionDiv>
     </ContainerDiv>  

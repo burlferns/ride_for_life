@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import SmallButton from '../Form/SmallButton.js'
 import {downloadDriverArray} from '../../reducers/momDataReducer.js';
-import {doNameSearch,setSTName} from '../../reducers/uiMomDrvListReducer.js';
+import {doEmailSearch,setSTEmail} from '../../reducers/uiMomDrvListReducer.js';
 
-const NameSearchDiv = styled.div`
+const EmailSearchDiv = styled.div`
   width: fit-content;
   display: flex;
   flex-direction: row;
@@ -48,19 +48,24 @@ const StylButton = styled(SmallButton)`
   margin-bottom: 1rem;
 `;
 
+const selectFunc = state=>state.uiData.uiMomDrvList; 
 
 export default function(props) {
-  const [nameValue,setNameValue] = useState('');
+  const [emailValue,setEmailValue] = useState('');
   const dispatch = useDispatch();
+  const uiMomDrvList = useSelector(selectFunc);
+  const driverId = uiMomDrvList.driverId;
   
 
   function onChange(event) {
-    dispatch(setSTName());
-    setNameValue(event.target.value);
+    if(driverId!=='') {
+      dispatch(setSTEmail());
+    }
+    setEmailValue(event.target.value);
   }
 
-  async function nameSearch() {
-    if(nameValue==='') {
+  async function emailSearch() {
+    if(emailValue==='') {
       return;
     }
 
@@ -69,22 +74,23 @@ export default function(props) {
       //is the latest downloaded
       await dispatch(downloadDriverArray());
       
-      await dispatch(doNameSearch(nameValue));
+      //Then do the email search
+      await dispatch(doEmailSearch(emailValue));
     }
     catch(error) {
-      console.log('MomDrvSchName.js/nameSearch, error=',error);
+      console.log('MomDrvSchEmail.js/emailSearch, error=',error);
     }   
   }
 
   return (
     <>
-    <NameSearchDiv>
-      <StylLabel htmlFor='drvName'>Driver's name:</StylLabel>
-      <StylInput type='text' name='drvName' id='drvName' 
-        value={nameValue} onChange={onChange}
+    <EmailSearchDiv>
+      <StylLabel htmlFor='drvEmail'>Driver's email:</StylLabel>
+      <StylInput type='text' name='drvEmail' id='drvEmail' 
+        value={emailValue} onChange={onChange}
       />
-    </NameSearchDiv>
-    <StylButton onClick={nameSearch} text='Run Search'/>
+    </EmailSearchDiv>
+    <StylButton onClick={emailSearch} text='Run Search'/>
     </>
   );
 } 

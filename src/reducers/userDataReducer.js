@@ -31,17 +31,17 @@
 */
 
 
-// const reducerInitialState = { 
-//   userType: null
-// };
-
 const reducerInitialState = { 
-  userType: 'mom',
-  users_name: 'seedMom1',
-  users_plot: '100',
-  users_phone_number: '1234-1000',
-  users_email: 'seedMom1@gmail.com'
+  userType: null
 };
+
+// const reducerInitialState = { 
+//   userType: 'mom',
+//   users_name: 'seedMom1',
+//   users_plot: '100',
+//   users_phone_number: '1234-1000',
+//   users_email: 'seedMom1@gmail.com'
+// };
 
 export default function(state=reducerInitialState, action) {
   switch(action.type) {

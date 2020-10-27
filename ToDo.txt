@@ -1,0 +1,5 @@
+1) For the warning before deletes, make a component for it
+2) Add missing please wait messages. Find these after configuring backend to have a longer delay.
+3) Implement redux-persist
+4) Implement auto-logout after 10min interval
+5) Add tests

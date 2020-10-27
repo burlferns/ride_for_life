@@ -58,6 +58,9 @@ import {axiosWithAuth} from '../utils/axiosConfig.js';
 
 const reducerInitialState = { };
 
+/***********************************************************************
+ The following is the reducer function
+************************************************************************/
 export default function(state=reducerInitialState, action) {
   switch(action.type) {
     case 'resetReducers': {
@@ -88,7 +91,16 @@ export default function(state=reducerInitialState, action) {
       return newState;
     }
    
-
+    case 'momData/deleteDriversReview': {
+      if(state.driverReviews!==undefined && state.driverReviews[action.payload]!==undefined) {
+        const newState = {...state};
+        delete newState.driverReviews[action.payload];
+        return newState;
+      }
+      else {
+        return state;
+      }
+    }
 
 
     default:
@@ -113,6 +125,12 @@ function saveDriversReview(driverId,reviewArray,reviewAvg,timeNow,reviewStatus) 
   }
 }
 
+export function deleteDriversReview(driverId) {
+  return {
+    type: 'momData/deleteDriversReview',
+    payload: driverId
+  }
+}
 
 export function downloadDriverArray() {
   return async function(dispatch, getState) {
@@ -122,11 +140,12 @@ export function downloadDriverArray() {
 
     //If there is no drivers data or it was last downloaded over timeDelta
     //milliseconds ago, then download fresh driver data
-    if(drivers===undefined || (timeNow - drivers.lastDwnldTime > timeDelta)){
+    if(drivers===undefined || (timeNow - drivers.lastDwnldTime > timeDelta)) {
       response = await axiosWithAuth().get(`/api/drivers`);
       timeNow = Date.now();
       dispatch(saveDriversList(response.data,timeNow));
-    }   
+    } 
+    return getState().momData.drivers;  
   }
 }
 

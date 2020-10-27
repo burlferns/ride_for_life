@@ -39,6 +39,12 @@ export default function(props) {
   const text = props.text;
 
   return (
-    <StylButton onClick={onClick} className={className}>{text}</StylButton> 
+    <StylButton 
+      onClick={onClick} 
+      className={className}
+      type='button'
+    >
+      {text}
+    </StylButton> 
   );
 }

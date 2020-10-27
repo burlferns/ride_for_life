@@ -3,11 +3,11 @@ import styled from "styled-components";
 import {useDispatch, useSelector} from 'react-redux';
 
 import DDSelect from '../Form/DDSelect.js';
-import MomDrvSchName from './MomDrvSchName.js'
+import MomDrvSchEmail from './MomDrvSchEmail.js'
 import MomDrvSchLoca from './MomDrvSchLoca.js'
+import MomDrvSchPrice from './MomDrvSchPrice.js'
 
 import {setSearchType} from '../../reducers/uiMomDrvListReducer.js';
-
 
 const ContainerDiv = styled.div`
   border: 2px solid black;
@@ -55,8 +55,6 @@ export default function(props) {
     // eslint-disable-next-line
   },[])
 
-
-
   function setDDvalue(data) {
     dispatch(setSearchType(data));
   }
@@ -69,7 +67,7 @@ export default function(props) {
       <DDsearchDiv>
         <StylLabelP>Search by:</StylLabelP>
         <DDSelect 
-          options={["Driver's name", "Plot location range", "Price range"]} 
+          options={["Driver's email", "Plot location range", "Price range"]} 
           description='Choose search criteria'
           setValue={setDDvalue}
         />
@@ -77,12 +75,9 @@ export default function(props) {
 
 
       {/* Displays the various search inputs and the Search Button */}
-      { searchType==="Driver's name" && <MomDrvSchName/> }
+      { searchType==="Driver's email" && <MomDrvSchEmail/> }
       { searchType==="Plot location range" && <MomDrvSchLoca/> }
-
-      
-
-
+      { searchType==="Price range" && <MomDrvSchPrice/> }
 
     </ContainerDiv>
   );  
