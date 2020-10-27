@@ -244,6 +244,39 @@ export default function(props) {
     }
   }
 
+  async function addHdlr() {
+    //First check if the ratings input is valid & update text is there.
+    const checkValidUpdateSchema = Yup.object().shape({
+      rating: Yup.number().required().typeError().integer().min(1).max(5),
+      update: Yup.string().required()
+    });
+    const inputData = {rating, update};
+
+    const isValid = await checkValidUpdateSchema.isValid(inputData);
+
+    if(!isValid) {
+      setShowError(true);
+      return;
+    }
+
+    //Obtain review date
+    const today = new Date();
+    let month = today.getMonth();
+    month = ((month+1)<10) ? `0${month+1}` : (month+1);
+    const review_date = `${today.getFullYear()}-${month}-${today.getDate()}`;
+
+
+
+
+
+
+
+
+
+  }
+
+
+
 
   return (
     <ContainerDiv className={className}>
@@ -254,6 +287,8 @@ export default function(props) {
         </NoReviewsP>
       }
 
+
+      {/* This is creates a list of cards of all drivers reviewed by the mom */}
       { driverId==='' && driverList!=='' && driverList.length>0 &&
         driverList.map((elem,index)=>(
           <ListDiv key={elem.review_id}>
@@ -274,6 +309,9 @@ export default function(props) {
         ))
       }
 
+
+      {/* This creates a listing of driver info for one driver with options
+      to delete or update the existing review */}
       { driverId!=='' && driverData.review_id!==null &&
         <>
           <ListDiv>
@@ -304,7 +342,6 @@ export default function(props) {
             </ErrorP>
           }
 
-
           <StylTextAreaLabel >
             Review : 
             <StylTextArea maxLength='255' onChange={onTboxChange}
@@ -319,6 +356,48 @@ export default function(props) {
         </>
       }
 
+
+      {/* This creates a listing of driver info for one driver with option
+      to add a driver review */}
+      { driverId!=='' && driverData.review_id===null &&
+        <>
+          <ListDiv>
+            <StylPfirst>Name: {driverData.drivers_name}</StylPfirst>
+            <StylP>Email: {driverData.drivers_email}</StylP>
+          </ListDiv>          
+
+          <UpdateP>Add review and rating below:</UpdateP>
+
+          <StylInputLabel >
+            Rating (1 to 5) :
+            <StylInput type='text' name='lowPrice'  
+            value={rating} onChange={onRatingChange}
+          />
+          </StylInputLabel>
+          
+          { showError &&
+            <ErrorP>
+              Rating must be an integer from 1 to 5, 
+              and you must have text in the update text-box
+            </ErrorP>
+          }
+
+          <StylTextAreaLabel >
+            Review : 
+            <StylTextArea maxLength='255' onChange={onTboxChange}
+              value={update}
+            />
+          </StylTextAreaLabel>
+
+          <StylButton text='Add Review' 
+            onClick={addHdlr}
+          />
+
+        </>
+      }
+
+
+      {/* This displays a warning before deleting a review */}
       { deleteWarning &&
         <ScreenDiv>
           <WarnDiv>

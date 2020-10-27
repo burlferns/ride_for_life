@@ -53,8 +53,24 @@
   }
 
 
-  
+  In each of search type above, the driverData when driverId is not 
+  an empty string is:
+  {
+    drivers_name: ...
+    drivers_email: ...
+    drivers_phone_number: ...
+    drivers_plot: ...
+    drivers_price: ...
+    id: ... (this is the driver's id)
+    reviews:  {
+                avgRating: (a number in a string or "NaN")
+                reviewStatus: ("add" or "update")
+                reviews: [...] (an array with 0 or more review objects in it) 
+              }
+              
   }
+
+  
 
 */
 

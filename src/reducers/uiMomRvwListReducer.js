@@ -82,6 +82,21 @@ export default function(state=reducerInitialState, action) {
       return newState;
     }
 
+    case 'uiData/MomRvwList/setDriverReviewAdd': {
+      const newState = {
+        driverList: '',
+        driverId: action.payload.id,
+        driverData: {
+          drivers_name: action.payload.drivers_name,
+          drivers_email: action.payload.drivers_email,
+          rating: null,
+          review: '',
+          review_date: '',
+          review_id: null
+        }
+      }
+    }
+
 
     default:
       return state;
@@ -109,10 +124,19 @@ export function setDriverList(data) {
 }
 
 //This sets the state to display one drivers review for 
-//adding, updating or deletion
+//updating or deletion
 export function setDriverReviewMod(data) {
   return {
     type: 'uiData/MomRvwList/setDriverReviewMod',
+    payload: data
+  }
+}
+
+//This sets the state to display one drivers info to
+//add a review 
+export function setDriverReviewAdd(data) {
+  return {
+    type: 'uiData/MomRvwList/setDriverReviewAdd',
     payload: data
   }
 }
