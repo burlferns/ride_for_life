@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import SmallButton from '../Form/SmallButton.js';
 import ActionButton from '../Form/ActionButton.js';
 
-import {setDriverReviewMod,deleteReview,updateReview} 
+import {setDriverReviewMod,deleteReview,updateReview,addReview} 
   from '../../reducers/uiMomRvwListReducer.js';
 
 const ContainerDiv = styled.div`
@@ -265,14 +265,20 @@ export default function(props) {
     month = ((month+1)<10) ? `0${month+1}` : (month+1);
     const review_date = `${today.getFullYear()}-${month}-${today.getDate()}`;
 
+    //Create add object with data to be added
+    const addObj = {
+      rating,
+      review_date,
+      review_text:update,
+      driver_id: driverId
+    } 
 
-
-
-
-
-
-
-
+    try {
+      await dispatch(addReview(addObj));
+    }
+    catch(error) {
+      console.log('MomReviewDisplay.js/updateHdlr, error=',error);
+    }
   }
 
 

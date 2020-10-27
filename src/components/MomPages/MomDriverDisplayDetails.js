@@ -5,7 +5,7 @@ import {useHistory} from "react-router-dom";
 
 import SmallButton from '../Form/SmallButton.js'
 
-import {setDriverReviewMod} from '../../reducers/uiMomRvwListReducer.js';
+import {setDriverReviewMod,setDriverReviewAdd} from '../../reducers/uiMomRvwListReducer.js';
 
 const ContainerDiv = styled.div`
   background: rgb(149,122,9);
@@ -31,10 +31,29 @@ const StylButton = styled(SmallButton)`
 export default function(props) {
   const className = props.className;
   const driverData = props.driverData;
+  const driverId = props.driverId;
   const dispatch = useDispatch();
   const histObj = useHistory();
   
-  function addReview() {};
+  function addReview() {
+    //We will navigate over to the /mom/reviewsList page to do the adding
+    //of the review. So we need to create the object that sets redux state
+    //information for that path 
+    const stateObject = {
+      id: driverId,
+      drivers_name: driverData.drivers_name,
+      drivers_email: driverData.drivers_email
+    }
+
+    //Set the state for the /mom/reviewsList page
+    dispatch(setDriverReviewAdd(stateObject));
+
+    //Navigate to the /mom/reviewsList page
+    histObj.push('/mom/reviewsList');
+  };
+
+
+
   function updateDeleteReview() {
     //This is the update review handler, so we need to get the review details for
     //the driver that the mom already has written. This means we have to get the
@@ -68,6 +87,8 @@ export default function(props) {
     buttonText = 'Update/Delete driver review';
     buttonFunc = updateDeleteReview;
   }
+
+
 
   return (
     <ContainerDiv className={className}>
