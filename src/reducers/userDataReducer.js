@@ -35,13 +35,6 @@ const reducerInitialState = {
   userType: null
 };
 
-// const reducerInitialState = { 
-//   userType: 'mom',
-//   users_name: 'seedMom1',
-//   users_plot: '100',
-//   users_phone_number: '1234-1000',
-//   users_email: 'seedMom1@gmail.com'
-// };
 
 export default function(state=reducerInitialState, action) {
   switch(action.type) {
@@ -100,4 +93,13 @@ export function updateUserData(data) {
 //   users_plot: '100',
 //   users_phone_number: '1234-1000',
 //   users_email: 'seedMom1@gmail.com'
+// };
+
+// const reducerInitialState = { 
+//   drivers_email: "seedDriver1@gmail.com",
+//   drivers_name: "seedDriver1",
+//   drivers_phone_number: "4567-2001",
+//   drivers_plot: "70",
+//   drivers_price: 30,
+//   userType: "driver"
 // };

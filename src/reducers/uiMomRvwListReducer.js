@@ -95,6 +95,7 @@ export default function(state=reducerInitialState, action) {
           review_id: null
         }
       }
+      return newState;
     }
 
 
@@ -171,4 +172,19 @@ export function updateReview(updateObj,reviewId) {
   }
 }
 
+//This adds a review
+export function addReview(addObj) {
+  return async function(dispatch,getState) {
+    //Make the request object
+    addObj.user_id = localStorage.getItem('userId');
+    addObj.reviewer = getState().userData.users_name;
 
+    await axiosWithAuth().post(`/api/reviews`,addObj);
+
+    //Removing any driver review data in state.momData.driverReviews
+    //for the driver whose review was added, because it is now stale
+    dispatch(deleteDriversReview(addObj.driver_id));
+
+    dispatch(resetState());
+  }
+}

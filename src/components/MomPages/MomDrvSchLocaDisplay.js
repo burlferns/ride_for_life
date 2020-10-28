@@ -49,7 +49,7 @@ export default function() {
       driverId!=='' &&
       <>
         <StylButton onClick={toList} text='Back to List'/>
-        <MomDriverDisplayDetails driverData={driverData}/>
+        <MomDriverDisplayDetails driverData={driverData} driverId={driverId}/>
       </>
       
     }

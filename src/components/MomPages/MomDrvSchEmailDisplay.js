@@ -22,7 +22,7 @@ export default function() {
     }
 
     { driverId!=="none" && driverId!=='' &&
-      <MomDriverDisplayDetails driverData={driverData}/>
+      <MomDriverDisplayDetails driverData={driverData} driverId={driverId}/>
     }
 
     </>
