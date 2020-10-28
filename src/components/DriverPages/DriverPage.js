@@ -21,7 +21,10 @@ const OuterContainer = styled.div.attrs(props=>({
   width: calc(100vw - 10rem - 0.2rem); //5rem*2 is the margin & 0.1rem*2 is the border
   max-width:100rem;
   height:fit-content;
-    
+  
+  @media(max-width:380px) {
+    width: calc(100vw - 2rem - 0.2rem); //1rem*2 is the margin & 0.1rem*2 is the border
+  }
 `;
 
 export default function() {

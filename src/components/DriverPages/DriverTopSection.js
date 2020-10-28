@@ -37,8 +37,7 @@ const StylP = styled.p`
 
 const selectorFunc = state=>state.userData.drivers_name;
 
-export default function(props) {
-  const className = props.className;
+export default function() {
   const drivers_name = useSelector(selectorFunc);
 
   return (
