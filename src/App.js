@@ -59,13 +59,6 @@ export default function App() {
                       as its children.  It cannot have a custom component as its child */}
 
 
-            {/* This is temp path used just while mom page development is ongoing */}
-            {/* <Route path='/driver'>
-              <DriverPage/>
-            </Route> */}
-
-
-
             {/* These are public routes */}
             <Route exact path='/'>
               <PublicRoute elemToRndr={<SignIn/>}/>

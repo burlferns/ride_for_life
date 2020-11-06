@@ -28,7 +28,7 @@ export default function() {
 
   return (
     <>
-      <StylH1>Driver Profile page</StylH1>
+      <StylH1>Driver Profile page - still under construction, but functionally complete</StylH1>
       <StylP>driver plot : {driverData.drivers_plot}</StylP>
       <StylP>driver phone number : {driverData.drivers_phone_number}</StylP>
       <StylP>driver email : {driverData.drivers_email}</StylP>
