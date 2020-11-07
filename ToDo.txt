@@ -3,3 +3,6 @@
 3) Implement redux-persist
 4) Implement auto-logout after 10min interval
 5) Add tests
+6) Add average rating to driver review page
+7) Compress images so that they load faster
+8) In update profile pages, show the current values
