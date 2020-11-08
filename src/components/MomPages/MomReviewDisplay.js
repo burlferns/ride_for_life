@@ -294,6 +294,7 @@ export default function(props) {
       }
 
 
+      {/* ************************************************************************************** */}
       {/* This is creates a list of cards of all drivers reviewed by the mom */}
       { driverId==='' && driverList!=='' && driverList.length>0 &&
         driverList.map((elem,index)=>(
@@ -316,6 +317,7 @@ export default function(props) {
       }
 
 
+      {/* ************************************************************************************** */}
       {/* This creates a listing of driver info for one driver with options
       to delete or update the existing review */}
       { driverId!=='' && driverData.review_id!==null &&
@@ -363,6 +365,7 @@ export default function(props) {
       }
 
 
+      {/* ************************************************************************************** */}
       {/* This creates a listing of driver info for one driver with option
       to add a driver review */}
       { driverId!=='' && driverData.review_id===null &&
@@ -403,6 +406,7 @@ export default function(props) {
       }
 
 
+      {/* ************************************************************************************** */}
       {/* This displays a warning before deleting a review */}
       { deleteWarning &&
         <ScreenDiv>
@@ -418,7 +422,6 @@ export default function(props) {
             />
           </WarnDiv>
         </ScreenDiv>
-
       }
 
     </ContainerDiv>

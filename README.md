@@ -11,7 +11,7 @@ in a browser automatically.
 <br />
 
 
-## Tech-stack and npm packages used
+## Npm packages used
 
 React <br /> 
 React Router <br />
@@ -24,8 +24,9 @@ Yup <brf/>
 Styled-components <br/>
 Resize-observer-polyfill <br/>
 
+## Design notes in pdf file
 
-
+Design notes can be found in the `projectDesignNotes.pdf` file 
 
 
 
