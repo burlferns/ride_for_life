@@ -24,6 +24,8 @@ Yup <brf/>
 Styled-components <br/>
 Resize-observer-polyfill <br/>
 
+<br />
+
 ## Design notes in pdf file
 
 Design notes can be found in the `projectDesignNotes.pdf` file 
