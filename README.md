@@ -20,7 +20,7 @@ Redux-persist <br/>
 Redux-thunk <br/>
 Axios <br/>
 Formik <br/>
-Yup <brf/>
+Yup <br/>
 Styled-components <br/>
 Resize-observer-polyfill <br/>
 
