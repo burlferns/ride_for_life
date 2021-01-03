@@ -114,6 +114,7 @@ export default function(props) {
       {/* The actual input */}
       <DivInput>
         <StylInput
+          data-testid={name}
           name={name}
           type={type}
           onChange={onChange}

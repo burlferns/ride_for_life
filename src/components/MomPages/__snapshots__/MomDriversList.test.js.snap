@@ -1,0 +1,1416 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests for MomDriversList - 100 - check initial contents 1`] = `
+<DocumentFragment>
+  .c8 {
+  width: 18rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  border: 0.1rem solid black;
+  position: relative;
+  top: 0;
+  left: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  outline: none;
+}
+
+.c8:focus::after {
+  content: '';
+  position: absolute;
+  box-sizing: border-box;
+  top: -0.2rem;
+  left: -0.2rem;
+  bottom: -0.2rem;
+  right: -0.2rem;
+  border-radius: 0.5rem;
+  border: 0.2rem solid #5DADE2;
+}
+
+.c9 {
+  color: #5F6A6A;
+  font-size: 1.6rem;
+  margin-top: 0.2rem;
+  margin-left: 0.5rem;
+}
+
+.c10 {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.2rem;
+}
+
+.c3 {
+  border: 2px solid black;
+  border-radius: 1rem;
+}
+
+.c5 {
+  font-size: 1.4rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-top: 1rem;
+}
+
+.c6 {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.c7 {
+  margin-right: 0.8rem;
+}
+
+.c11 {
+  border: 2px solid black;
+  border-radius: 1rem;
+}
+
+.c0 {
+  width: 100%;
+  background: beige;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c1 {
+  width: calc(100% - 2rem);
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  padding: 2rem 0;
+  margin: 0 auto;
+}
+
+.c2 {
+  font-size: 3rem;
+  text-align: center;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  margin-bottom: 2rem;
+}
+
+.c4 {
+  margin-bottom: 1.5rem;
+}
+
+<div
+    class="c0"
+  >
+    <div
+      class="c1"
+    >
+      <h1
+        class="c2"
+      >
+        Find Drivers
+      </h1>
+      <div
+        class="c3 c4"
+      >
+        <p
+          class="c5"
+        >
+          Find drivers by using the search inputs below
+        </p>
+        <div
+          class="c6"
+        >
+          <p
+            class="c7"
+          >
+            Search by:
+          </p>
+          <div
+            class="c8"
+            tabindex="-1"
+          >
+            <p
+              class="c9"
+            >
+              Choose search criteria
+            </p>
+            <img
+              class="c10"
+              src="drop-down.svg"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="c11"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Tests for MomDriversList - 101 - check that there are 3 search options 1`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+@@ -37,10 +37,38 @@
+              </p>
+              <img
+                class="sc-dlnjPT grAqyh"
+                src="drop-down.svg"
+              />
++             <div
++               class="sc-hKFyIo jinnnY"
++             >
++               <button
++                 class="sc-eCApGN RinSQ"
++                 name="menuItems"
++                 type="button"
++                 value="Driver's email"
++               >
++                 Driver's email
++               </button>
++               <button
++                 class="sc-eCApGN RinSQ"
++                 name="menuItems"
++                 type="button"
++                 value="Plot location range"
++               >
++                 Plot location range
++               </button>
++               <button
++                 class="sc-eCApGN RinSQ"
++                 name="menuItems"
++                 type="button"
++                 value="Price range"
++               >
++                 Price range
++               </button>
++             </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="sc-iTVIwl dHFxUQ"
+`;
+
+exports[`Tests for MomDriversList - 102 - check that driver search by email shows input box and run button 1`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+@@ -31,18 +31,41 @@
+              tabindex="-1"
+            >
+              <p
+                class="sc-gtssRu jGnTKZ"
+              >
+-               Choose search criteria
++               Driver's email
+              </p>
+              <img
+                class="sc-dlnjPT grAqyh"
+                src="drop-down.svg"
+              />
+            </div>
+          </div>
++         <div
++           class="sc-gKAblj hvewyG"
++         >
++           <label
++             class="sc-iCoHVE fbgRPl"
++             for="drvEmail"
++           >
++             Driver's email:
++           </label>
++           <input
++             class="sc-fujyUd jwWRRg"
++             id="drvEmail"
++             name="drvEmail"
++             type="text"
++             value=""
++           />
++         </div>
++         <button
++           class="sc-jSFkmK kvoINE sc-pNWxx fpxnRu"
++           type="button"
++         >
++           Run Search
++         </button>
+        </div>
+        <div
+          class="sc-iTVIwl dHFxUQ"
+        />
+      </div>
+`;
+
+exports[`Tests for MomDriversList - 103 - search for driver by email where driver has no reviews 1`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+@@ -65,9 +65,50 @@
+            Run Search
+          </button>
+        </div>
+        <div
+          class="sc-iTVIwl dHFxUQ"
+-       />
++       >
++         <div
++           class="sc-cxNIbT lflRcU"
++         >
++           <p
++             class="sc-lmgQde kPTccF"
++           >
++             Name: seedDriver1
++           </p>
++           <p
++             class="sc-lmgQde kPTccF"
++           >
++             Email: seedDriver1@gmail.com
++           </p>
++           <p
++             class="sc-lmgQde kPTccF"
++           >
++             Phone: 4567-2001
++           </p>
++           <p
++             class="sc-lmgQde kPTccF"
++           >
++             Plot: 70
++           </p>
++           <p
++             class="sc-lmgQde kPTccF"
++           >
++             Price: 30
++           </p>
++           <p
++             class="sc-lmgQde kPTccF"
++           >
++             Avg Rating: No reviews available
++           </p>
++           <button
++             class="sc-jSFkmK kvoINE sc-giAqnE hCHRja"
++             type="button"
++           >
++             Review driver
++           </button>
++         </div>
++       </div>
+      </div>
+    </div>
+  </DocumentFragment>
+`;
+
+exports[`Tests for MomDriversList - 104 - search for driver by email where email is bad 1`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+@@ -65,9 +65,15 @@
+            Run Search
+          </button>
+        </div>
+        <div
+          class="sc-iTVIwl dHFxUQ"
+-       />
++       >
++         <p
++           class="sc-ezzayL jXqWbg"
++         >
++           No driver found with that email.
++         </p>
++       </div>
+      </div>
+    </div>
+  </DocumentFragment>
+`;
+
+exports[`Tests for MomDriversList - 105 - search for driver by email where driver has reviews 1`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+@@ -65,9 +65,122 @@
+            Run Search
+          </button>
+        </div>
+        <div
+          class="sc-iTVIwl dHFxUQ"
+-       />
++       >
++         <div
++           class="sc-cxNIbT lflRcU"
++         >
++           <p
++             class="sc-lmgQde kPTccF"
++           >
++             Name: seedDriver2
++           </p>
++           <p
++             class="sc-lmgQde kPTccF"
++           >
++             Email: seedDriver2@gmail.com
++           </p>
++           <p
++             class="sc-lmgQde kPTccF"
++           >
++             Phone: 4567-2002
++           </p>
++           <p
++             class="sc-lmgQde kPTccF"
++           >
++             Plot: 100
++           </p>
++           <p
++             class="sc-lmgQde kPTccF"
++           >
++             Price: 37
++           </p>
++           <p
++             class="sc-lmgQde kPTccF"
++           >
++             Avg Rating: 3.3
++           </p>
++           <button
++             class="sc-jSFkmK kvoINE sc-giAqnE hCHRja"
++             type="button"
++           >
++             Review driver
++           </button>
++           <div
++             class="sc-iJCRLp jDeDpK"
++           >
++             <p
++               class="sc-lmgQde kPTccF"
++             >
++               Reviewer: seedMom2
++             </p>
++             <p
++               class="sc-lmgQde kPTccF"
++             >
++               Review date: 2019-06-04
++             </p>
++             <p
++               class="sc-lmgQde kPTccF"
++             >
++               Rating: 5
++             </p>
++             <p
++               class="sc-lmgQde kPTccF"
++             >
++               Review: Got to the hospital quickly. Did not hit any potholes
++             </p>
++           </div>
++           <div
++             class="sc-iJCRLp jDeDpK"
++           >
++             <p
++               class="sc-lmgQde kPTccF"
++             >
++               Reviewer: seedMom3
++             </p>
++             <p
++               class="sc-lmgQde kPTccF"
++             >
++               Review date: 2020-06-25
++             </p>
++             <p
++               class="sc-lmgQde kPTccF"
++             >
++               Rating: 4
++             </p>
++             <p
++               class="sc-lmgQde kPTccF"
++             >
++               Review: Took a long time to get to my house but otherwise good
++             </p>
++           </div>
++           <div
++             class="sc-iJCRLp jDeDpK"
++           >
++             <p
++               class="sc-lmgQde kPTccF"
++             >
++               Reviewer: seedMom5
++             </p>
++             <p
++               class="sc-lmgQde kPTccF"
++             >
++               Review date: 2020-07-24
++             </p>
++             <p
++               class="sc-lmgQde kPTccF"
++             >
++               Rating: 1
++             </p>
++             <p
++               class="sc-lmgQde kPTccF"
++             >
++               Review: Got lost on the way to the hospital.
++             </p>
++           </div>
++         </div>
++       </div>
+      </div>
+    </div>
+  </DocumentFragment>
+`;
+
+exports[`Tests for MomDriversList - 106 - check that driver search by plot shows input boxes, check circles and run button 1`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+@@ -31,16 +31,81 @@
+              tabindex="-1"
+            >
+              <p
+                class="sc-gtssRu jGnTKZ"
+              >
+-               Choose search criteria
++               Plot location range
+              </p>
+              <img
+                class="sc-dlnjPT grAqyh"
+                src="drop-down.svg"
+              />
++           </div>
++         </div>
++         <div
++           class="sc-crzoUp cIeCDJ"
++         >
++           <label
++             class="sc-dIsAE jPvyoF"
++           >
++             Lower range value:
++             <input
++               class="sc-bqGHjH iiTdvs"
++               name="lowLoc"
++               type="text"
++               value=""
++             />
++           </label>
++           <label
++             class="sc-dIsAE jPvyoF"
++           >
++             Upper range value:
++             <input
++               class="sc-bqGHjH iiTdvs"
++               name="uppLoc"
++               type="text"
++               value=""
++             />
++           </label>
++         </div>
++         <button
++           class="sc-jSFkmK kvoINE sc-ksluoS bSEyOV"
++           type="button"
++         >
++           Run Search
++         </button>
++         <div
++           class="sc-hBMVcZ dmUQHd"
++         >
++           Sort by:
++           <div
++             class="sc-jrsJCI gpjTMV sc-fnVYJo jzwbCF"
++             data-testid="divCirChk-Rating"
++             data-value="Rating"
++           >
++             <div
++               class="sc-kEqYlL fswcAt"
++             >
++               <div
++                 class="sc-iqAbSa cyPOEh"
++               />
++             </div>
++             <p>
++               Rating
++             </p>
++           </div>
++           <div
++             class="sc-jrsJCI gpjTMV sc-fnVYJo jzwbCF"
++             data-testid="divCirChk-Price"
++             data-value="Price"
++           >
++             <div
++               class="sc-kEqYlL fswcAt"
++             />
++             <p>
++               Price
++             </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="sc-iTVIwl dHFxUQ"
+`;
+
+exports[`Tests for MomDriversList - 107 - check that driver search by plot gives proper error message
+    with lower value higher than upper 1`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+@@ -50,22 +50,22 @@
+              Lower range value:
+              <input
+                class="sc-bqGHjH iiTdvs"
+                name="lowLoc"
+                type="text"
+-               value=""
++               value="150"
+              />
+            </label>
+            <label
+              class="sc-dIsAE jPvyoF"
+            >
+              Upper range value:
+              <input
+                class="sc-bqGHjH iiTdvs"
+                name="uppLoc"
+                type="text"
+-               value=""
++               value="50"
+              />
+            </label>
+          </div>
+          <button
+            class="sc-jSFkmK kvoINE sc-ksluoS bSEyOV"
+@@ -107,9 +107,15 @@
+            </div>
+          </div>
+        </div>
+        <div
+          class="sc-iTVIwl dHFxUQ"
+-       />
++       >
++         <p
++           class="sc-hiKfjK cHIWJk"
++         >
++           Please enter integer values for lower and upper location range values. Also the upper value must be the same as or bigger than the lower value.
++         </p>
++       </div>
+      </div>
+    </div>
+  </DocumentFragment>
+`;
+
+exports[`Tests for MomDriversList - 108 - check that driver search by plot finds correct drivers - sorted by rating 1`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+@@ -50,22 +50,22 @@
+              Lower range value:
+              <input
+                class="sc-bqGHjH iiTdvs"
+                name="lowLoc"
+                type="text"
+-               value=""
++               value="50"
+              />
+            </label>
+            <label
+              class="sc-dIsAE jPvyoF"
+            >
+              Upper range value:
+              <input
+                class="sc-bqGHjH iiTdvs"
+                name="uppLoc"
+                type="text"
+-               value=""
++               value="150"
+              />
+            </label>
+          </div>
+          <button
+            class="sc-jSFkmK kvoINE sc-ksluoS bSEyOV"
+@@ -107,9 +107,189 @@
+            </div>
+          </div>
+        </div>
+        <div
+          class="sc-iTVIwl dHFxUQ"
+-       />
++       >
++         <div
++           class="sc-gXfWUo jSFORX"
++         >
++           <div
++             class="sc-bYwzba fvXnQs"
++           >
++             <p
++               class="sc-iklIKw gZjTuh"
++             >
++               1
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Name: seedDriver2
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Plot: 100
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Price: 37
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Rating: 3.3
++             </p>
++             <button
++               class="sc-jSFkmK kvoINE sc-jJMGHv cUTQJz"
++               type="button"
++             >
++               View details
++             </button>
++           </div>
++           <div
++             class="sc-bYwzba fvXnQs"
++           >
++             <p
++               class="sc-iklIKw gZjTuh"
++             >
++               2
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Name: seedDriver1
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Plot: 70
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Price: 30
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Rating: No reviews yet
++             </p>
++             <button
++               class="sc-jSFkmK kvoINE sc-jJMGHv cUTQJz"
++               type="button"
++             >
++               View details
++             </button>
++           </div>
++           <div
++             class="sc-bYwzba fvXnQs"
++           >
++             <p
++               class="sc-iklIKw gZjTuh"
++             >
++               3
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Name: seedDriver3
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Plot: 123
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Price: 50
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Rating: No reviews yet
++             </p>
++             <button
++               class="sc-jSFkmK kvoINE sc-jJMGHv cUTQJz"
++               type="button"
++             >
++               View details
++             </button>
++           </div>
++           <div
++             class="sc-bYwzba fvXnQs"
++           >
++             <p
++               class="sc-iklIKw gZjTuh"
++             >
++               4
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Name: seedDriver4
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Plot: 140
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Price: 32
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Rating: No reviews yet
++             </p>
++             <button
++               class="sc-jSFkmK kvoINE sc-jJMGHv cUTQJz"
++               type="button"
++             >
++               View details
++             </button>
++           </div>
++           <div
++             class="sc-bYwzba fvXnQs"
++           >
++             <p
++               class="sc-iklIKw gZjTuh"
++             >
++               5
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Name: seedDriver10
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Plot: 50
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Price: 46
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Rating: No reviews yet
++             </p>
++             <button
++               class="sc-jSFkmK kvoINE sc-jJMGHv cUTQJz"
++               type="button"
++             >
++               View details
++             </button>
++           </div>
++         </div>
++       </div>
+      </div>
+    </div>
+  </DocumentFragment>
+`;
+
+exports[`Tests for MomDriversList - 109 - check that driver search by plot finds correct drivers - sorted by price 1`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+@@ -50,22 +50,22 @@
+              Lower range value:
+              <input
+                class="sc-bqGHjH iiTdvs"
+                name="lowLoc"
+                type="text"
+-               value=""
++               value="50"
+              />
+            </label>
+            <label
+              class="sc-dIsAE jPvyoF"
+            >
+              Upper range value:
+              <input
+                class="sc-bqGHjH iiTdvs"
+                name="uppLoc"
+                type="text"
+-               value=""
++               value="150"
+              />
+            </label>
+          </div>
+          <button
+            class="sc-jSFkmK kvoINE sc-ksluoS bSEyOV"
+@@ -82,15 +82,11 @@
+              data-testid="divCirChk-Rating"
+              data-value="Rating"
+            >
+              <div
+                class="sc-kEqYlL fswcAt"
+-             >
+-               <div
+-                 class="sc-iqAbSa cyPOEh"
+              />
+-             </div>
+              <p>
+                Rating
+              </p>
+            </div>
+            <div
+@@ -98,18 +94,202 @@
+              data-testid="divCirChk-Price"
+              data-value="Price"
+            >
+              <div
+                class="sc-kEqYlL fswcAt"
++             >
++               <div
++                 class="sc-iqAbSa cyPOEh"
+                />
++             </div>
+              <p>
+                Price
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="sc-iTVIwl dHFxUQ"
+-       />
++       >
++         <div
++           class="sc-gXfWUo jSFORX"
++         >
++           <div
++             class="sc-bYwzba fvXnQs"
++           >
++             <p
++               class="sc-iklIKw gZjTuh"
++             >
++               1
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Name: seedDriver1
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Plot: 70
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Price: 30
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Rating: No reviews yet
++             </p>
++             <button
++               class="sc-jSFkmK kvoINE sc-jJMGHv cUTQJz"
++               type="button"
++             >
++               View details
++             </button>
++           </div>
++           <div
++             class="sc-bYwzba fvXnQs"
++           >
++             <p
++               class="sc-iklIKw gZjTuh"
++             >
++               2
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Name: seedDriver4
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Plot: 140
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Price: 32
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Rating: No reviews yet
++             </p>
++             <button
++               class="sc-jSFkmK kvoINE sc-jJMGHv cUTQJz"
++               type="button"
++             >
++               View details
++             </button>
++           </div>
++           <div
++             class="sc-bYwzba fvXnQs"
++           >
++             <p
++               class="sc-iklIKw gZjTuh"
++             >
++               3
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Name: seedDriver2
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Plot: 100
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Price: 37
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Rating: 3.3
++             </p>
++             <button
++               class="sc-jSFkmK kvoINE sc-jJMGHv cUTQJz"
++               type="button"
++             >
++               View details
++             </button>
++           </div>
++           <div
++             class="sc-bYwzba fvXnQs"
++           >
++             <p
++               class="sc-iklIKw gZjTuh"
++             >
++               4
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Name: seedDriver10
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Plot: 50
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Price: 46
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Rating: No reviews yet
++             </p>
++             <button
++               class="sc-jSFkmK kvoINE sc-jJMGHv cUTQJz"
++               type="button"
++             >
++               View details
++             </button>
++           </div>
++           <div
++             class="sc-bYwzba fvXnQs"
++           >
++             <p
++               class="sc-iklIKw gZjTuh"
++             >
++               5
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Name: seedDriver3
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Plot: 123
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Price: 50
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Rating: No reviews yet
++             </p>
++             <button
++               class="sc-jSFkmK kvoINE sc-jJMGHv cUTQJz"
++               type="button"
++             >
++               View details
++             </button>
++           </div>
++         </div>
++       </div>
+      </div>
+    </div>
+  </DocumentFragment>
+`;
+
+exports[`Tests for MomDriversList - 110 - check that driver search by plot finds correct drivers, 
+      then exercise the 'view details' and 'back to list' buttons 1`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+@@ -107,9 +107,56 @@
+            </div>
+          </div>
+        </div>
+        <div
+          class="sc-iTVIwl dHFxUQ"
+-       />
++       >
++         <button
++           class="sc-jSFkmK kvoINE sc-cBoprd ekjfrZ"
++           type="button"
++         >
++           Back to List
++         </button>
++         <div
++           class="sc-cxNIbT lflRcU"
++         >
++           <p
++             class="sc-lmgQde kPTccF"
++           >
++             Name: seedDriver10
++           </p>
++           <p
++             class="sc-lmgQde kPTccF"
++           >
++             Email: seedDriver10@gmail.com
++           </p>
++           <p
++             class="sc-lmgQde kPTccF"
++           >
++             Phone: 4567-2010
++           </p>
++           <p
++             class="sc-lmgQde kPTccF"
++           >
++             Plot: 50
++           </p>
++           <p
++             class="sc-lmgQde kPTccF"
++           >
++             Price: 46
++           </p>
++           <p
++             class="sc-lmgQde kPTccF"
++           >
++             Avg Rating: No reviews available
++           </p>
++           <button
++             class="sc-jSFkmK kvoINE sc-giAqnE hCHRja"
++             type="button"
++           >
++             Review driver
++           </button>
++         </div>
++       </div>
+      </div>
+    </div>
+  </DocumentFragment>
+`;
+
+exports[`Tests for MomDriversList - 110 - check that driver search by plot finds correct drivers, 
+      then exercise the 'view details' and 'back to list' buttons 2`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+@@ -107,9 +107,189 @@
+            </div>
+          </div>
+        </div>
+        <div
+          class="sc-iTVIwl dHFxUQ"
+-       />
++       >
++         <div
++           class="sc-gXfWUo jSFORX"
++         >
++           <div
++             class="sc-bYwzba fvXnQs"
++           >
++             <p
++               class="sc-iklIKw gZjTuh"
++             >
++               1
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Name: seedDriver2
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Plot: 100
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Price: 37
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Rating: 3.3
++             </p>
++             <button
++               class="sc-jSFkmK kvoINE sc-jJMGHv cUTQJz"
++               type="button"
++             >
++               View details
++             </button>
++           </div>
++           <div
++             class="sc-bYwzba fvXnQs"
++           >
++             <p
++               class="sc-iklIKw gZjTuh"
++             >
++               2
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Name: seedDriver1
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Plot: 70
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Price: 30
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Rating: No reviews yet
++             </p>
++             <button
++               class="sc-jSFkmK kvoINE sc-jJMGHv cUTQJz"
++               type="button"
++             >
++               View details
++             </button>
++           </div>
++           <div
++             class="sc-bYwzba fvXnQs"
++           >
++             <p
++               class="sc-iklIKw gZjTuh"
++             >
++               3
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Name: seedDriver3
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Plot: 123
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Price: 50
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Rating: No reviews yet
++             </p>
++             <button
++               class="sc-jSFkmK kvoINE sc-jJMGHv cUTQJz"
++               type="button"
++             >
++               View details
++             </button>
++           </div>
++           <div
++             class="sc-bYwzba fvXnQs"
++           >
++             <p
++               class="sc-iklIKw gZjTuh"
++             >
++               4
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Name: seedDriver4
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Plot: 140
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Price: 32
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Rating: No reviews yet
++             </p>
++             <button
++               class="sc-jSFkmK kvoINE sc-jJMGHv cUTQJz"
++               type="button"
++             >
++               View details
++             </button>
++           </div>
++           <div
++             class="sc-bYwzba fvXnQs"
++           >
++             <p
++               class="sc-iklIKw gZjTuh"
++             >
++               5
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Name: seedDriver10
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Plot: 50
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Price: 46
++             </p>
++             <p
++               class="sc-kLokih fAgUul"
++             >
++               Rating: No reviews yet
++             </p>
++             <button
++               class="sc-jSFkmK kvoINE sc-jJMGHv cUTQJz"
++               type="button"
++             >
++               View details
++             </button>
++           </div>
++         </div>
++       </div>
+      </div>
+    </div>
+  </DocumentFragment>
+`;
+
+exports[`Tests for MomDriversList - 111 - check that driver search by plot gives proper error message
+    when no driver can be found in plot range 1`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+@@ -50,22 +50,22 @@
+              Lower range value:
+              <input
+                class="sc-bqGHjH iiTdvs"
+                name="lowLoc"
+                type="text"
+-               value=""
++               value="500"
+              />
+            </label>
+            <label
+              class="sc-dIsAE jPvyoF"
+            >
+              Upper range value:
+              <input
+                class="sc-bqGHjH iiTdvs"
+                name="uppLoc"
+                type="text"
+-               value=""
++               value="600"
+              />
+            </label>
+          </div>
+          <button
+            class="sc-jSFkmK kvoINE sc-ksluoS bSEyOV"
+@@ -107,9 +107,15 @@
+            </div>
+          </div>
+        </div>
+        <div
+          class="sc-iTVIwl dHFxUQ"
+-       />
++       >
++         <p
++           class="sc-hiKfjK cHIWJk"
++         >
++           No drivers have been found within this location range.
++         </p>
++       </div>
+      </div>
+    </div>
+  </DocumentFragment>
+`;

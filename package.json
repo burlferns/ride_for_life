@@ -24,7 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test  --watchAll=false --silent=false --runInBand --testURL=http://localhost:5014",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -41,5 +41,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "jest-localstorage-mock": "^2.4.6",
+    "jest-styled-components": "^7.0.3",
+    "redux-mock-store": "^1.5.4",
+    "snapshot-diff": "^0.8.1"
   }
 }
