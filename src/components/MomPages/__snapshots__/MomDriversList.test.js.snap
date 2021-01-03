@@ -576,7 +576,7 @@ Snapshot Diff:
 `;
 
 exports[`Tests for MomDriversList - 107 - check that driver search by plot gives proper error message
-    with lower value higher than upper 1`] = `
+      with lower value higher than upper 1`] = `
 Snapshot Diff:
 - First value
 + Second value
@@ -1366,7 +1366,7 @@ Snapshot Diff:
 `;
 
 exports[`Tests for MomDriversList - 111 - check that driver search by plot gives proper error message
-    when no driver can be found in plot range 1`] = `
+      when no driver can be found in plot range 1`] = `
 Snapshot Diff:
 - First value
 + Second value
