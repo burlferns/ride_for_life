@@ -176,6 +176,7 @@ export default function(props) {
       <DivSelect 
         onBlur={containerBlur} onClick={containerClick} id={name} 
         tabIndex='-1' //Setting a tabIndex value makes the div focusable
+        data-testid={name} //For testing purposes
       >
         <DisplayP>{textDisplay}</DisplayP>
         <StylImage src={iconDropDown} />

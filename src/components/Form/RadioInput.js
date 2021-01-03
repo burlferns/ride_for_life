@@ -21,7 +21,7 @@ const DotDiv = styled.div`
   border-radius: 50%;
   width:0.7rem;
   height:0.7rem;
-  margin:0.2rem; 
+  margin:0.2rem;
 `;
 
 
@@ -32,11 +32,13 @@ export default function(props) {
   const onClick = props.onClick;
 
   return (
-    <CntnrDiv className={className} onClick={onClick} data-value={text}>
+    <CntnrDiv className={className} onClick={onClick} data-value={text}
+      data-testid={`divCirChk-${text}`}
+    >
       <CircleDiv>
         {checked && <DotDiv/>}
       </CircleDiv>
       <p>{text}</p>
     </CntnrDiv>
   );
-} 
+}

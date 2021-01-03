@@ -86,7 +86,9 @@ export default function(props) {
             users_email: values.email,
             password: values.passwd
           }
+
           response = await axiosNoAuth().post('/api/auth/user_login',dataToServer);
+
           localStorage.setItem('authToken',response.data.token);
           localStorage.setItem('userId',response.data.id);
 
@@ -99,6 +101,7 @@ export default function(props) {
             users_phone_number: response.data.users_phone_number,
             users_email: response.data.users_email
           }
+
           dispatch(setUserData(dataForReducer));
 
           //Note that I don't need to useHistory to go to the mom profile page at this point, as
